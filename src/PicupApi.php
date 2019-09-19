@@ -2,9 +2,7 @@
 
 namespace PicupTechnologies\PicupPHPApi;
 
-use Exception;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\RequestException;
 use PicupTechnologies\PicupPHPApi\Contracts\PicupApiInterface;
 use PicupTechnologies\PicupPHPApi\Exceptions\PicupApiException;
@@ -25,6 +23,7 @@ use PicupTechnologies\PicupPHPApi\Responses\DeliveryQuoteResponse;
  * Communicates with the Picup API
  *
  * @package PicupPHPApi
+ * @author Bryan Paddock <bryan@bryan.za.net>
  */
 final class PicupApi implements PicupApiInterface
 {
@@ -37,6 +36,11 @@ final class PicupApi implements PicupApiInterface
      * @var string
      */
     private $apiKey;
+
+    /**
+     * @var bool
+     */
+    private $live = false;
 
     /**
      * PicupApi constructor.
@@ -223,9 +227,7 @@ final class PicupApi implements PicupApiInterface
                 'headers' => $headers,
             ]);
 
-            $body = $response->getBody()->getContents();
-
-            return $body;
+            return $response->getBody()->getContents();
         } catch (RequestException $e) {
             $msg = $e->getMessage();
             if ($response = $e->getResponse()) {
@@ -251,5 +253,29 @@ final class PicupApi implements PicupApiInterface
     public function setApiKey(string $apiKey): void
     {
         $this->apiKey = $apiKey;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isLive(): bool
+    {
+        return $this->live;
+    }
+
+    /**
+     * Sets live mode.
+     */
+    public function setLive(): void
+    {
+        $this->live = true;
+    }
+
+    /**
+     * Sets testing mode
+     */
+    public function setTesting(): void
+    {
+        $this->live = false;
     }
 }

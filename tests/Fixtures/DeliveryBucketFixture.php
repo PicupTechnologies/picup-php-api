@@ -1,0 +1,36 @@
+<?php
+
+namespace PicupTechnologies\PicupPHPApi\Tests\Fixtures;
+
+use Faker\Factory;
+use PicupTechnologies\PicupPHPApi\Objects\DeliveryBucket\DeliveryBucket;
+use PicupTechnologies\PicupPHPApi\Objects\DeliveryBucket\DeliveryBucketDetails;
+use PicupTechnologies\PicupPHPApi\Objects\DeliveryBucket\DeliveryShipment;
+
+final class DeliveryBucketFixture
+{
+    public static function make(): DeliveryBucket
+    {
+        $faker = Factory::create();
+
+        $bucket = new DeliveryBucket();
+
+        $bucketDetails = new DeliveryBucketDetails();
+        $bucketDetails->setWarehouseId('warehouse-' . $faker->uuid);
+        $bucketDetails->setWarehouseName($faker->company);
+
+        $bucketDetails->setDeliveryDate($faker->dateTime);
+        $bucketDetails->setShiftStart($faker->dateTime);
+        $bucketDetails->setShiftEnd($faker->dateTime);
+
+        $bucket->setBucketDetails($bucketDetails);
+
+        $shipment = new DeliveryShipment();
+        $shipment->setConsignment('consignment-555');
+        $shipment->setBusinessReference('business-ref-444');
+
+        $bucket->setShipments([$shipment]);
+
+        return $bucket;
+    }
+}

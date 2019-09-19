@@ -3,6 +3,7 @@
 namespace PicupTechnologies\PicupPHPApi\Tests\Objects\DeliveryBucket;
 
 use DateTime;
+use Faker\Factory;
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryBucket\DeliveryBucket;
 use PHPUnit\Framework\TestCase;
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryBucket\DeliveryBucketDetails;
@@ -15,6 +16,8 @@ class DeliveryBucketTest extends TestCase
 {
     public function testShipments(): void
     {
+        $faker = Factory::create();
+
         // Set up
         $consignmentId = 'consignment-555';
         $businessRef = 'business-ref-444';
@@ -60,24 +63,29 @@ class DeliveryBucketTest extends TestCase
 
     public function testBucketDetails()
     {
-        $warehouseId = 'warehouse-123';
-        $warehouseName = 'Warehouse Tester';
-
-        // Create
         $deliveryBucket = new DeliveryBucket();
 
         $bucketDetails = new DeliveryBucketDetails();
+
+        $warehouseId = 'warehouse-123';
         $bucketDetails->setWarehouseId($warehouseId);
+        $this->assertEquals($warehouseId, $bucketDetails->getWarehouseId());
+
+        $warehouseName = 'Warehouse Tester';
         $bucketDetails->setWarehouseName($warehouseName);
+        $this->assertEquals($warehouseName, $bucketDetails->getWarehouseName());
 
         $deliveryDate = new DateTime('01/01/2000 09:30:00');
         $bucketDetails->setDeliveryDate($deliveryDate);
+        $this->assertEquals($deliveryDate, $bucketDetails->getDeliveryDate());
 
         $shiftStart = new DateTime('01/01/2000 09:30:00');
-        $shiftEnd = new DateTime('01/01/2000 16:30:00');
-
         $bucketDetails->setShiftStart($shiftStart);
+        $this->assertEquals($shiftStart, $bucketDetails->getShiftStart());
+
+        $shiftEnd = new DateTime('01/01/2000 16:30:00');
         $bucketDetails->setShiftEnd($shiftEnd);
+        $this->assertEquals($shiftEnd, $bucketDetails->getShiftEnd());
 
         $deliveryBucket->setBucketDetails($bucketDetails);
 

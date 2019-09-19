@@ -2,19 +2,16 @@
 
 namespace PicupTechnologies\PicupPHPApi\Tests;
 
-use Exception;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 use PicupTechnologies\PicupPHPApi\Exceptions\PicupApiException;
-use PicupTechnologies\PicupPHPApi\Exceptions\QuoteRequestFailed;
 use PicupTechnologies\PicupPHPApi\PicupApi;
+use PicupTechnologies\PicupPHPApi\Tests\Fixtures\DeliveryBucketFixture;
 use PicupTechnologies\PicupPHPApi\Tests\Fixtures\OrderRequestFixture;
 use PicupTechnologies\PicupPHPApi\Tests\Fixtures\QuoteRequestFixture;
-use function GuzzleHttp\Psr7\stream_for;
 
 class PicupApiTest extends TestCase
 {
@@ -24,6 +21,7 @@ class PicupApiTest extends TestCase
         $handler = HandlerStack::create($mock);
         $client = new Client(['handler' => $handler]);
 
+        // api key getters + setters
         $apiKey = 'api-key-123-456';
         $picupApi = new PicupApi($client, $apiKey);
 
@@ -31,6 +29,14 @@ class PicupApiTest extends TestCase
 
         $picupApi->setApiKey('api-changed-555');
         $this->assertEquals('api-changed-555', $picupApi->getApiKey());
+
+        // live mode
+        $this->assertFalse($picupApi->isLive());    // should default to false
+        $picupApi->setLive();
+        $this->assertTrue($picupApi->isLive());
+
+        $picupApi->setTesting();
+        $this->assertFalse($picupApi->isLive());
     }
 
     /**
@@ -151,8 +157,54 @@ class PicupApiTest extends TestCase
         $picupApi->sendOrderRequest($orderRequest);
     }
 
+    /**
+     * @throws PicupApiException
+     */
     public function testSendDeliveryBucket(): void
     {
+        // 1 - Build Mock
+        $data = [
+            'request_id' => 666
+        ];
+
+        $mock = new MockHandler([new Response(200, [], json_encode($data))]);
+        $handler = HandlerStack::create($mock);
+        $client = new Client(['handler' => $handler]);
+
+        // 2 - Build Request
+        $request = DeliveryBucketFixture::make();
+
+        // 3 - Send Test Request
+        $picupApi = new PicupApi($client, 'api-123');
+        $response = $picupApi->sendDeliveryBucket($request);
+
+        $this->assertEquals(666, $response->getId());
+    }
+
+    /**
+     * @throws PicupApiException
+     */
+    public function testSendDeliveryBucketFailure(): void
+    {
+        // 1 - Build Mock
+        $data = [
+            'error' => 'houston. another problem.'
+        ];
+
+        $mock = new MockHandler([new Response(500, [], json_encode($data))]);
+        $handler = HandlerStack::create($mock);
+        $client = new Client(['handler' => $handler]);
+
+        // 2 - Build Request
+        $request = DeliveryBucketFixture::make();
+
+        // 3 - Send Test Request
+        $picupApi = new PicupApi($client, 'api-123');
+
+        $this->expectException(PicupApiException::class);
+        $this->expectExceptionMessage('DeliveryBucket Error: {"error":"houston. another problem."}');
+
+        $picupApi->sendDeliveryBucket($request);
     }
 
     public function testSendIntegrationDetailsRequest(): void
