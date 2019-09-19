@@ -1,0 +1,60 @@
+{
+  "name": "picup-technologies/PicupPHPApi",
+  "description": "PHP Api for Picup Delivery",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Bryan Paddock",
+      "email": "bryanpaddock@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.1.0",
+    "guzzlehttp/guzzle": "~6.0",
+    "ext-json": "*"
+  },
+  "require-dev": {
+    "roave/security-advisories": "dev-master",
+    "phpunit/phpunit": "^7.5",
+    "squizlabs/php_codesniffer": "^3.2",
+    "friendsofphp/php-cs-fixer": "^2.11",
+    "phpmd/phpmd": "^2.6",
+    "phpstan/phpstan-shim": "^0.10",
+    "dg/bypass-finals": "^1.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "PicupTechnologies\\PicupPHPApi\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "PicupTechnologies\\PicupPHPApi\\Tests\\": [
+        "tests/",
+        "tests/Fake"
+      ]
+    }
+  },
+  "scripts": {
+    "test": [
+      "vendor/bin/phpunit"
+    ],
+    "tests": [
+      "@cs",
+      "vendor/bin/phpmd src,tests text ./phpmd.xml",
+      "vendor/bin/phpstan analyse -l max src tests -c phpstan.neon --no-progress",
+      "@test"
+    ],
+    "coverage": [
+      "php -dzend_extension=xdebug.so ./vendor/bin/phpunit --coverage-text --coverage-html=build/coverage"
+    ],
+    "cs": [
+      "vendor/bin/php-cs-fixer fix -v --dry-run",
+      "vendor/bin/phpcs --standard=phpcs.xml src;"
+    ],
+    "cs-fix": [
+      "vendor/bin/php-cs-fixer fix -v",
+      "vendor/bin/phpcbf src tests"
+    ]
+  }
+}
