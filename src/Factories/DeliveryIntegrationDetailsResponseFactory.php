@@ -2,7 +2,7 @@
 
 namespace PicupTechnologies\PicupPHPApi\Factories;
 
-use PicupTechnologies\PicupPHPApi\Objects\DeliveryIntegrationDetailsResponse;
+use PicupTechnologies\PicupPHPApi\Responses\DeliveryIntegrationDetailsResponse;
 use PicupTechnologies\PicupPHPApi\Objects\Warehouses\DeliveryWarehouse;
 
 final class DeliveryIntegrationDetailsResponseFactory

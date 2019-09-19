@@ -9,7 +9,7 @@
 namespace PicupTechnologies\PicupPHPApi\Exceptions;
 
 use Exception;
-use PicupTechnologies\PicupPHPApi\Objects\DeliveryOrderRequest;
+use PicupTechnologies\PicupPHPApi\Requests\DeliveryOrderRequest;
 
 class OrderRequestFailed extends Exception
 {

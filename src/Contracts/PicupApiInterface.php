@@ -9,13 +9,13 @@
 namespace PicupTechnologies\PicupPHPApi\Contracts;
 
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryBucket\DeliveryBucket;
-use PicupTechnologies\PicupPHPApi\Objects\DeliveryIntegrationDetailsResponse;
-use PicupTechnologies\PicupPHPApi\Objects\DeliveryOrderRequest;
-use PicupTechnologies\PicupPHPApi\Objects\DeliveryOrderResponse;
-use PicupTechnologies\PicupPHPApi\Objects\DeliveryQuoteRequest;
-use PicupTechnologies\PicupPHPApi\Objects\DeliveryQuoteResponse;
+use PicupTechnologies\PicupPHPApi\Requests\DeliveryOrderRequest;
+use PicupTechnologies\PicupPHPApi\Requests\DeliveryQuoteRequest;
+use PicupTechnologies\PicupPHPApi\Responses\DeliveryIntegrationDetailsResponse;
+use PicupTechnologies\PicupPHPApi\Responses\DeliveryOrderResponse;
+use PicupTechnologies\PicupPHPApi\Responses\DeliveryQuoteResponse;
 
-interface DeliveryAdapterInterface
+interface PicupApiInterface
 {
     /**
      * Sends a Quote Request to the delivery system

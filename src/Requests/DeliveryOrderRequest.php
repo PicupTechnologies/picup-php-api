@@ -6,10 +6,13 @@
  * Time: 2:45 PM
  */
 
-namespace PicupTechnologies\PicupPHPApi\Objects;
+namespace PicupTechnologies\PicupPHPApi\Requests;
 
 use DateTime;
 use JsonSerializable;
+use PicupTechnologies\PicupPHPApi\Objects\DeliveryParcelCollection;
+use PicupTechnologies\PicupPHPApi\Objects\DeliveryReceiver;
+use PicupTechnologies\PicupPHPApi\Objects\DeliverySender;
 
 class DeliveryOrderRequest implements JsonSerializable
 {

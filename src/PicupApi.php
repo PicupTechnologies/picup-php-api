@@ -1,33 +1,32 @@
 <?php
 
-namespace PicupTechnologies\PicupPHPApi\Adapters;
+namespace PicupTechnologies\PicupPHPApi;
 
 use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\RequestException;
-use PicupTechnologies\PicupPHPApi\Contracts\DeliveryAdapterInterface;
-use PicupTechnologies\PicupPHPApi\Exceptions\AdapterException;
-use PicupTechnologies\PicupPHPApi\Exceptions\OrderRequestFailed;
+use PicupTechnologies\PicupPHPApi\Contracts\PicupApiInterface;
+use PicupTechnologies\PicupPHPApi\Exceptions\PicupApiException;
 use PicupTechnologies\PicupPHPApi\Exceptions\PicupApiKeyInvalid;
-use PicupTechnologies\PicupPHPApi\Exceptions\QuoteRequestFailed;
 use PicupTechnologies\PicupPHPApi\Factories\DeliveryIntegrationDetailsResponseFactory;
+use PicupTechnologies\PicupPHPApi\Factories\DeliveryOrderResponseFactory;
 use PicupTechnologies\PicupPHPApi\Factories\DeliveryQuoteResponseFactory;
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryBucket\DeliveryBucket;
-use PicupTechnologies\PicupPHPApi\Objects\DeliveryIntegrationDetailsResponse;
-use PicupTechnologies\PicupPHPApi\Objects\DeliveryOrderRequest;
-use PicupTechnologies\PicupPHPApi\Objects\DeliveryOrderResponse;
-use PicupTechnologies\PicupPHPApi\Objects\DeliveryQuoteRequest;
-use PicupTechnologies\PicupPHPApi\Objects\DeliveryQuoteResponse;
+use PicupTechnologies\PicupPHPApi\Requests\DeliveryOrderRequest;
+use PicupTechnologies\PicupPHPApi\Requests\DeliveryQuoteRequest;
+use PicupTechnologies\PicupPHPApi\Responses\DeliveryIntegrationDetailsResponse;
+use PicupTechnologies\PicupPHPApi\Responses\DeliveryOrderResponse;
+use PicupTechnologies\PicupPHPApi\Responses\DeliveryQuoteResponse;
 
 /**
- * PicupDeliveryAdapter
+ * PicupApi
  *
- * Uses Picup as the Delivery System
+ * Communicates with the Picup API
  *
- * @package App\DeliveryAdapters
+ * @package PicupPHPApi
  */
-final class PicupDeliveryAdapter implements DeliveryAdapterInterface
+final class PicupApi implements PicupApiInterface
 {
     /**
      * @var Client
@@ -35,13 +34,20 @@ final class PicupDeliveryAdapter implements DeliveryAdapterInterface
     private $httpClient;
 
     /**
-     * PicupDeliveryAdapter constructor.
+     * @var string
+     */
+    private $apiKey;
+
+    /**
+     * PicupApi constructor.
      *
      * @param Client $httpClient HttpClient to communicate with
+     * @param string $apiKey
      */
-    public function __construct(Client $httpClient)
+    public function __construct(Client $httpClient, string $apiKey)
     {
         $this->httpClient = $httpClient;
+        $this->apiKey = $apiKey;
     }
 
     /**
@@ -50,15 +56,12 @@ final class PicupDeliveryAdapter implements DeliveryAdapterInterface
      * @param DeliveryQuoteRequest $deliveryQuoteRequest
      *
      * @return DeliveryQuoteResponse
-     * @throws QuoteRequestFailed
+     * @throws PicupApiException
      */
     public function sendQuoteRequest(DeliveryQuoteRequest $deliveryQuoteRequest): DeliveryQuoteResponse
     {
+        $headers = ['api-key' => $this->apiKey];
         $endpoint = 'https://otdcpt-knupqa.onthedot.co.za/picup-api/v1/integration/quote/one-to-many';
-
-        $headers = [
-            'api-key' => 'business-06fcabf7-66c8-4f7f-a0d1-5035bc32d1ee',
-        ];
 
         try {
             $guzzleResponse = $this->httpClient->post($endpoint, [
@@ -74,15 +77,9 @@ final class PicupDeliveryAdapter implements DeliveryAdapterInterface
             if ($response = $e->getResponse()) {
                 $msg = $response->getBody()->getContents();
             }
-            $errorMessage = 'QuoteRequest API Error: ' . $msg;
+            $errorMessage = 'QuoteRequest Error: ' . $msg;
 
-            throw new QuoteRequestFailed($deliveryQuoteRequest, $errorMessage);
-        } catch (Exception $e) {
-            $msg = $e->getMessage();
-
-            $errorMessage = 'QuoteRequest General Error: ' . $msg;
-
-            throw new QuoteRequestFailed($deliveryQuoteRequest, $errorMessage);
+            throw new PicupApiException($errorMessage);
         }
     }
 
@@ -95,15 +92,12 @@ final class PicupDeliveryAdapter implements DeliveryAdapterInterface
      *
      * @return DeliveryOrderResponse Containing the request_id
      *
-     * @throws OrderRequestFailed
+     * @throws PicupApiException
      */
     public function sendOrderRequest(DeliveryOrderRequest $deliveryOrderRequest): DeliveryOrderResponse
     {
+        $headers = ['api-key' => $this->apiKey];
         $endpoint = 'https://otdcpt-knupqa.onthedot.co.za/picup-api/v1/integration/create/one-to-one';
-
-        $headers = [
-            'api-key' => 'business-06fcabf7-66c8-4f7f-a0d1-5035bc32d1ee',
-        ];
 
         try {
             $response = $this->httpClient->post($endpoint, [
@@ -111,21 +105,17 @@ final class PicupDeliveryAdapter implements DeliveryAdapterInterface
                 'json'    => $deliveryOrderRequest,
             ]);
 
-            $body = json_decode($response->getBody()->getContents(), true);
+            $body = $response->getBody()->getContents();
 
-            $deliveryOrderResponse = new DeliveryOrderResponse(
-                $body->request_id
-            );
-
-            return $deliveryOrderResponse;
-        } catch (ClientException $e) {
+            return DeliveryOrderResponseFactory::make($body);
+        } catch (RequestException $e) {
             $msg = $e->getMessage();
             if ($response = $e->getResponse()) {
                 $msg = $response->getBody()->getContents();
             }
             $errorMessage = 'OrderRequest Error: ' . $msg;
 
-            throw new OrderRequestFailed($deliveryOrderRequest, $errorMessage);
+            throw new PicupApiException($errorMessage);
         }
     }
 
@@ -137,15 +127,12 @@ final class PicupDeliveryAdapter implements DeliveryAdapterInterface
      * @param DeliveryBucket $deliveryBucket
      *
      * @return DeliveryOrderResponse
-     * @throws Exception
+     * @throws PicupApiException
      */
     public function sendDeliveryBucket(DeliveryBucket $deliveryBucket): DeliveryOrderResponse
     {
+        $headers = ['api-key' => $this->apiKey];
         $endpoint = 'https://otdcpt-knupqa.onthedot.co.za/picup-api/v1/integration/add-to-bucket';
-
-        $headers = [
-            'api-key' => 'business-06fcabf7-66c8-4f7f-a0d1-5035bc32d1ee',
-        ];
 
         try {
             $response = $this->httpClient->post($endpoint, [
@@ -153,21 +140,17 @@ final class PicupDeliveryAdapter implements DeliveryAdapterInterface
                 'json'    => $deliveryBucket,
             ]);
 
-            $body = json_decode($response->getBody()->getContents(), true);
+            $body = $response->getBody()->getContents();
 
-            $deliveryOrderResponse = new DeliveryOrderResponse(
-                $body->request_id
-            );
-
-            return $deliveryOrderResponse;
-        } catch (ClientException $e) {
+            return DeliveryOrderResponseFactory::make($body);
+        } catch (RequestException $e) {
             $msg = $e->getMessage();
             if ($response = $e->getResponse()) {
                 $msg = $response->getBody()->getContents();
             }
             $errorMessage = 'DeliveryBucket Error: ' . $msg;
 
-            throw new Exception($errorMessage);
+            throw new PicupApiException($errorMessage);
         }
     }
 
@@ -179,7 +162,8 @@ final class PicupDeliveryAdapter implements DeliveryAdapterInterface
      * @param string $businessId
      *
      * @return DeliveryIntegrationDetailsResponse
-     * @throws PicupApiKeyInvalid|Exception
+     * @throws PicupApiKeyInvalid
+     * @throws PicupApiException
      */
     public function sendIntegrationDetailsRequest(string $businessId): DeliveryIntegrationDetailsResponse
     {
@@ -198,7 +182,7 @@ final class PicupDeliveryAdapter implements DeliveryAdapterInterface
             }
 
             return $deliveryIntegrationDetailsResponse;
-        } catch (ClientException $e) {
+        } catch (RequestException $e) {
             $msg = $e->getMessage();
             if ($response = $e->getResponse()) {
                 $msg = $response->getBody()->getContents();
@@ -211,7 +195,7 @@ final class PicupDeliveryAdapter implements DeliveryAdapterInterface
             }
 
             $errorMessage = 'IntegrationDetails Error: ' . $bodyResponse->message;
-            throw new Exception($errorMessage);
+            throw new PicupApiException($errorMessage);
         }
     }
 
@@ -226,48 +210,46 @@ final class PicupDeliveryAdapter implements DeliveryAdapterInterface
      * @param string $businessId
      *
      * @return mixed
-     * @throws Exception
+     * @throws PicupApiException
      */
     public function sendDispatchSummaryRequest(string $businessId)
     {
+        $headers = ['api-key' => $this->apiKey];
         $urlTemplate = 'https://otdcpt-knupqa.onthedot.co.za/picup-api/v1/integration/%s/dispatch-summary';
         $endpoint = sprintf($urlTemplate, $businessId);
 
-        return $this->sendRequest('get', $endpoint);
-    }
-
-    /**
-     * @param       $request
-     * @param       $endpoint
-     * @param array    $headers
-     * @param null     $postData
-     *
-     * @return mixed
-     * @throws AdapterException
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    private function sendRequest($request, $endpoint, $headers = [], $postData = null)
-    {
         try {
-            $options = [
+            $response = $this->httpClient->get($endpoint, [
                 'headers' => $headers,
-                'body' => $postData
-            ];
-            $response = $this->httpClient->request($request, $endpoint, $options);
+            ]);
 
-            return json_decode($response->getBody()->getContents(), true);
-        } catch (ClientException $e) {
+            $body = $response->getBody()->getContents();
+
+            return $body;
+        } catch (RequestException $e) {
             $msg = $e->getMessage();
             if ($response = $e->getResponse()) {
                 $msg = $response->getBody()->getContents();
             }
+            $errorMessage = 'DeliveryBucket Error: ' . $msg;
 
-            $bodyResponse = json_decode($msg, false);
-
-            $errorMessage = 'Picup Api Request Error: ' . $bodyResponse->message;
-
-            throw new AdapterException($errorMessage);
-        } catch (Exception $e) {
+            throw new PicupApiException($errorMessage);
         }
+    }
+
+    /**
+     * @return string
+     */
+    public function getApiKey(): string
+    {
+        return $this->apiKey;
+    }
+
+    /**
+     * @param string $apiKey
+     */
+    public function setApiKey(string $apiKey): void
+    {
+        $this->apiKey = $apiKey;
     }
 }

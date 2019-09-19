@@ -1,13 +1,13 @@
 <?php
 
-namespace PicupTechnologies\PicupPHPApi\Tests\Objects;
+namespace PicupTechnologies\PicupPHPApi\Tests\Requests;
 
 use DateTime;
 use PHPUnit\Framework\TestCase;
 use PicupTechnologies\PicupPHPApi\Enums\ParcelSizeEnum;
-use PicupTechnologies\PicupPHPApi\Objects\DeliveryOrderRequest;
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryParcel;
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryParcelCollection;
+use PicupTechnologies\PicupPHPApi\Requests\DeliveryOrderRequest;
 
 class DeliveryOrderRequestTest extends TestCase
 {

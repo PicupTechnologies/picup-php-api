@@ -4,7 +4,7 @@ namespace PicupTechnologies\PicupPHPApi\Exceptions;
 
 use Exception;
 
-class AdapterException extends Exception
+class PicupApiException extends Exception
 {
     public function __construct(string $message, int $code = 0, Exception $previous = null)
     {

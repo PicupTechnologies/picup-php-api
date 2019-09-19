@@ -10,7 +10,7 @@ class DeliveryQuoteResponseFactoryTest extends TestCase
     /**
      * @throws \Exception
      */
-    public function testMakeWithValidPicup()
+    public function testMakeWithValidPicup(): void
     {
         $json = [
             'picup' => [
@@ -46,7 +46,7 @@ class DeliveryQuoteResponseFactoryTest extends TestCase
     /**
      * @throws \Exception
      */
-    public function testMakeWithInvalidPicup()
+    public function testMakeWithInvalidPicup(): void
     {
         $json = [
             'picup' => [

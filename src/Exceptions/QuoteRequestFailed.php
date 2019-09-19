@@ -9,7 +9,7 @@
 namespace PicupTechnologies\PicupPHPApi\Exceptions;
 
 use Exception;
-use PicupTechnologies\PicupPHPApi\Objects\DeliveryQuoteRequest;
+use PicupTechnologies\PicupPHPApi\Requests\DeliveryQuoteRequest;
 
 class QuoteRequestFailed extends Exception
 {

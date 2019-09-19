@@ -6,7 +6,7 @@
  * Time: 2:59 PM
  */
 
-namespace PicupTechnologies\PicupPHPApi\Objects;
+namespace PicupTechnologies\PicupPHPApi\Responses;
 
 class DeliveryOrderResponse
 {

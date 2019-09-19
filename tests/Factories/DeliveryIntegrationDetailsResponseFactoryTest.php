@@ -1,6 +1,6 @@
 <?php
 
-namespace PicupTechnologies\PicupPHPApi\Tests;
+namespace PicupTechnologies\PicupPHPApi\Tests\Factories;
 
 use PHPUnit\Framework\TestCase;
 use PicupTechnologies\PicupPHPApi\Factories\DeliveryIntegrationDetailsResponseFactory;

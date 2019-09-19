@@ -2,7 +2,7 @@
 
 namespace PicupTechnologies\PicupPHPApi\Factories;
 
-use PicupTechnologies\PicupPHPApi\Objects\DeliveryQuoteResponse;
+use PicupTechnologies\PicupPHPApi\Responses\DeliveryQuoteResponse;
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryServiceType;
 
 final class DeliveryQuoteResponseFactory

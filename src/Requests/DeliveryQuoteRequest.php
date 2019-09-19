@@ -1,9 +1,11 @@
 <?php
 
-namespace PicupTechnologies\PicupPHPApi\Objects;
+namespace PicupTechnologies\PicupPHPApi\Requests;
 
 use DateTime;
 use JsonSerializable;
+use PicupTechnologies\PicupPHPApi\Objects\DeliveryReceiver;
+use PicupTechnologies\PicupPHPApi\Objects\DeliverySender;
 
 class DeliveryQuoteRequest implements JsonSerializable
 {

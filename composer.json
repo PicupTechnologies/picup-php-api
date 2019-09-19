@@ -1,5 +1,5 @@
 {
-  "name": "picup-technologies/PicupPHPApi",
+  "name": "picup/picup-php-api",
   "description": "PHP Api for Picup Delivery",
   "license": "MIT",
   "authors": [
@@ -20,7 +20,8 @@
     "friendsofphp/php-cs-fixer": "^2.11",
     "phpmd/phpmd": "^2.6",
     "phpstan/phpstan-shim": "^0.10",
-    "dg/bypass-finals": "^1.1"
+    "dg/bypass-finals": "^1.1",
+    "fzaninotto/faker": "^1.8"
   },
   "autoload": {
     "psr-4": {

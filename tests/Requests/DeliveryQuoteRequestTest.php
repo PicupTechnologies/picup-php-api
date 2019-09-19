@@ -1,19 +1,19 @@
 <?php
 
-namespace PicupTechnologies\PicupPHPApi\Tests\Objects;
+namespace PicupTechnologies\PicupPHPApi\Tests\Requests;
 
 use DateTime;
+use PHPUnit\Framework\TestCase;
 use PicupTechnologies\PicupPHPApi\Enums\ParcelSizeEnum;
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryParcel;
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryParcelCollection;
-use PicupTechnologies\PicupPHPApi\Objects\DeliveryQuoteRequest;
-use PHPUnit\Framework\TestCase;
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryReceiver;
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryReceiverAddress;
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryReceiverContact;
 use PicupTechnologies\PicupPHPApi\Objects\DeliverySender;
 use PicupTechnologies\PicupPHPApi\Objects\DeliverySenderAddress;
 use PicupTechnologies\PicupPHPApi\Objects\DeliverySenderContact;
+use PicupTechnologies\PicupPHPApi\Requests\DeliveryQuoteRequest;
 
 /**
  * Class DeliveryQuoteRequestTest

@@ -1,9 +1,9 @@
 <?php
 
-namespace PicupTechnologies\PicupPHPApi\Tests\Objects;
+namespace PicupTechnologies\PicupPHPApi\Tests\Responses;
 
 use PHPUnit\Framework\TestCase;
-use PicupTechnologies\PicupPHPApi\Objects\DeliveryOrderResponse;
+use PicupTechnologies\PicupPHPApi\Responses\DeliveryOrderResponse;
 
 class DeliveryOrderResponseTest extends TestCase
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace PicupTechnologies\PicupPHPApi\Objects;
+namespace PicupTechnologies\PicupPHPApi\Responses;
 
 use PicupTechnologies\PicupPHPApi\Objects\Warehouses\DeliveryWarehouse;
 
