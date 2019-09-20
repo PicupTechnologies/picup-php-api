@@ -42,6 +42,14 @@ final class PicupApi implements PicupApiInterface
      */
     private $live = false;
 
+    private $apiPrefix = 'https://otdcpt-knupqa.onthedot.co.za/picup-api/v1';
+
+    private $endpointQuote = '/integration/quote/one-to-many';
+    private $endpointOrder = '/integration/create/one-to-one';
+    private $endpointAddBucket = '/integration/add-to-bucket';
+    private $endpointIntegrationDetails = '/integration/%s/details';
+    private $endpointDispatchSummary = '/integration/%s/dispatch-summary';
+
     /**
      * PicupApi constructor.
      *
@@ -65,10 +73,9 @@ final class PicupApi implements PicupApiInterface
     public function sendQuoteRequest(DeliveryQuoteRequest $deliveryQuoteRequest): DeliveryQuoteResponse
     {
         $headers = ['api-key' => $this->apiKey];
-        $endpoint = 'https://otdcpt-knupqa.onthedot.co.za/picup-api/v1/integration/quote/one-to-many';
 
         try {
-            $guzzleResponse = $this->httpClient->post($endpoint, [
+            $guzzleResponse = $this->httpClient->post($this->apiPrefix . $this->endpointQuote, [
                 'headers' => $headers,
                 'json'    => $deliveryQuoteRequest,
             ]);
@@ -101,10 +108,9 @@ final class PicupApi implements PicupApiInterface
     public function sendOrderRequest(DeliveryOrderRequest $deliveryOrderRequest): DeliveryOrderResponse
     {
         $headers = ['api-key' => $this->apiKey];
-        $endpoint = 'https://otdcpt-knupqa.onthedot.co.za/picup-api/v1/integration/create/one-to-one';
 
         try {
-            $response = $this->httpClient->post($endpoint, [
+            $response = $this->httpClient->post($this->apiPrefix . $this->endpointOrder, [
                 'headers' => $headers,
                 'json'    => $deliveryOrderRequest,
             ]);
@@ -136,10 +142,9 @@ final class PicupApi implements PicupApiInterface
     public function sendDeliveryBucket(DeliveryBucket $deliveryBucket): DeliveryOrderResponse
     {
         $headers = ['api-key' => $this->apiKey];
-        $endpoint = 'https://otdcpt-knupqa.onthedot.co.za/picup-api/v1/integration/add-to-bucket';
 
         try {
-            $response = $this->httpClient->post($endpoint, [
+            $response = $this->httpClient->post($this->apiPrefix . $this->endpointAddBucket, [
                 'headers' => $headers,
                 'json'    => $deliveryBucket,
             ]);
@@ -171,7 +176,7 @@ final class PicupApi implements PicupApiInterface
      */
     public function sendIntegrationDetailsRequest(string $businessId): DeliveryIntegrationDetailsResponse
     {
-        $urlTemplate = 'https://otdcpt-knupqa.onthedot.co.za/picup-api/v1/integration/%s/details';
+        $urlTemplate = $this->apiPrefix . $this->endpointIntegrationDetails;
         $endpoint = sprintf($urlTemplate, $businessId);
 
         try {
@@ -219,7 +224,7 @@ final class PicupApi implements PicupApiInterface
     public function sendDispatchSummaryRequest(string $businessId)
     {
         $headers = ['api-key' => $this->apiKey];
-        $urlTemplate = 'https://otdcpt-knupqa.onthedot.co.za/picup-api/v1/integration/%s/dispatch-summary';
+        $urlTemplate = $this->apiPrefix . $this->endpointDispatchSummary;
         $endpoint = sprintf($urlTemplate, $businessId);
 
         try {
@@ -233,7 +238,7 @@ final class PicupApi implements PicupApiInterface
             if ($response = $e->getResponse()) {
                 $msg = $response->getBody()->getContents();
             }
-            $errorMessage = 'DeliveryBucket Error: ' . $msg;
+            $errorMessage = 'DispatchSummary Error: ' . $msg;
 
             throw new PicupApiException($errorMessage);
         }
@@ -269,6 +274,7 @@ final class PicupApi implements PicupApiInterface
     public function setLive(): void
     {
         $this->live = true;
+        $this->apiPrefix = 'https://otdcpt-knupprd.onthedot.co.za/picup-api/v1';
     }
 
     /**
@@ -277,5 +283,14 @@ final class PicupApi implements PicupApiInterface
     public function setTesting(): void
     {
         $this->live = false;
+        $this->apiPrefix = 'https://otdcpt-knupqa.onthedot.co.za/picup-api/v1';
+    }
+
+    /**
+     * @return string
+     */
+    public function getApiPrefix(): string
+    {
+        return $this->apiPrefix;
     }
 }
