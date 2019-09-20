@@ -20,10 +20,19 @@ final class DeliveryIntegrationDetailsResponseFactory
             }
         }
 
+        $parcels = [];
+        if (!empty($request['parcel_sizes'])) {
+            foreach ($request['parcel_sizes'] as $responseParcel) {
+                $parcel = ParcelFactory::make($responseParcel);
+                $parcels[] = $parcel;
+            }
+        }
+
         $response = new DeliveryIntegrationDetailsResponse(
             $keyValid,
             $keyValidMessage,
-            $warehouses
+            $warehouses,
+            $parcels
         );
 
         return $response;
