@@ -8,6 +8,7 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 use PicupTechnologies\PicupPHPApi\Exceptions\PicupApiException;
+use PicupTechnologies\PicupPHPApi\Exceptions\PicupApiKeyInvalid;
 use PicupTechnologies\PicupPHPApi\PicupApi;
 use PicupTechnologies\PicupPHPApi\Tests\Fixtures\DeliveryBucketFixture;
 use PicupTechnologies\PicupPHPApi\Tests\Fixtures\OrderRequestFixture;
@@ -37,6 +38,31 @@ class PicupApiTest extends TestCase
 
         $picupApi->setTesting();
         $this->assertFalse($picupApi->isLive());
+    }
+
+    /**
+     * Ensures that endpoints match live/testing mode
+     */
+    public function testEndpointsMatchLiveTestingMode(): void
+    {
+        $mock = new MockHandler([new Response(200, [], json_encode([]))]);
+        $handler = HandlerStack::create($mock);
+        $client = new Client(['handler' => $handler]);
+
+        // api key getters + setters
+        $apiKey = 'api-key-123-456';
+        $picupApi = new PicupApi($client, $apiKey);
+        $this->assertEquals($apiKey, $picupApi->getApiKey());
+
+        // set to TESTING MODE
+        $picupApi->setTesting();
+        $prefix = $picupApi->getApiPrefix();
+        $this->assertContains('knupqa', $prefix);
+
+        // set to LIVE MODE
+        $picupApi->setLive();
+        $prefix = $picupApi->getApiPrefix();
+        $this->assertContains('knupprd', $prefix);
     }
 
     /**
@@ -207,16 +233,115 @@ class PicupApiTest extends TestCase
         $picupApi->sendDeliveryBucket($request);
     }
 
-    public function testSendIntegrationDetailsRequest(): void
+    /**
+     * @throws PicupApiException
+     * @throws \PicupTechnologies\PicupPHPApi\Exceptions\PicupApiKeyInvalid
+     */
+    public function testSendIntegrationDetailsRequestWithValidApiKey(): void
     {
+        $data = [
+            'is_key_valid' => true,
+            'is_key_valid_message' => 'Your key is valid',
+            'warehouses' => [
+                [
+                    'warehouse_id' => 'warehouse-123', 'warehouse_name' => 'Test Warehouse'
+                ]
+            ]
+        ];
+        $mock = new MockHandler([new Response(200, [], json_encode($data))]);
+        $handler = HandlerStack::create($mock);
+        $client = new Client(['handler' => $handler]);
+
+        $picupApi = new PicupApi($client, 'api-123');
+
+        $apiResponse = $picupApi->sendIntegrationDetailsRequest('123-456');
+
+        $this->assertTrue($apiResponse->isKeyValid());
+        $this->assertEquals('Your key is valid', $apiResponse->getIsKeyValidMessage());
+
+        $warehouses = $apiResponse->getWarehouses();
+        $this->assertCount(1, $warehouses);
+
+        $warehouse = $warehouses[0];
+        $this->assertEquals('warehouse-123', $warehouse->getId());
+        $this->assertEquals('Test Warehouse', $warehouse->getName());
     }
 
     /**
      * @throws PicupApiException
+     * @throws \PicupTechnologies\PicupPHPApi\Exceptions\PicupApiKeyInvalid
+     */
+    public function testSendIntegrationDetailsRequestWithInvalidApiKey(): void
+    {
+        $data = [
+            'is_key_valid' => false,
+            'is_key_valid_message' => 'Your key is invalid',
+            'warehouses' => []
+        ];
+        $mock = new MockHandler([new Response(200, [], json_encode($data))]);
+        $handler = HandlerStack::create($mock);
+        $client = new Client(['handler' => $handler]);
+
+        $picupApi = new PicupApi($client, 'api-123');
+
+        $this->expectException(PicupApiKeyInvalid::class);
+
+        $picupApi->sendIntegrationDetailsRequest('123-456');
+    }
+
+    /**
+     * @throws PicupApiException
+     * @throws PicupApiKeyInvalid
+     */
+    public function testSendIntegrationDetailsRequestWithInvalidIdentity(): void
+    {
+        $data = [
+            'message' => 'Identity is invalid'
+        ];
+        $mock = new MockHandler([new Response(500, [], json_encode($data))]);
+        $handler = HandlerStack::create($mock);
+        $client = new Client(['handler' => $handler]);
+
+        $picupApi = new PicupApi($client, 'api-123');
+
+        $this->expectException(PicupApiKeyInvalid::class);
+
+        $picupApi->sendIntegrationDetailsRequest('123-456');
+    }
+
+    /**
+     * @throws PicupApiException
+     * @throws PicupApiKeyInvalid
+     */
+    public function testSendIntegrationDetailsRequestWithInvalidResponse(): void
+    {
+        $data = [
+            'message' => 'something else broke'
+        ];
+        $mock = new MockHandler([new Response(500, [], json_encode($data))]);
+        $handler = HandlerStack::create($mock);
+        $client = new Client(['handler' => $handler]);
+
+        $picupApi = new PicupApi($client, 'api-123');
+
+        $this->expectException(PicupApiException::class);
+        $this->expectExceptionMessage('IntegrationDetails Error: something else broke');
+
+        $picupApi->sendIntegrationDetailsRequest('123-456');
+    }
+
+    /**
+     * This API method is not yet implemented properly.
+     *
+     * I don't have a valid live picup to test this with.
+     *
+     * @throws PicupApiException
      */
     public function testSendDispatchSummaryRequest(): void
     {
-        $data = [];
+        $data = [
+            'whatever is sent here' => 'should come back'
+        ];
         $mock = new MockHandler([new Response(200, [], json_encode($data))]);
         $handler = HandlerStack::create($mock);
         $client = new Client(['handler' => $handler]);
@@ -225,6 +350,26 @@ class PicupApiTest extends TestCase
 
         $apiResponse = $picupApi->sendDispatchSummaryRequest('123-456');
 
-        print_r($apiResponse);
+        $this->assertEquals('{"whatever is sent here":"should come back"}', $apiResponse);
+    }
+
+    /**
+     * @throws PicupApiException
+     */
+    public function testSendDispatchSummaryRequestWithInvalidResponse(): void
+    {
+        $data = [
+            'message' => 'something broke again'
+        ];
+        $mock = new MockHandler([new Response(500, [], json_encode($data))]);
+        $handler = HandlerStack::create($mock);
+        $client = new Client(['handler' => $handler]);
+
+        $picupApi = new PicupApi($client, 'api-123');
+
+        $this->expectException(PicupApiException::class);
+        $this->expectExceptionMessage('DispatchSummary Error: {"message":"something broke again"}');
+
+        $picupApi->sendDispatchSummaryRequest('123-456');
     }
 }

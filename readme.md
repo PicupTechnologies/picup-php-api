@@ -19,15 +19,16 @@ We are currently supporting:
 # General Usage
 
     $guzzle = new Client();
-    $deliveryService = new DeliveryService($guzzle);
+    $apiKey = 'business-123-456';
+    $picupApi = new PicupApi($guzzle, $apiKey);
+    
+    $picupApi->setLive();
+    $picupApi->setTesting();
 
-# Documentation
+# Api Interface
 
-## AddToBucket
-
-Creates a bucket with Picup
-
-## Quote OneToMany
-
-This endpoint is used to obtain a costing quote from picup.
-
+    public function sendQuoteRequest(DeliveryQuoteRequest $deliveryQuoteRequest): DeliveryQuoteResponse;
+    public function sendOrderRequest(DeliveryOrderRequest $deliveryOrderRequest): DeliveryOrderResponse;
+    public function sendDeliveryBucket(DeliveryBucket $deliveryBucket): DeliveryOrderResponse;
+    public function sendIntegrationDetailsRequest(string $businessId): DeliveryIntegrationDetailsResponse;
+    public function sendDispatchSummaryRequest(string $businessId);
