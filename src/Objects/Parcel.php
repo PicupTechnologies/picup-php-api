@@ -79,4 +79,28 @@ final class Parcel
     {
         return $this->weight;
     }
+
+    /**
+     * Returns whether or not an item with specific dimensions can fit into this parcel
+     *
+     * @param ParcelDimensions $dimensions
+     *
+     * @return bool
+     */
+    public function canFit(ParcelDimensions $dimensions): bool
+    {
+        if ($this->getDimensions()->getWidth() < $dimensions->getWidth()) {
+            return false;
+        }
+
+        if ($this->getDimensions()->getHeight() < $dimensions->getHeight()) {
+            return false;
+        }
+
+        if ($this->getDimensions()->getLength() < $dimensions->getLength()) {
+            return false;
+        }
+
+        return true;
+    }
 }
