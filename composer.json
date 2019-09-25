@@ -2,6 +2,7 @@
   "name": "picup/picup-php-api",
   "description": "PHP Api for Picup Delivery",
   "license": "MIT",
+  "homepage": "https://github.com/PicupTechnologies/picup-php-api",
   "authors": [
     {
       "name": "Bryan Paddock",

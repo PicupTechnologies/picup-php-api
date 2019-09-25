@@ -11,7 +11,9 @@ use PicupTechnologies\PicupPHPApi\Objects\ParcelDimensions;
  */
 final class SmallestParcelBuilder
 {
-    /** @var Parcel[] */
+    /**
+     * @var Parcel[]
+     */
     protected $parcels;
 
     /**
@@ -34,7 +36,7 @@ final class SmallestParcelBuilder
      *
      * @return Parcel
      */
-    public function find($height, $width, $length): ?Parcel
+    public function find(int $height, int $width, int $length): ?Parcel
     {
         foreach ($this->parcels as $parcel) {
             $productDimensions = new ParcelDimensions($height, $width, $length);

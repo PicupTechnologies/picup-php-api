@@ -37,6 +37,11 @@ class OrderRequestFailed extends Exception
         return __CLASS__ . ": [{$this->code}]: {$this->message}\n";
     }
 
+    /**
+     * Returns the order request that failed
+     *
+     * @return DeliveryOrderRequest
+     */
     public function getDeliveryOrderRequest(): DeliveryOrderRequest
     {
         return $this->deliveryOrderRequest;

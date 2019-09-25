@@ -69,7 +69,7 @@ class DeliveryQuoteRequest implements JsonSerializable
             // quote request doesnt send a full address so we need to customize it here
             'sender'                        => [
                 'address'              => [
-                    'warehouse_id' => $this->sender->address->warehouseId,
+                    'warehouse_id' => $this->sender->address->getWarehouseId(),
                 ],
                 'contact'              => $this->sender->contact,
                 'special_instructions' => $this->sender->specialInstructions,

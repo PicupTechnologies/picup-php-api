@@ -11,6 +11,11 @@ namespace PicupTechnologies\PicupPHPApi\Exceptions;
 use Exception;
 use PicupTechnologies\PicupPHPApi\Requests\DeliveryQuoteRequest;
 
+/**
+ * Class QuoteRequestFailed
+ *
+ * @package PicupTechnologies\PicupPHPApi\Exceptions
+ */
 class QuoteRequestFailed extends Exception
 {
     /**

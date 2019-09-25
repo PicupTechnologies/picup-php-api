@@ -2,6 +2,11 @@
 
 namespace PicupTechnologies\PicupPHPApi\Objects\Warehouses;
 
+/**
+ * Class DeliveryWarehouse
+ *
+ * @package PicupTechnologies\PicupPHPApi\Objects\Warehouses
+ */
 class DeliveryWarehouse
 {
     /**

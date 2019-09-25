@@ -37,7 +37,7 @@ class DeliveryQuoteRequestTest extends TestCase
         $deliveryQuoteRequest->merchantId = 'merchant-555-444-333';
 
         $senderAddress = new DeliverySenderAddress();
-        $senderAddress->warehouseId = 'warehouse-123';
+        $senderAddress->setWarehouseId('warehouse-123');
         $senderContact = new DeliverySenderContact();
         $specialInstructions = 'Test 555';
 
@@ -51,7 +51,7 @@ class DeliveryQuoteRequestTest extends TestCase
 
         // add receiver
         $deliveryReceiverAddress = new DeliveryReceiverAddress();
-        $deliveryReceiverAddress->street_or_farm_no = 123;
+        $deliveryReceiverAddress->setStreetOrFarmNo(123);
 
         $deliveryReceiverContact = new DeliveryReceiverContact();
         $deliveryReceiverContact->name = 'Test Name';

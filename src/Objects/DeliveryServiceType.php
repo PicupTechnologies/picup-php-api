@@ -129,6 +129,10 @@ final class DeliveryServiceType
      */
     public function getVehicleName(): string
     {
+        if (stripos($this->description, '-') === false) {
+          throw new InvalidArgumentException('Invalid vehicle name in description returned.');
+        }
+
         $parts = explode('-', $this->description);
 
         array_shift($parts);
