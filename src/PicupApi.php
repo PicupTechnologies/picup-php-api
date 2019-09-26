@@ -199,11 +199,11 @@ final class PicupApi implements PicupApiInterface
 
             $bodyResponse = json_decode($msg, false);
 
-            if (stripos($bodyResponse->message, 'Identity is invalid') !== false) {
-                throw new PicupApiKeyInvalid($bodyResponse->message);
+            if (stripos($bodyResponse->Message, 'Identity is invalid') !== false) {
+                throw new PicupApiKeyInvalid($bodyResponse->Message);
             }
 
-            $errorMessage = 'IntegrationDetails Error: ' . $bodyResponse->message;
+            $errorMessage = 'IntegrationDetails Error: ' . $bodyResponse->Message;
             throw new PicupApiException($errorMessage);
         }
     }

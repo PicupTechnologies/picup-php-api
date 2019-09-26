@@ -296,7 +296,7 @@ class PicupApiTest extends TestCase
     public function testSendIntegrationDetailsRequestWithInvalidIdentity(): void
     {
         $data = [
-            'message' => 'Identity is invalid'
+            'Message' => 'Identity is invalid'
         ];
         $mock = new MockHandler([new Response(500, [], json_encode($data))]);
         $handler = HandlerStack::create($mock);
@@ -316,7 +316,7 @@ class PicupApiTest extends TestCase
     public function testSendIntegrationDetailsRequestWithInvalidResponse(): void
     {
         $data = [
-            'message' => 'something else broke'
+            'Message' => 'something else broke'
         ];
         $mock = new MockHandler([new Response(500, [], json_encode($data))]);
         $handler = HandlerStack::create($mock);
@@ -359,7 +359,7 @@ class PicupApiTest extends TestCase
     public function testSendDispatchSummaryRequestWithInvalidResponse(): void
     {
         $data = [
-            'message' => 'something broke again'
+            'Message' => 'something broke again'
         ];
         $mock = new MockHandler([new Response(500, [], json_encode($data))]);
         $handler = HandlerStack::create($mock);
@@ -368,7 +368,7 @@ class PicupApiTest extends TestCase
         $picupApi = new PicupApi($client, 'api-123');
 
         $this->expectException(PicupApiException::class);
-        $this->expectExceptionMessage('DispatchSummary Error: {"message":"something broke again"}');
+        $this->expectExceptionMessage('DispatchSummary Error: {"Message":"something broke again"}');
 
         $picupApi->sendDispatchSummaryRequest('123-456');
     }
