@@ -29,6 +29,6 @@ We are currently supporting:
 
     public function sendQuoteRequest(DeliveryQuoteRequest $deliveryQuoteRequest): DeliveryQuoteResponse;
     public function sendOrderRequest(DeliveryOrderRequest $deliveryOrderRequest): DeliveryOrderResponse;
-    public function sendDeliveryBucket(DeliveryBucket $deliveryBucket): DeliveryOrderResponse;
+    public function sendDeliveryBucket(DeliveryBucketRequest $deliveryBucketRequest): DeliveryOrderResponse;
     public function sendIntegrationDetailsRequest(string $businessId): DeliveryIntegrationDetailsResponse;
     public function sendDispatchSummaryRequest(string $businessId);
