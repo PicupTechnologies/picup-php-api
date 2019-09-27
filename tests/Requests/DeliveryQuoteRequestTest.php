@@ -28,11 +28,29 @@ class DeliveryQuoteRequestTest extends TestCase
     {
         $deliveryQuoteRequest = new DeliveryQuoteRequest();
 
-        $deliveryQuoteRequest->scheduledDate = new DateTime();
-        $deliveryQuoteRequest->isForContractDriver = true;
+        $test = 'merchant-555-444-333';
+        $deliveryQuoteRequest->setMerchantId($test);
+        $this->assertEquals($test, $deliveryQuoteRequest->getMerchantId());
 
-        $deliveryQuoteRequest->customerRef = 'customer-123';
-        $deliveryQuoteRequest->merchantId = 'merchant-555-444-333';
+        $test = 'customer-123';
+        $deliveryQuoteRequest->setCustomerRef($test);
+        $this->assertEquals($test, $deliveryQuoteRequest->getCustomerRef());
+
+        $test = new DateTime();
+        $deliveryQuoteRequest->setScheduledDate($test);
+        $this->assertEquals($test, $deliveryQuoteRequest->getScheduledDate());
+
+        $test = true;
+        $deliveryQuoteRequest->setIsForContractDriver($test);
+        $this->assertEquals($test, $deliveryQuoteRequest->isForContractDriver());
+
+        $test = 'user-1111-2222';
+        $deliveryQuoteRequest->setUserId($test);
+        $this->assertEquals($test, $deliveryQuoteRequest->getUserId());
+
+        $test = 'NONE';
+        $deliveryQuoteRequest->setCourierCosting($test);
+        $this->assertEquals($test, $deliveryQuoteRequest->getCourierCosting());
 
         $senderAddress = new DeliverySenderAddress();
         $senderAddress->setWarehouseId('warehouse-123');
@@ -45,15 +63,16 @@ class DeliveryQuoteRequestTest extends TestCase
             $specialInstructions
         );
 
-        $deliveryQuoteRequest->sender = $sender;
+        $deliveryQuoteRequest->setSender($sender);
+        $this->assertEquals($sender, $deliveryQuoteRequest->getSender());
 
         // add receiver
         $deliveryReceiverAddress = new DeliveryReceiverAddress();
         $deliveryReceiverAddress->setStreetOrFarmNo(123);
 
         $deliveryReceiverContact = new DeliveryReceiverContact();
-        $deliveryReceiverContact->name = 'Test Name';
-        $deliveryReceiverContact->email = 'test@email.com';
+        $deliveryReceiverContact->setName('Test Name');
+        $deliveryReceiverContact->setEmail('test@email.com');
 
         $parcels = new DeliveryParcelCollection();
         $parcels->addParcel(new DeliveryParcel('123', ParcelSizeEnum::PARCEL_MEDIUM));
@@ -64,7 +83,8 @@ class DeliveryQuoteRequestTest extends TestCase
             $parcels
         );
 
-        $deliveryQuoteRequest->receiver = $deliveryReceiver;
+        $deliveryQuoteRequest->setReceiver($deliveryReceiver);
+        $this->assertEquals($deliveryReceiver, $deliveryQuoteRequest->getReceiver());
 
         $serialized = json_encode($deliveryQuoteRequest);
 

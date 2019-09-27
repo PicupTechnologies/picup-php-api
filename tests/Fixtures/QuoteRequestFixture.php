@@ -16,28 +16,26 @@ class QuoteRequestFixture
 
         $request = new DeliveryQuoteRequest();
 
-        $request->isRoundTrip = $faker->boolean;
-        $request->isForContractDriver = $faker->boolean;
-        $request->isPreAssignTrackingNumber = $faker->boolean;
-        $request->scheduledDate = $faker->dateTime;
+        $request->setIsForContractDriver($faker->boolean);
+        $request->setScheduledDate($faker->dateTime);
 
         $senderAddress = new DeliverySenderAddress();
-        $senderAddress->street_or_farm_no = $faker->buildingNumber;
-        $senderAddress->street_or_farm = $faker->streetName;
-        $senderAddress->city = $faker->city;
-        $senderAddress->postal_code = $faker->postcode;
-        $senderAddress->suburb = $faker->city;
-        $senderAddress->latitude = $faker->latitude;
-        $senderAddress->longitude = $faker->longitude;
+        $senderAddress->setStreetOrFarmNo($faker->buildingNumber);
+        $senderAddress->setStreetOrFarm($faker->streetName);
+        $senderAddress->setCity($faker->city);
+        $senderAddress->setPostalCode($faker->postcode);
+        $senderAddress->setSuburb($faker->city);
+        $senderAddress->setLatitude($faker->latitude);
+        $senderAddress->setLongitude($faker->longitude);
 
         $senderContact = new DeliverySenderContact();
-        $senderContact->name = $faker->name;
-        $senderContact->email = $faker->email;
-        $senderContact->telephone = $faker->phoneNumber;
+        $senderContact->setName($faker->name);
+        $senderContact->setEmail($faker->email);
+        $senderContact->setTelephone($faker->phoneNumber);
 
         $sender = new DeliverySender($senderAddress, $senderContact);
 
-        $request->sender = $sender;
+        $request->setSender($sender);
 
         return $request;
     }

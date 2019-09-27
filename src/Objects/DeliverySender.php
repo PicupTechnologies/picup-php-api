@@ -21,19 +21,19 @@ class DeliverySender implements DeliveryParty, JsonSerializable
     /**
      * @var DeliverySenderAddress
      */
-    public $address;
+    private $address;
 
     /**
      * @var DeliveryContact
      */
-    public $contact;
+    private $contact;
 
     /**
      * Special instructors to the sender
      *
      * @var string
      */
-    public $specialInstructions = '';
+    private $specialInstructions;
 
     /**
      * DeliverySender constructor.
@@ -47,6 +47,30 @@ class DeliverySender implements DeliveryParty, JsonSerializable
         $this->address = $address;
         $this->contact = $contact;
         $this->specialInstructions = $specialInstructions;
+    }
+
+    /**
+     * @return DeliverySenderAddress
+     */
+    public function getAddress(): DeliverySenderAddress
+    {
+        return $this->address;
+    }
+
+    /**
+     * @return DeliveryContact
+     */
+    public function getContact(): DeliveryContact
+    {
+        return $this->contact;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSpecialInstructions(): string
+    {
+        return $this->specialInstructions;
     }
 
     /**

@@ -20,12 +20,12 @@ class DeliveryParcel
     /**
      * @var string
      */
-    public $reference;
+    private $reference;
 
     /**
      * @var string
      */
-    public $size;
+    private $size;
 
     /**
      * DeliveryParcel constructor.
@@ -37,5 +37,21 @@ class DeliveryParcel
     {
         $this->reference = $reference;
         $this->size = $size;
+    }
+
+    /**
+     * @return string
+     */
+    public function getReference(): string
+    {
+        return $this->reference;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSize(): string
+    {
+        return $this->size;
     }
 }

@@ -67,7 +67,7 @@ abstract class DeliveryAddress
     /**
      * @return string
      */
-    public function getUnitNo(): string
+    public function getUnitNo(): ?string
     {
         return $this->unitNo;
     }
@@ -83,7 +83,7 @@ abstract class DeliveryAddress
     /**
      * @return string
      */
-    public function getComplex(): string
+    public function getComplex(): ?string
     {
         return $this->complex;
     }
@@ -99,7 +99,7 @@ abstract class DeliveryAddress
     /**
      * @return string
      */
-    public function getStreetOrFarmNo(): string
+    public function getStreetOrFarmNo(): ?string
     {
         return $this->streetOrFarmNo;
     }
@@ -115,7 +115,7 @@ abstract class DeliveryAddress
     /**
      * @return string
      */
-    public function getStreetOrFarm(): string
+    public function getStreetOrFarm(): ?string
     {
         return $this->streetOrFarm;
     }
@@ -131,7 +131,7 @@ abstract class DeliveryAddress
     /**
      * @return string
      */
-    public function getSuburb(): string
+    public function getSuburb(): ?string
     {
         return $this->suburb;
     }
@@ -147,7 +147,7 @@ abstract class DeliveryAddress
     /**
      * @return string
      */
-    public function getCity(): string
+    public function getCity(): ?string
     {
         return $this->city;
     }
@@ -163,7 +163,7 @@ abstract class DeliveryAddress
     /**
      * @return string
      */
-    public function getPostalCode(): string
+    public function getPostalCode(): ?string
     {
         return $this->postalCode;
     }
@@ -179,7 +179,7 @@ abstract class DeliveryAddress
     /**
      * @return string
      */
-    public function getCountry(): string
+    public function getCountry(): ?string
     {
         return $this->country;
     }
@@ -195,7 +195,7 @@ abstract class DeliveryAddress
     /**
      * @return float
      */
-    public function getLatitude(): float
+    public function getLatitude(): ?float
     {
         return $this->latitude;
     }
@@ -211,7 +211,7 @@ abstract class DeliveryAddress
     /**
      * @return float
      */
-    public function getLongitude(): float
+    public function getLongitude(): ?float
     {
         return $this->longitude;
     }

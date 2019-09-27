@@ -1,0 +1,27 @@
+<?php
+
+namespace PicupTechnologies\PicupPHPApi\Tests\Objects;
+
+use PicupTechnologies\PicupPHPApi\Objects\DeliveryParcelCollection;
+use PicupTechnologies\PicupPHPApi\Objects\DeliveryReceiver;
+use PHPUnit\Framework\TestCase;
+use PicupTechnologies\PicupPHPApi\Objects\DeliveryReceiverAddress;
+use PicupTechnologies\PicupPHPApi\Objects\DeliveryReceiverContact;
+
+class DeliveryReceiverTest extends TestCase
+{
+    public function test(): void
+    {
+        $receiverAddress = new DeliveryReceiverAddress();
+        $receiverContact = new DeliveryReceiverContact();
+        $parcels = new DeliveryParcelCollection();
+        $specialInstructions = 'Go away';
+
+        $receiver = new DeliveryReceiver($receiverAddress, $receiverContact, $parcels, $specialInstructions);
+
+        $this->assertEquals($receiverAddress, $receiver->getAddress());
+        $this->assertEquals($receiverContact, $receiver->getContact());
+        $this->assertEquals($parcels, $receiver->getParcels());
+        $this->assertEquals($specialInstructions, $receiver->getSpecialInstructions());
+    }
+}

@@ -11,7 +11,7 @@ class QuoteRequestFailedTest extends TestCase
     public function testException(): void
     {
         $quoteRequest = new DeliveryQuoteRequest();
-        $quoteRequest->merchantId = 'merchant-54321';
+        $quoteRequest->setMerchantId('merchant-54321');
 
         try {
             throw new QuoteRequestFailed($quoteRequest, 'Purple Sandwiches are bad');

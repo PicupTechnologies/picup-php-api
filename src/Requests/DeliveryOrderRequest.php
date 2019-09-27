@@ -39,39 +39,162 @@ use PicupTechnologies\PicupPHPApi\Objects\DeliverySender;
  */
 class DeliveryOrderRequest implements JsonSerializable
 {
-    public $merchantId;
-    public $customerRef;
-    public $vehicleId;
+    private $merchantId;
+    private $customerRef;
+    private $vehicleId;
 
     /**
      * @var bool
      */
-    public $isForContractDriver = false;
+    private $isForContractDriver = false;
 
     /**
      * @var bool
      */
-    public $isRoundTrip = false;
+    private $isRoundTrip = false;
 
     /**
      * @var DateTime
      */
-    public $scheduledDate;
+    private $scheduledDate;
 
     /**
      * @var DeliverySender
      */
-    public $sender;
+    private $sender;
 
     /**
      * @var DeliveryReceiver[]
      */
-    public $receivers;
+    private $receivers;
 
     /**
-     * @var DeliveryParcelCollection
+     * @return mixed
      */
-    public $parcels;
+    public function getMerchantId()
+    {
+        return $this->merchantId;
+    }
+
+    /**
+     * @param mixed $merchantId
+     */
+    public function setMerchantId($merchantId): void
+    {
+        $this->merchantId = $merchantId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCustomerRef()
+    {
+        return $this->customerRef;
+    }
+
+    /**
+     * @param mixed $customerRef
+     */
+    public function setCustomerRef($customerRef): void
+    {
+        $this->customerRef = $customerRef;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getVehicleId()
+    {
+        return $this->vehicleId;
+    }
+
+    /**
+     * @param mixed $vehicleId
+     */
+    public function setVehicleId($vehicleId): void
+    {
+        $this->vehicleId = $vehicleId;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isForContractDriver(): bool
+    {
+        return $this->isForContractDriver;
+    }
+
+    /**
+     * @param bool $isForContractDriver
+     */
+    public function setIsForContractDriver(bool $isForContractDriver): void
+    {
+        $this->isForContractDriver = $isForContractDriver;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isRoundTrip(): bool
+    {
+        return $this->isRoundTrip;
+    }
+
+    /**
+     * @param bool $isRoundTrip
+     */
+    public function setIsRoundTrip(bool $isRoundTrip): void
+    {
+        $this->isRoundTrip = $isRoundTrip;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getScheduledDate(): DateTime
+    {
+        return $this->scheduledDate;
+    }
+
+    /**
+     * @param DateTime $scheduledDate
+     */
+    public function setScheduledDate(DateTime $scheduledDate): void
+    {
+        $this->scheduledDate = $scheduledDate;
+    }
+
+    /**
+     * @return DeliverySender
+     */
+    public function getSender(): DeliverySender
+    {
+        return $this->sender;
+    }
+
+    /**
+     * @param DeliverySender $sender
+     */
+    public function setSender(DeliverySender $sender): void
+    {
+        $this->sender = $sender;
+    }
+
+    /**
+     * @return DeliveryReceiver[]
+     */
+    public function getReceivers(): array
+    {
+        return $this->receivers;
+    }
+
+    /**
+     * @param DeliveryReceiver[] $receivers
+     */
+    public function setReceivers(array $receivers): void
+    {
+        $this->receivers = $receivers;
+    }
 
     /**
      * Specify data which should be serialized to JSON
@@ -94,7 +217,6 @@ class DeliveryOrderRequest implements JsonSerializable
             'scheduled_date' => $this->scheduledDate->format('Y-m-d\TH:i:s.u\Z'),
             'sender'         => $this->sender,
             'receivers'      => $this->receivers,
-            'parcels'        => $this->parcels->getParcels(),
         ];
 
         return $quote;

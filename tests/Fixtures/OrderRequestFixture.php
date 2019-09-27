@@ -6,6 +6,9 @@ use Faker\Factory;
 use PicupTechnologies\PicupPHPApi\Enums\ParcelSizeEnum;
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryParcel;
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryParcelCollection;
+use PicupTechnologies\PicupPHPApi\Objects\DeliveryReceiver;
+use PicupTechnologies\PicupPHPApi\Objects\DeliveryReceiverAddress;
+use PicupTechnologies\PicupPHPApi\Objects\DeliveryReceiverContact;
 use PicupTechnologies\PicupPHPApi\Objects\DeliverySender;
 use PicupTechnologies\PicupPHPApi\Objects\DeliverySenderAddress;
 use PicupTechnologies\PicupPHPApi\Objects\DeliverySenderContact;
@@ -19,34 +22,39 @@ final class OrderRequestFixture
 
         $request = new DeliveryOrderRequest();
 
-        $request->isRoundTrip = $faker->boolean;
-        $request->isForContractDriver = $faker->boolean;
-        $request->isPreAssignTrackingNumber = $faker->boolean;
-        $request->scheduledDate = $faker->dateTime;
+        $request->setIsRoundTrip($faker->boolean);
+        $request->setIsForContractDriver($faker->boolean);
+        $request->setScheduledDate($faker->dateTime);
 
         $senderAddress = new DeliverySenderAddress();
-        $senderAddress->street_or_farm_no = $faker->buildingNumber;
-        $senderAddress->street_or_farm = $faker->streetName;
-        $senderAddress->city = $faker->city;
-        $senderAddress->postal_code = $faker->postcode;
-        $senderAddress->suburb = $faker->city;
-        $senderAddress->latitude = $faker->latitude;
-        $senderAddress->longitude = $faker->longitude;
+        $senderAddress->setStreetOrFarmNo($faker->buildingNumber);
+        $senderAddress->setStreetOrFarm($faker->streetName);
+        $senderAddress->setCity($faker->city);
+        $senderAddress->setPostalCode($faker->postcode);
+        $senderAddress->setSuburb($faker->city);
+        $senderAddress->setLatitude($faker->latitude);
+        $senderAddress->setLongitude($faker->longitude);
 
         $senderContact = new DeliverySenderContact();
-        $senderContact->name = $faker->name;
-        $senderContact->email = $faker->email;
-        $senderContact->telephone = $faker->phoneNumber;
+        $senderContact->setName($faker->name);
+        $senderContact->setEmail($faker->email);
+        $senderContact->setTelephone($faker->phoneNumber);
 
         $sender = new DeliverySender($senderAddress, $senderContact);
 
-        $request->sender = $sender;
+        $request->setSender($sender);
 
         $collection = new DeliveryParcelCollection();
         $collection->addParcel(new DeliveryParcel('parcel-ref', ParcelSizeEnum::PARCEL_MEDIUM));
 
-        $request->parcels = $collection;
+        $receiverAddress = new DeliveryReceiverAddress();
+        $receiverContact = new DeliveryReceiverContact();
+        $receiverParcels = new DeliveryParcelCollection();
+        $receiverParcels->addParcel(new DeliveryParcel('123', 'parcel-large'));
 
+        $receiver = new DeliveryReceiver($receiverAddress, $receiverContact, $receiverParcels, 'Knock knock');
+
+        $request->setReceivers([$receiver]);
         return $request;
     }
 }

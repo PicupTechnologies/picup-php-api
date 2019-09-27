@@ -11,7 +11,7 @@ class OrderRequestFailedTest extends TestCase
     public function testException(): void
     {
         $orderRequest = new DeliveryOrderRequest();
-        $orderRequest->merchantId = 'merchant-999';
+        $orderRequest->setMerchantId('merchant-999');
 
         try {
             throw new OrderRequestFailed($orderRequest, 'Order Request Failed');

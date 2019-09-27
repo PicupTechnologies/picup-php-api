@@ -19,6 +19,9 @@ use JsonSerializable;
  */
 class DeliveryParcelCollection implements JsonSerializable
 {
+    /**
+     * @var DeliveryParcel[]
+     */
     private $parcels;
 
     /**
@@ -34,9 +37,9 @@ class DeliveryParcelCollection implements JsonSerializable
     /**
      * Returns an array of all current parcels
      *
-     * @return mixed
+     * @return array
      */
-    public function getParcels()
+    public function getParcels(): ?array
     {
         return $this->parcels;
     }

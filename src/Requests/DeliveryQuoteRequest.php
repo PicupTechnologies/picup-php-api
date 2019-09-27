@@ -14,36 +14,164 @@ class DeliveryQuoteRequest implements JsonSerializable
      *
      * @var string
      */
-    public $merchantId;
+    private $merchantId;
 
     /**
      * Customer Reference
      *
      * @var string
      */
-    public $customerRef;
+    private $customerRef;
 
-    public $isForContractDriver = false;
+    private $isForContractDriver = false;
 
-    public $userId = '';
-    public $courierCosting = 'NONE';
+    private $userId = '';
+    private $courierCosting = 'NONE';
 
     /**
      * Scheduled date
      *
      * @var DateTime
      */
-    public $scheduledDate;
+    private $scheduledDate;
 
     /**
      * @var DeliverySender
      */
-    public $sender;
+    private $sender;
 
     /**
      * @var DeliveryReceiver
      */
-    public $receiver;
+    private $receiver;
+
+    /**
+     * @return string
+     */
+    public function getMerchantId(): string
+    {
+        return $this->merchantId;
+    }
+
+    /**
+     * @param string $merchantId
+     */
+    public function setMerchantId(string $merchantId): void
+    {
+        $this->merchantId = $merchantId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCustomerRef(): string
+    {
+        return $this->customerRef;
+    }
+
+    /**
+     * @param string $customerRef
+     */
+    public function setCustomerRef(string $customerRef): void
+    {
+        $this->customerRef = $customerRef;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isForContractDriver(): bool
+    {
+        return $this->isForContractDriver;
+    }
+
+    /**
+     * @param bool $isForContractDriver
+     */
+    public function setIsForContractDriver(bool $isForContractDriver): void
+    {
+        $this->isForContractDriver = $isForContractDriver;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUserId(): string
+    {
+        return $this->userId;
+    }
+
+    /**
+     * @param string $userId
+     */
+    public function setUserId(string $userId): void
+    {
+        $this->userId = $userId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCourierCosting(): string
+    {
+        return $this->courierCosting;
+    }
+
+    /**
+     * @param string $courierCosting
+     */
+    public function setCourierCosting(string $courierCosting): void
+    {
+        $this->courierCosting = $courierCosting;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getScheduledDate(): DateTime
+    {
+        return $this->scheduledDate;
+    }
+
+    /**
+     * @param DateTime $scheduledDate
+     */
+    public function setScheduledDate(DateTime $scheduledDate): void
+    {
+        $this->scheduledDate = $scheduledDate;
+    }
+
+    /**
+     * @return DeliverySender
+     */
+    public function getSender(): DeliverySender
+    {
+        return $this->sender;
+    }
+
+    /**
+     * @param DeliverySender $sender
+     */
+    public function setSender(DeliverySender $sender): void
+    {
+        $this->sender = $sender;
+    }
+
+    /**
+     * @return DeliveryReceiver
+     */
+    public function getReceiver(): DeliveryReceiver
+    {
+        return $this->receiver;
+    }
+
+    /**
+     * @param DeliveryReceiver $receiver
+     */
+    public function setReceiver(DeliveryReceiver $receiver): void
+    {
+        $this->receiver = $receiver;
+    }
 
     /**
      * Specify data which should be serialized to JSON
@@ -66,10 +194,10 @@ class DeliveryQuoteRequest implements JsonSerializable
             // quote request doesnt send a full address so we need to customize it here
             'sender'                        => [
                 'address'              => [
-                    'warehouse_id' => $this->sender->address->getWarehouseId(),
+                    'warehouse_id' => $this->sender->getAddress()->getWarehouseId(),
                 ],
-                'contact'              => $this->sender->contact,
-                'special_instructions' => $this->sender->specialInstructions,
+                'contact'              => $this->sender->getContact(),
+                'special_instructions' => $this->sender->getSpecialInstructions(),
             ],
             //'sender' => $this->sender,
             'receivers'                     => [$this->receiver],

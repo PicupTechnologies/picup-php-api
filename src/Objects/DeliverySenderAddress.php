@@ -12,12 +12,15 @@ use JsonSerializable;
 
 class DeliverySenderAddress extends DeliveryAddress implements JsonSerializable
 {
-    private $warehouseId = 'warehouse-49c740f0-82e2-4f60-9064-79101cfaba17';
+    /**
+     * @var string
+     */
+    private $warehouseId;
 
     /**
      * @return string
      */
-    public function getWarehouseId(): string
+    public function getWarehouseId(): ?string
     {
         return $this->warehouseId;
     }
@@ -40,8 +43,12 @@ class DeliverySenderAddress extends DeliveryAddress implements JsonSerializable
      */
     public function jsonSerialize()
     {
-        return parent::jsonSerialize() + [
-            'warehouse_id' => $this->warehouseId
-            ];
+        $items = parent::jsonSerialize();
+
+        if (isset($this->warehouseId) && $this->warehouseId) {
+            $items['warehouse_id'] = $this->warehouseId;
+        }
+
+        return $items;
     }
 }

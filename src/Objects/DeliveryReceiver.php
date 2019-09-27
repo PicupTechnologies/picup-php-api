@@ -21,22 +21,22 @@ class DeliveryReceiver implements DeliveryParty, JsonSerializable
     /**
      * @var DeliveryReceiverAddress
      */
-    public $address;
+    private $address;
 
     /**
      * @var DeliveryReceiverContact
      */
-    public $contact;
+    private $contact;
 
     /**
      * @var DeliveryParcelCollection
      */
-    public $parcels;
+    private $parcels;
 
     /**
      * @var string
      */
-    public $specialInstructions = '';
+    private $specialInstructions;
 
     /**
      * DeliveryReceiver constructor.
@@ -54,6 +54,37 @@ class DeliveryReceiver implements DeliveryParty, JsonSerializable
         $this->specialInstructions = $specialInstructions;
     }
 
+    /**
+     * @return DeliveryReceiverAddress
+     */
+    public function getAddress(): DeliveryReceiverAddress
+    {
+        return $this->address;
+    }
+
+    /**
+     * @return DeliveryReceiverContact
+     */
+    public function getContact(): DeliveryReceiverContact
+    {
+        return $this->contact;
+    }
+
+    /**
+     * @return DeliveryParcelCollection
+     */
+    public function getParcels(): DeliveryParcelCollection
+    {
+        return $this->parcels;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSpecialInstructions(): string
+    {
+        return $this->specialInstructions;
+    }
 
     /**
      * Specify data which should be serialized to JSON

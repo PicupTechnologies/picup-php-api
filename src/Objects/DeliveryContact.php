@@ -13,27 +13,91 @@ namespace PicupTechnologies\PicupPHPApi\Objects;
  *
  * @package App\Domains\Delivery\Objects
  */
-class DeliveryContact
+abstract class DeliveryContact
 {
     /**
      * @var string
      */
-    public $name = 'Receiver Name';
+    private $name = 'Receiver Name';
 
     /**
      * @var string
      */
-    public $email = 'receiver@email.com';
+    private $email = 'receiver@email.com';
 
     /**
      * Unused field.
      *
      * @var string
      */
-    public $telephone = '';
+    private $telephone = '';
 
     /**
      * @var string
      */
-    public $cellphone = '';
+    private $cellphone = '';
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param string $email
+     */
+    public function setEmail(string $email): void
+    {
+        $this->email = $email;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTelephone(): ?string
+    {
+        return $this->telephone;
+    }
+
+    /**
+     * @param string $telephone
+     */
+    public function setTelephone(string $telephone): void
+    {
+        $this->telephone = $telephone;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCellphone(): ?string
+    {
+        return $this->cellphone;
+    }
+
+    /**
+     * @param string $cellphone
+     */
+    public function setCellphone(string $cellphone): void
+    {
+        $this->cellphone = $cellphone;
+    }
 }

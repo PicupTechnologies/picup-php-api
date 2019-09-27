@@ -43,7 +43,7 @@ final class ParcelDimensions
     /**
      * @return mixed
      */
-    public function getHeight()
+    public function getHeight(): int
     {
         return $this->height;
     }
@@ -51,7 +51,7 @@ final class ParcelDimensions
     /**
      * @return mixed
      */
-    public function getWidth()
+    public function getWidth(): int
     {
         return $this->width;
     }
@@ -59,7 +59,7 @@ final class ParcelDimensions
     /**
      * @return mixed
      */
-    public function getLength()
+    public function getLength(): int
     {
         return $this->length;
     }
