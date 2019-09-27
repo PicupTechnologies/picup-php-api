@@ -6,11 +6,13 @@
  * Time: 2:45 PM
  */
 
-namespace PicupTechnologies\PicupPHPApi\Objects\DeliveryBucket;
+namespace PicupTechnologies\PicupPHPApi\Requests;
 
 use JsonSerializable;
+use PicupTechnologies\PicupPHPApi\Objects\DeliveryBucket\DeliveryBucketDetails;
+use PicupTechnologies\PicupPHPApi\Objects\DeliveryBucket\DeliveryShipment;
 
-class DeliveryBucket implements JsonSerializable
+class DeliveryBucketRequest implements JsonSerializable
 {
     /**
      * @var DeliveryBucketDetails

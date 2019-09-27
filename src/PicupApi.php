@@ -10,7 +10,7 @@ use PicupTechnologies\PicupPHPApi\Exceptions\PicupApiKeyInvalid;
 use PicupTechnologies\PicupPHPApi\Factories\DeliveryIntegrationDetailsResponseFactory;
 use PicupTechnologies\PicupPHPApi\Factories\DeliveryOrderResponseFactory;
 use PicupTechnologies\PicupPHPApi\Factories\DeliveryQuoteResponseFactory;
-use PicupTechnologies\PicupPHPApi\Objects\DeliveryBucket\DeliveryBucket;
+use PicupTechnologies\PicupPHPApi\Requests\DeliveryBucketRequest;
 use PicupTechnologies\PicupPHPApi\Requests\DeliveryOrderRequest;
 use PicupTechnologies\PicupPHPApi\Requests\DeliveryQuoteRequest;
 use PicupTechnologies\PicupPHPApi\Responses\DeliveryIntegrationDetailsResponse;
@@ -134,12 +134,12 @@ final class PicupApi implements PicupApiInterface
      *
      * Warning: This sends the delivery to Picup for actual delivery!
      *
-     * @param DeliveryBucket $deliveryBucket
+     * @param DeliveryBucketRequest $deliveryBucket
      *
      * @return DeliveryOrderResponse
      * @throws PicupApiException
      */
-    public function sendDeliveryBucket(DeliveryBucket $deliveryBucket): DeliveryOrderResponse
+    public function sendDeliveryBucket(DeliveryBucketRequest $deliveryBucket): DeliveryOrderResponse
     {
         $headers = ['api-key' => $this->apiKey];
 

@@ -3,27 +3,24 @@
 namespace PicupTechnologies\PicupPHPApi\Tests\Objects\DeliveryBucket;
 
 use DateTime;
-use Faker\Factory;
-use PicupTechnologies\PicupPHPApi\Objects\DeliveryBucket\DeliveryBucket;
 use PHPUnit\Framework\TestCase;
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryBucket\DeliveryBucketDetails;
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryBucket\DeliveryShipment;
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryBucket\DeliveryShipmentAddress;
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryBucket\DeliveryShipmentContact;
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryBucket\DeliveryShipmentParcel;
+use PicupTechnologies\PicupPHPApi\Requests\DeliveryBucketRequest;
 
-class DeliveryBucketTest extends TestCase
+class DeliveryBucketRequestTest extends TestCase
 {
     public function testShipments(): void
     {
-        $faker = Factory::create();
-
         // Set up
         $consignmentId = 'consignment-555';
         $businessRef = 'business-ref-444';
 
         // Create
-        $deliveryBucket = new DeliveryBucket();
+        $deliveryBucket = new DeliveryBucketRequest();
 
         $shipment = new DeliveryShipment();
         $shipment->setConsignment($consignmentId);
@@ -61,9 +58,9 @@ class DeliveryBucketTest extends TestCase
         $this->assertEquals($businessRef, $shipmentDecoded->business_reference);
     }
 
-    public function testBucketDetails()
+    public function testBucketDetails(): void
     {
-        $deliveryBucket = new DeliveryBucket();
+        $deliveryBucket = new DeliveryBucketRequest();
 
         $bucketDetails = new DeliveryBucketDetails();
 

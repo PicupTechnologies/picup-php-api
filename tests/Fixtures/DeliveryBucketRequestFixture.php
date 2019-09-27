@@ -3,17 +3,17 @@
 namespace PicupTechnologies\PicupPHPApi\Tests\Fixtures;
 
 use Faker\Factory;
-use PicupTechnologies\PicupPHPApi\Objects\DeliveryBucket\DeliveryBucket;
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryBucket\DeliveryBucketDetails;
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryBucket\DeliveryShipment;
+use PicupTechnologies\PicupPHPApi\Requests\DeliveryBucketRequest;
 
-final class DeliveryBucketFixture
+final class DeliveryBucketRequestFixture
 {
-    public static function make(): DeliveryBucket
+    public static function make(): DeliveryBucketRequest
     {
         $faker = Factory::create();
 
-        $bucket = new DeliveryBucket();
+        $bucket = new DeliveryBucketRequest();
 
         $bucketDetails = new DeliveryBucketDetails();
         $bucketDetails->setWarehouseId('warehouse-' . $faker->uuid);

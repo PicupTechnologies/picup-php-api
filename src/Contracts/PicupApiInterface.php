@@ -8,7 +8,7 @@
 
 namespace PicupTechnologies\PicupPHPApi\Contracts;
 
-use PicupTechnologies\PicupPHPApi\Objects\DeliveryBucket\DeliveryBucket;
+use PicupTechnologies\PicupPHPApi\Requests\DeliveryBucketRequest;
 use PicupTechnologies\PicupPHPApi\Requests\DeliveryOrderRequest;
 use PicupTechnologies\PicupPHPApi\Requests\DeliveryQuoteRequest;
 use PicupTechnologies\PicupPHPApi\Responses\DeliveryIntegrationDetailsResponse;
@@ -38,11 +38,11 @@ interface PicupApiInterface
     /**
      * Sends the DeliveryBucket to the AddToBucket endpoint
      *
-     * @param DeliveryBucket $deliveryBucket
+     * @param DeliveryBucketRequest $deliveryBucket
      *
      * @return DeliveryOrderResponse
      */
-    public function sendDeliveryBucket(DeliveryBucket $deliveryBucket): DeliveryOrderResponse;
+    public function sendDeliveryBucket(DeliveryBucketRequest $deliveryBucket): DeliveryOrderResponse;
 
     /**
      * Requests integration details for a given business ID

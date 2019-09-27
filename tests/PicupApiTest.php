@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 use PicupTechnologies\PicupPHPApi\Exceptions\PicupApiException;
 use PicupTechnologies\PicupPHPApi\Exceptions\PicupApiKeyInvalid;
 use PicupTechnologies\PicupPHPApi\PicupApi;
-use PicupTechnologies\PicupPHPApi\Tests\Fixtures\DeliveryBucketFixture;
+use PicupTechnologies\PicupPHPApi\Tests\Fixtures\DeliveryBucketRequestFixture;
 use PicupTechnologies\PicupPHPApi\Tests\Fixtures\OrderRequestFixture;
 use PicupTechnologies\PicupPHPApi\Tests\Fixtures\QuoteRequestFixture;
 
@@ -198,7 +198,7 @@ class PicupApiTest extends TestCase
         $client = new Client(['handler' => $handler]);
 
         // 2 - Build Request
-        $request = DeliveryBucketFixture::make();
+        $request = DeliveryBucketRequestFixture::make();
 
         // 3 - Send Test Request
         $picupApi = new PicupApi($client, 'api-123');
@@ -222,7 +222,7 @@ class PicupApiTest extends TestCase
         $client = new Client(['handler' => $handler]);
 
         // 2 - Build Request
-        $request = DeliveryBucketFixture::make();
+        $request = DeliveryBucketRequestFixture::make();
 
         // 3 - Send Test Request
         $picupApi = new PicupApi($client, 'api-123');
