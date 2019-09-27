@@ -46,12 +46,7 @@ class DeliveryOrderRequest implements JsonSerializable
     /**
      * @var bool
      */
-    public $isForContractDriver;
-
-    /**
-     * @var bool
-     */
-    public $isPreAssignTrackingNumber = false;
+    public $isForContractDriver = false;
 
     /**
      * @var bool
@@ -94,7 +89,6 @@ class DeliveryOrderRequest implements JsonSerializable
             'vehicle_id'   => $this->vehicleId,
 
             'is_for_contract_driver'        => $this->isForContractDriver,
-            'is_pre_assign_tracking_number' => $this->isPreAssignTrackingNumber,
             'is_round_trip'                 => $this->isRoundTrip,
 
             'scheduled_date' => $this->scheduledDate->format('Y-m-d\TH:i:s.u\Z'),

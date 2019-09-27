@@ -22,7 +22,6 @@ class DeliveryOrderRequestTest extends TestCase
         $deliveryOrderRequest->merchantId = 'merchant-555-444-333';
         $deliveryOrderRequest->isRoundTrip = true;
         $deliveryOrderRequest->isForContractDriver = true;
-        $deliveryOrderRequest->isPreAssignTrackingNumber = true;
         $deliveryOrderRequest->scheduledDate = new DateTime();
 
         $parcels = new DeliveryParcelCollection();
@@ -38,6 +37,5 @@ class DeliveryOrderRequestTest extends TestCase
 
         $this->assertEquals(true, $unserialized->is_round_trip);
         $this->assertEquals(true, $unserialized->is_for_contract_driver);
-        $this->assertEquals(true, $unserialized->is_pre_assign_tracking_number);
     }
 }

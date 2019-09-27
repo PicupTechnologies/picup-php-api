@@ -29,9 +29,7 @@ class DeliveryQuoteRequestTest extends TestCase
         $deliveryQuoteRequest = new DeliveryQuoteRequest();
 
         $deliveryQuoteRequest->scheduledDate = new DateTime();
-        $deliveryQuoteRequest->isPreAssignTrackingNumber = true;
         $deliveryQuoteRequest->isForContractDriver = true;
-        $deliveryQuoteRequest->isRoundTrip = true;
 
         $deliveryQuoteRequest->customerRef = 'customer-123';
         $deliveryQuoteRequest->merchantId = 'merchant-555-444-333';
@@ -74,9 +72,7 @@ class DeliveryQuoteRequestTest extends TestCase
         $this->assertEquals('customer-123', $unserialized->customer_ref);
         $this->assertEquals('merchant-555-444-333', $unserialized->merchant_id);
 
-        $this->assertEquals(true, $unserialized->is_round_trip);
         $this->assertEquals(true, $unserialized->is_for_contract_driver);
-        $this->assertEquals(true, $unserialized->is_pre_assign_tracking_number);
 
         $sender = $unserialized->sender;
         $this->assertEquals('warehouse-123', $sender->address->warehouse_id);

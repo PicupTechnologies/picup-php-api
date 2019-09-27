@@ -24,8 +24,7 @@ class DeliveryQuoteRequest implements JsonSerializable
     public $customerRef;
 
     public $isForContractDriver = false;
-    public $isPreAssignTrackingNumber = false;
-    public $isRoundTrip = false;
+
     public $userId = '';
     public $courierCosting = 'NONE';
 
@@ -61,8 +60,6 @@ class DeliveryQuoteRequest implements JsonSerializable
             'user_id'                       => $this->userId,
             'customer_ref'                  => $this->customerRef,
             'is_for_contract_driver'        => $this->isForContractDriver,
-            'is_pre_assign_tracking_number' => $this->isPreAssignTrackingNumber,
-            'is_round_trip'                 => $this->isRoundTrip,
             'scheduled_date'                => $this->scheduledDate->format('Y-m-d\TH:i:s.u\Z'),
             'courier_costing'               => $this->courierCosting,
 
