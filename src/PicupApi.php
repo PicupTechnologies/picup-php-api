@@ -45,7 +45,7 @@ final class PicupApi implements PicupApiInterface
     private $apiPrefix = 'https://otdcpt-knupqa.onthedot.co.za/picup-api/v1';
 
     private $endpointQuote = '/integration/quote/one-to-many';
-    private $endpointOrder = '/integration/create/one-to-one';
+    private $endpointOrder = '/integration/create/one-to-many';
     private $endpointAddBucket = '/integration/add-to-bucket';
     private $endpointIntegrationDetails = '/integration/%s/details';
     private $endpointDispatchSummary = '/integration/%s/dispatch-summary';

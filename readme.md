@@ -11,7 +11,7 @@ This package provides a PHP API for Picup deliveries. We are currently working a
 We are currently supporting:
 
 - /integration/quote/one-to-many
-- /integration/create/one-to-one
+- /integration/create/one-to-many
 - /integration/add-to-bucket
 - /integration/%s/details
 - /integration/%s/dispatch-summary
