@@ -64,9 +64,9 @@ class DeliveryOrderRequest implements JsonSerializable
     public $sender;
 
     /**
-     * @var DeliveryReceiver
+     * @var DeliveryReceiver[]
      */
-    public $receiver;
+    public $receivers;
 
     /**
      * @var DeliveryParcelCollection
@@ -93,7 +93,7 @@ class DeliveryOrderRequest implements JsonSerializable
 
             'scheduled_date' => $this->scheduledDate->format('Y-m-d\TH:i:s.u\Z'),
             'sender'         => $this->sender,
-            'receiver'       => $this->receiver,
+            'receivers'      => $this->receivers,
             'parcels'        => $this->parcels->getParcels(),
         ];
 
