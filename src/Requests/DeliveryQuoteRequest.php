@@ -41,9 +41,9 @@ class DeliveryQuoteRequest implements JsonSerializable
     private $sender;
 
     /**
-     * @var DeliveryReceiver
+     * @var DeliveryReceiver[]
      */
-    private $receiver;
+    private $receivers;
 
     /**
      * @return string
@@ -158,19 +158,27 @@ class DeliveryQuoteRequest implements JsonSerializable
     }
 
     /**
-     * @return DeliveryReceiver
+     * @return DeliveryReceiver[]
      */
-    public function getReceiver(): DeliveryReceiver
+    public function getReceivers(): array
     {
-        return $this->receiver;
+        return $this->receivers;
+    }
+
+    /**
+     * @param DeliveryReceiver[] $receivers
+     */
+    public function setReceivers(array $receivers): void
+    {
+        $this->receivers = $receivers;
     }
 
     /**
      * @param DeliveryReceiver $receiver
      */
-    public function setReceiver(DeliveryReceiver $receiver): void
+    public function addReceiver(DeliveryReceiver $receiver): void
     {
-        $this->receiver = $receiver;
+        $this->receivers[] = $receiver;
     }
 
     /**
@@ -192,15 +200,8 @@ class DeliveryQuoteRequest implements JsonSerializable
             'courier_costing'               => $this->courierCosting,
 
             // quote request doesnt send a full address so we need to customize it here
-            'sender'                        => [
-                'address'              => [
-                    'warehouse_id' => $this->sender->getAddress()->getWarehouseId(),
-                ],
-                'contact'              => $this->sender->getContact(),
-                'special_instructions' => $this->sender->getSpecialInstructions(),
-            ],
-            //'sender' => $this->sender,
-            'receivers'                     => [$this->receiver],
+            'sender'                        => $this->sender,
+            'receivers'                     => $this->receivers,
         ];
 
         return $quote;
