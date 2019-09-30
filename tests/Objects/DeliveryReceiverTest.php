@@ -2,6 +2,8 @@
 
 namespace PicupTechnologies\PicupPHPApi\Tests\Objects;
 
+use PicupTechnologies\PicupPHPApi\Enums\ParcelSizeEnum;
+use PicupTechnologies\PicupPHPApi\Objects\DeliveryParcel;
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryParcelCollection;
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryReceiver;
 use PHPUnit\Framework\TestCase;
@@ -15,6 +17,7 @@ class DeliveryReceiverTest extends TestCase
         $receiverAddress = new DeliveryReceiverAddress();
         $receiverContact = new DeliveryReceiverContact();
         $parcels = new DeliveryParcelCollection();
+        $parcels->addParcel(new DeliveryParcel('test-ref', ParcelSizeEnum::PARCEL_MEDIUM));
         $specialInstructions = 'Go away';
 
         $receiver = new DeliveryReceiver($receiverAddress, $receiverContact, $parcels, $specialInstructions);

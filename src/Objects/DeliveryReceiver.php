@@ -99,7 +99,7 @@ class DeliveryReceiver implements DeliveryParty, JsonSerializable
         return [
             'address'              => $this->address,
             'contact'              => $this->contact,
-            'parcels'              => $this->parcels,
+            'parcels'              => $this->parcels->getParcels(),
             'special_instructions' => $this->specialInstructions,
         ];
     }

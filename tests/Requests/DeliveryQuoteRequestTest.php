@@ -83,8 +83,8 @@ class DeliveryQuoteRequestTest extends TestCase
             $parcels
         );
 
-        $deliveryQuoteRequest->setReceiver($deliveryReceiver);
-        $this->assertEquals($deliveryReceiver, $deliveryQuoteRequest->getReceiver());
+        $deliveryQuoteRequest->addReceiver($deliveryReceiver);
+        $this->assertEquals($deliveryReceiver, $deliveryQuoteRequest->getReceivers()[0]);
 
         $serialized = json_encode($deliveryQuoteRequest);
 

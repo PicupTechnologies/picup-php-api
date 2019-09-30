@@ -8,12 +8,14 @@
 
 namespace PicupTechnologies\PicupPHPApi\Objects;
 
+use JsonSerializable;
+
 /**
  * Class DeliveryReceiverContact
  *
  * @package App\Domains\Delivery\Objects
  */
-abstract class DeliveryContact
+abstract class DeliveryContact implements JsonSerializable
 {
     /**
      * @var string
@@ -100,4 +102,6 @@ abstract class DeliveryContact
     {
         $this->cellphone = $cellphone;
     }
+
+
 }
