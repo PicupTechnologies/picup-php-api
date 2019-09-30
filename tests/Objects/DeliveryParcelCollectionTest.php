@@ -20,6 +20,24 @@ class DeliveryParcelCollectionTest extends TestCase
 
         $collection->addParcel($parcel);
 
-        $this->assertEquals($parcel, $collection->getParcels()[0]);
+        $anotherParcel = new DeliveryParcel('ref-555', 'parcel-medium');
+        $collection->addParcel($anotherParcel);
+
+        $parcels = $collection->getParcels();
+        $this->assertEquals($parcel, $parcels[0]);
+        $this->assertEquals($anotherParcel, $parcels[1]);
+    }
+
+    public function testJsonSerialize(): void
+    {
+        $collection = new DeliveryParcelCollection();
+        $parcel = new DeliveryParcel('ref-123', 'parcel-extra');
+        $collection->addParcel($parcel);
+
+        $decoded = json_decode(json_encode($collection), true);
+
+        $this->assertCount(1, $decoded);
+        $this->assertEquals('ref-123', $decoded[0]['reference']);
+        $this->assertEquals('parcel-extra', $decoded[0]['size']);
     }
 }
