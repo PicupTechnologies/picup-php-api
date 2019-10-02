@@ -340,7 +340,21 @@ class PicupApiTest extends TestCase
     public function testSendDispatchSummaryRequest(): void
     {
         $data = [
-            'whatever is sent here' => 'should come back'
+            'picup_count' => 1,
+            'total_parcels' => 2,
+            'pending_parcels' => 3,
+            'failed_parcels' => 4,
+            'completed_parcels' => 5,
+            'parcels' => [
+                [
+                    'tracking_number' => '123',
+                    'parcel_reference' => 'ref',
+                    'status' => 'pending',
+                    'failed_reason' => null,
+                    'contact_name' => 'name',
+                    'contact_phone' => 'phone',
+                ]
+            ]
         ];
         $mock = new MockHandler([new Response(200, [], json_encode($data))]);
         $handler = HandlerStack::create($mock);
@@ -348,9 +362,9 @@ class PicupApiTest extends TestCase
 
         $picupApi = new PicupApi($client, 'api-123');
 
-        $apiResponse = $picupApi->sendDispatchSummaryRequest('123-456');
+        $dispatchSummary = $picupApi->sendDispatchSummaryRequest('123-456');
 
-        $this->assertEquals('{"whatever is sent here":"should come back"}', $apiResponse);
+        $this->assertEquals(1, $dispatchSummary->getPicupCount());
     }
 
     /**
