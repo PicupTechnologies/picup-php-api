@@ -17,6 +17,7 @@ use PicupTechnologies\PicupPHPApi\Requests\DeliveryQuoteRequest;
 use PicupTechnologies\PicupPHPApi\Responses\DeliveryIntegrationDetailsResponse;
 use PicupTechnologies\PicupPHPApi\Responses\DeliveryOrderResponse;
 use PicupTechnologies\PicupPHPApi\Responses\DeliveryQuoteResponse;
+use PicupTechnologies\PicupPHPApi\Responses\DispatchSummaryResponse;
 
 /**
  * PicupApi
@@ -220,10 +221,10 @@ final class PicupApi implements PicupApiInterface
      *
      * @param string $businessId
      *
-     * @return mixed
+     * @return DispatchSummaryResponse
      * @throws PicupApiException
      */
-    public function sendDispatchSummaryRequest(string $businessId)
+    public function sendDispatchSummaryRequest(string $businessId): DispatchSummaryResponse
     {
         $headers = ['api-key' => $this->apiKey];
         $urlTemplate = $this->apiPrefix . $this->endpointDispatchSummary;
