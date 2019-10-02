@@ -81,7 +81,7 @@ class ParcelDetails
     /**
      * @return string
      */
-    public function getFailedReason(): string
+    public function getFailedReason(): ?string
     {
         return $this->failedReason;
     }
