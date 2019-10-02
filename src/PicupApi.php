@@ -10,6 +10,7 @@ use PicupTechnologies\PicupPHPApi\Exceptions\PicupApiKeyInvalid;
 use PicupTechnologies\PicupPHPApi\Factories\DeliveryIntegrationDetailsResponseFactory;
 use PicupTechnologies\PicupPHPApi\Factories\DeliveryOrderResponseFactory;
 use PicupTechnologies\PicupPHPApi\Factories\DeliveryQuoteResponseFactory;
+use PicupTechnologies\PicupPHPApi\Factories\DispatchSummaryResponseFactory;
 use PicupTechnologies\PicupPHPApi\Requests\DeliveryBucketRequest;
 use PicupTechnologies\PicupPHPApi\Requests\DeliveryOrderRequest;
 use PicupTechnologies\PicupPHPApi\Requests\DeliveryQuoteRequest;
@@ -233,7 +234,9 @@ final class PicupApi implements PicupApiInterface
                 'headers' => $headers,
             ]);
 
-            return $response->getBody()->getContents();
+            $body = json_decode($response->getBody()->getContents(), true);
+
+            return DispatchSummaryResponseFactory::make($body);
         } catch (RequestException $e) {
             $msg = $e->getMessage();
             if ($response = $e->getResponse()) {
