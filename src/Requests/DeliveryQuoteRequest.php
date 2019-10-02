@@ -198,8 +198,6 @@ class DeliveryQuoteRequest implements JsonSerializable
             'is_for_contract_driver'        => $this->isForContractDriver,
             'scheduled_date'                => $this->scheduledDate->format('Y-m-d\TH:i:s.u\Z'),
             'courier_costing'               => $this->courierCosting,
-
-            // quote request doesnt send a full address so we need to customize it here
             'sender'                        => $this->sender,
             'receivers'                     => $this->receivers,
         ];
