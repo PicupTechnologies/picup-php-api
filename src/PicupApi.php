@@ -197,13 +197,14 @@ final class PicupApi implements PicupApiInterface
                 $msg = $response->getBody()->getContents();
             }
 
-            $bodyResponse = json_decode($msg, false);
+            // picup enterprise sometimes responds with message and sometimes Message
+            $bodyResponse = array_change_key_case(json_decode($msg, true));
 
-            if (stripos($bodyResponse->Message, 'Identity is invalid') !== false) {
-                throw new PicupApiKeyInvalid($bodyResponse->Message);
+            if (stripos($bodyResponse['message'], 'Identity is invalid') !== false) {
+                throw new PicupApiKeyInvalid($bodyResponse['message']);
             }
 
-            $errorMessage = 'IntegrationDetails Error: ' . $bodyResponse->Message;
+            $errorMessage = 'IntegrationDetails Error: ' . $bodyResponse['message'];
             throw new PicupApiException($errorMessage);
         }
     }
