@@ -10,7 +10,6 @@ namespace PicupTechnologies\PicupPHPApi\Requests;
 
 use DateTime;
 use JsonSerializable;
-use PicupTechnologies\PicupPHPApi\Objects\DeliveryParcelCollection;
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryReceiver;
 use PicupTechnologies\PicupPHPApi\Objects\DeliverySender;
 
