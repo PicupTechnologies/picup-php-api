@@ -4,6 +4,11 @@ namespace PicupTechnologies\PicupPHPApi\Factories;
 
 use PicupTechnologies\PicupPHPApi\Objects\DispatchSummary\ParcelDetails;
 
+/**
+ * Builds the ParcelDetails for a DispatchSummaryResponse
+ *
+ * @package PicupTechnologies\PicupPHPApi\Factories
+ */
 final class DispatchSummaryParcelFactory
 {
     /**

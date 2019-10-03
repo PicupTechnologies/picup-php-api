@@ -11,6 +11,11 @@ namespace PicupTechnologies\PicupPHPApi\Exceptions;
 use Exception;
 use PicupTechnologies\PicupPHPApi\Requests\DeliveryOrderRequest;
 
+/**
+ * Exception that is thrown when an Order Request fails
+ *
+ * @package PicupTechnologies\PicupPHPApi\Exceptions
+ */
 class OrderRequestFailed extends Exception
 {
     /**

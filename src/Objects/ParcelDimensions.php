@@ -3,9 +3,7 @@
 namespace PicupTechnologies\PicupPHPApi\Objects;
 
 /**
- * Class ParcelDimensions
- *
- * Represents a single parcel WIDTH/HEIGHT+LENGTH
+ * Represents the dimensions for a parcel
  *
  * @package PicupTechnologies\PicupPHPApi\Objects
  */

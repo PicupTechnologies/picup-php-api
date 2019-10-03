@@ -8,6 +8,11 @@
 
 namespace PicupTechnologies\PicupPHPApi\Responses;
 
+/**
+ * Holds the DeliveryOrder response from Picup after creating an order.
+ *
+ * @package PicupTechnologies\PicupPHPApi\Responses
+ */
 class DeliveryOrderResponse
 {
     private $requestId;

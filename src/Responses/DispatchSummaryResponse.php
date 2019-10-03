@@ -4,6 +4,11 @@ namespace PicupTechnologies\PicupPHPApi\Responses;
 
 use PicupTechnologies\PicupPHPApi\Objects\DispatchSummary\ParcelDetails;
 
+/**
+ * Holds the DispatchSummary response from Picup
+ *
+ * @package PicupTechnologies\PicupPHPApi\Responses
+ */
 final class DispatchSummaryResponse
 {
     /**

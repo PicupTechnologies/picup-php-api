@@ -5,6 +5,11 @@ namespace PicupTechnologies\PicupPHPApi\Factories;
 use PicupTechnologies\PicupPHPApi\Objects\Parcel;
 use PicupTechnologies\PicupPHPApi\Objects\ParcelDimensions;
 
+/**
+ * Builds a Parcel including it's dimensions and weight
+ *
+ * @package PicupTechnologies\PicupPHPApi\Factories
+ */
 final class ParcelFactory
 {
     /**

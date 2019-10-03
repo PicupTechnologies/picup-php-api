@@ -5,7 +5,7 @@ namespace PicupTechnologies\PicupPHPApi\Exceptions;
 use Exception;
 
 /**
- * Class PicupApiKeyInvalid
+ * Exception thrown if the API Key used is invalid
  *
  * @package PicupTechnologies\PicupPHPApi\Exceptions
  */

@@ -5,6 +5,11 @@ namespace PicupTechnologies\PicupPHPApi\Factories;
 use PicupTechnologies\PicupPHPApi\Responses\DeliveryIntegrationDetailsResponse;
 use PicupTechnologies\PicupPHPApi\Objects\Warehouses\DeliveryWarehouse;
 
+/**
+ * Builds a DeliveryIntegrationDetailsResponse
+ *
+ * @package PicupTechnologies\PicupPHPApi\Factories
+ */
 final class DeliveryIntegrationDetailsResponseFactory
 {
     public static function make(array $request): DeliveryIntegrationDetailsResponse

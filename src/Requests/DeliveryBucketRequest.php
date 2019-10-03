@@ -12,6 +12,11 @@ use JsonSerializable;
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryBucket\DeliveryBucketDetails;
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryBucket\DeliveryShipment;
 
+/**
+ * Holds all the details for a DeliveryBucketRequest
+ *
+ * @package PicupTechnologies\PicupPHPApi\Requests
+ */
 class DeliveryBucketRequest implements JsonSerializable
 {
     /**

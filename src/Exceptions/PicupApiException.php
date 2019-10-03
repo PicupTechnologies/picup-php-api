@@ -5,7 +5,7 @@ namespace PicupTechnologies\PicupPHPApi\Exceptions;
 use Exception;
 
 /**
- * Class PicupApiException
+ * General exception thrown for the Picup API Responses
  *
  * @package PicupTechnologies\PicupPHPApi\Exceptions
  */

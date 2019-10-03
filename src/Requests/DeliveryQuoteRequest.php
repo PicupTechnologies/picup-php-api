@@ -7,6 +7,11 @@ use JsonSerializable;
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryReceiver;
 use PicupTechnologies\PicupPHPApi\Objects\DeliverySender;
 
+/**
+ * Holds all the details for a DeliveryQuoteRequest
+ *
+ * @package PicupTechnologies\PicupPHPApi\Requests
+ */
 class DeliveryQuoteRequest implements JsonSerializable
 {
     /**

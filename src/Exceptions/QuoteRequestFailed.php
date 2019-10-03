@@ -12,7 +12,7 @@ use Exception;
 use PicupTechnologies\PicupPHPApi\Requests\DeliveryQuoteRequest;
 
 /**
- * Class QuoteRequestFailed
+ * Exception thrown when a Quote Request fails
  *
  * @package PicupTechnologies\PicupPHPApi\Exceptions
  */

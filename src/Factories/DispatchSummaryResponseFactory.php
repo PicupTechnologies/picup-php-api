@@ -4,6 +4,11 @@ namespace PicupTechnologies\PicupPHPApi\Factories;
 
 use PicupTechnologies\PicupPHPApi\Responses\DispatchSummaryResponse;
 
+/**
+ * Builds a DispatchSummaryResponse
+ *
+ * @package PicupTechnologies\PicupPHPApi\Factories
+ */
 final class DispatchSummaryResponseFactory
 {
     public static function make(array $data): DispatchSummaryResponse

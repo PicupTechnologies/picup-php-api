@@ -5,6 +5,11 @@ namespace PicupTechnologies\PicupPHPApi\Factories;
 use PicupTechnologies\PicupPHPApi\Responses\DeliveryQuoteResponse;
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryServiceType;
 
+/**
+ * Builds a DeliveryQuoteResponse
+ *
+ * @package PicupTechnologies\PicupPHPApi\Factories
+ */
 final class DeliveryQuoteResponseFactory
 {
     /**

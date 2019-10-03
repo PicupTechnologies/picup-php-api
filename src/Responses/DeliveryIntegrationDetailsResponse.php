@@ -5,6 +5,11 @@ namespace PicupTechnologies\PicupPHPApi\Responses;
 use PicupTechnologies\PicupPHPApi\Objects\Parcel;
 use PicupTechnologies\PicupPHPApi\Objects\Warehouses\DeliveryWarehouse;
 
+/**
+ * Holds the DeliveryIntegrationDetails response from Picup
+ *
+ * @package PicupTechnologies\PicupPHPApi\Responses
+ */
 class DeliveryIntegrationDetailsResponse
 {
     /**

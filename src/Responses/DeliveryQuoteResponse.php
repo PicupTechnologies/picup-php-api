@@ -5,10 +5,9 @@ namespace PicupTechnologies\PicupPHPApi\Responses;
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryServiceType;
 
 /**
- * Class DeliveryQuoteResponse
- *
  * Holds the full quote response provided by Picup
  *
+ * @package PicupTechnologies\PicupPHPApi\Responses
  */
 final class DeliveryQuoteResponse
 {

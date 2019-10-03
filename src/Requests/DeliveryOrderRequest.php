@@ -15,8 +15,6 @@ use PicupTechnologies\PicupPHPApi\Objects\DeliveryReceiver;
 use PicupTechnologies\PicupPHPApi\Objects\DeliverySender;
 
 /**
- * Class DeliveryOrderRequest
- *
  * Encapsulates a full order request for picup destined for the
  * Create/One-To-Many endpoint.
  *
