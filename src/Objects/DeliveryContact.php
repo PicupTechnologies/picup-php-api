@@ -8,6 +8,7 @@
 
 namespace PicupTechnologies\PicupPHPApi\Objects;
 
+use InvalidArgumentException;
 use JsonSerializable;
 
 /**
@@ -52,7 +53,7 @@ abstract class DeliveryContact implements JsonSerializable
      */
     public function setName(string $name): void
     {
-        $this->name = $name;
+        $this->name = trim($name);
     }
 
     /**
@@ -68,6 +69,12 @@ abstract class DeliveryContact implements JsonSerializable
      */
     public function setEmail(string $email): void
     {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            throw new InvalidArgumentException(
+                sprintf('%s expects valid email address, %s is not', __METHOD__, $email)
+            );
+        }
+
         $this->email = $email;
     }
 
@@ -102,6 +109,4 @@ abstract class DeliveryContact implements JsonSerializable
     {
         $this->cellphone = $cellphone;
     }
-
-
 }

@@ -2,6 +2,7 @@
 
 namespace PicupTechnologies\PicupPHPApi\Objects\DeliveryBucket;
 
+use InvalidArgumentException;
 use JsonSerializable;
 
 class DeliveryShipmentContact implements JsonSerializable
@@ -71,6 +72,12 @@ class DeliveryShipmentContact implements JsonSerializable
      */
     public function setEmailAddress(string $emailAddress): void
     {
+        if (!filter_var($emailAddress, FILTER_VALIDATE_EMAIL)) {
+            throw new InvalidArgumentException(
+                sprintf('%s expects valid email address, %s is not', __METHOD__, $emailAddress)
+            );
+        }
+
         $this->emailAddress = $emailAddress;
     }
 
