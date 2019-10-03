@@ -39,7 +39,7 @@ final class ParcelDimensions
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getHeight(): int
     {
@@ -47,7 +47,7 @@ final class ParcelDimensions
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getWidth(): int
     {
@@ -55,7 +55,7 @@ final class ParcelDimensions
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getLength(): int
     {
