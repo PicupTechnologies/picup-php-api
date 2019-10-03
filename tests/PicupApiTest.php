@@ -5,6 +5,8 @@ namespace PicupTechnologies\PicupPHPApi\Tests;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Middleware;
+use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 use PicupTechnologies\PicupPHPApi\Exceptions\PicupApiException;
@@ -88,8 +90,11 @@ class PicupApiTest extends TestCase
             ]
         ];
 
+        $container = [];
+        $history = Middleware::history($container);
         $mock = new MockHandler([new Response(200, [], json_encode($data))]);
         $handler = HandlerStack::create($mock);
+        $handler->push($history);
         $client = new Client(['handler' => $handler]);
 
         // 2 - Build Request
@@ -98,6 +103,26 @@ class PicupApiTest extends TestCase
         // 3 - Send Test Request
         $picupApi = new PicupApi($client, 'api-123');
         $deliveryQuoteResponse = $picupApi->sendQuoteRequest($quoteRequestFixture);
+
+        // ASSERT REQUEST WAS CORRECT
+
+        /** @var Request $sentRequest */
+        $sentRequest = $container[0]['request'];
+
+        // Ensure the correct url was used
+        $this->assertEquals('https', $sentRequest->getUri()->getScheme());
+        $this->assertEquals('otdcpt-knupqa.onthedot.co.za', $sentRequest->getUri()->getHost());
+        $this->assertEquals('/picup-api/v1/integration/quote/one-to-many', $sentRequest->getUri()->getPath());
+
+        // Ensure the api key was added to header
+        $this->assertEquals('api-123', $sentRequest->getHeaderLine('api-key'));
+
+        // Ensure the json was sent as expected
+        $expectedData = json_encode($quoteRequestFixture);
+        $sentData = $sentRequest->getBody()->getContents();
+        $this->assertEquals($expectedData, $sentData);
+
+        // ASSERT RETURNED OBJECT IS CORRECT
 
         $this->assertEquals(true, $deliveryQuoteResponse->isValid());
 
@@ -113,6 +138,9 @@ class PicupApiTest extends TestCase
         $this->assertEquals('Space Ship', $serviceType->getVehicleName());
     }
 
+    /**
+     * @throws PicupApiException
+     */
     public function testSendQuoteRequestFailure(): void
     {
         $data = [
@@ -143,8 +171,11 @@ class PicupApiTest extends TestCase
             'request_id' => 555
         ];
 
+        $container = [];
+        $history = Middleware::history($container);
         $mock = new MockHandler([new Response(200, [], json_encode($data))]);
         $handler = HandlerStack::create($mock);
+        $handler->push($history);
         $client = new Client(['handler' => $handler]);
 
         // 2 - Build Request
@@ -153,6 +184,26 @@ class PicupApiTest extends TestCase
         // 3 - Send Test Request
         $picupApi = new PicupApi($client, 'api-123');
         $response = $picupApi->sendOrderRequest($orderRequest);
+
+        // ASSERT REQUEST WAS CORRECT
+
+        /** @var Request $sentRequest */
+        $sentRequest = $container[0]['request'];
+
+        // Ensure the correct url was used
+        $this->assertEquals('https', $sentRequest->getUri()->getScheme());
+        $this->assertEquals('otdcpt-knupqa.onthedot.co.za', $sentRequest->getUri()->getHost());
+        $this->assertEquals('/picup-api/v1/integration/create/one-to-many', $sentRequest->getUri()->getPath());
+
+        // Ensure the api key was added to header
+        $this->assertEquals('api-123', $sentRequest->getHeaderLine('api-key'));
+
+        // Ensure the json was sent as expected
+        $expectedData = json_encode($orderRequest);
+        $sentData = $sentRequest->getBody()->getContents();
+        $this->assertEquals($expectedData, $sentData);
+
+        // ASSERT RETURNED OBJECT IS CORRECT
 
         $this->assertEquals(555, $response->getId());
     }
@@ -193,8 +244,11 @@ class PicupApiTest extends TestCase
             'request_id' => 666
         ];
 
+        $container = [];
+        $history = Middleware::history($container);
         $mock = new MockHandler([new Response(200, [], json_encode($data))]);
         $handler = HandlerStack::create($mock);
+        $handler->push($history);
         $client = new Client(['handler' => $handler]);
 
         // 2 - Build Request
@@ -203,6 +257,26 @@ class PicupApiTest extends TestCase
         // 3 - Send Test Request
         $picupApi = new PicupApi($client, 'api-123');
         $response = $picupApi->sendDeliveryBucket($request);
+
+        // ASSERT REQUEST WAS CORRECT
+
+        /** @var Request $sentRequest */
+        $sentRequest = $container[0]['request'];
+
+        // Ensure the correct url was used
+        $this->assertEquals('https', $sentRequest->getUri()->getScheme());
+        $this->assertEquals('otdcpt-knupqa.onthedot.co.za', $sentRequest->getUri()->getHost());
+        $this->assertEquals('/picup-api/v1/integration/add-to-bucket', $sentRequest->getUri()->getPath());
+
+        // Ensure the api key was added to header
+        $this->assertEquals('api-123', $sentRequest->getHeaderLine('api-key'));
+
+        // Ensure the json was sent as expected
+        $expectedData = json_encode($request);
+        $sentData = $sentRequest->getBody()->getContents();
+        $this->assertEquals($expectedData, $sentData);
+
+        // ASSERT RETURNED OBJECT IS CORRECT
 
         $this->assertEquals(666, $response->getId());
     }
@@ -248,13 +322,29 @@ class PicupApiTest extends TestCase
                 ]
             ]
         ];
+
+        $container = [];
+        $history = Middleware::history($container);
         $mock = new MockHandler([new Response(200, [], json_encode($data))]);
         $handler = HandlerStack::create($mock);
+        $handler->push($history);
         $client = new Client(['handler' => $handler]);
 
         $picupApi = new PicupApi($client, 'api-123');
 
         $apiResponse = $picupApi->sendIntegrationDetailsRequest('123-456');
+
+        // ASSERT REQUEST WAS CORRECT
+
+        /** @var Request $sentRequest */
+        $sentRequest = $container[0]['request'];
+
+        // Ensure the correct url was used
+        $this->assertEquals('https', $sentRequest->getUri()->getScheme());
+        $this->assertEquals('otdcpt-knupqa.onthedot.co.za', $sentRequest->getUri()->getHost());
+        $this->assertEquals('/picup-api/v1/integration/123-456/details', $sentRequest->getUri()->getPath());
+
+        // ASSERT RETURNED OBJECT IS CORRECT
 
         $this->assertTrue($apiResponse->isKeyValid());
         $this->assertEquals('Your key is valid', $apiResponse->getIsKeyValidMessage());
@@ -363,6 +453,8 @@ class PicupApiTest extends TestCase
         $picupApi = new PicupApi($client, 'api-123');
 
         $dispatchSummary = $picupApi->sendDispatchSummaryRequest('123-456');
+
+        // ASSERT RETURNED OBJECT IS CORRECT
 
         $this->assertEquals(1, $dispatchSummary->getPicupCount());
     }
