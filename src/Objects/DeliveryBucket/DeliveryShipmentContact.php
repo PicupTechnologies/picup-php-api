@@ -40,7 +40,7 @@ class DeliveryShipmentContact implements JsonSerializable
      */
     public function setCustomerName(string $customerName): void
     {
-        $this->customerName = $customerName;
+        $this->customerName = trim($customerName);
     }
 
     /**
