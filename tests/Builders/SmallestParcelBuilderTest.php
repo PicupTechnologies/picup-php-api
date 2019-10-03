@@ -64,4 +64,44 @@ class SmallestParcelBuilderTest extends TestCase
         $parcel = $this->builder->find(200, 300, 401);
         $this->assertNull($parcel);
     }
+
+    /**
+     * Ensure the parcel builder sorts the incoming parcel list before
+     * attempting to find
+     */
+    public function testSortingWorks(): void
+    {
+        // Add a medium parcel
+        $parcels[] = new Parcel(
+            'parcel-medium',
+            'Medium Parcel',
+            new ParcelDimensions(200, 200, 200),
+            100
+        );
+
+        // Add a small parcel
+        $parcels[] = new Parcel(
+            'parcel-small',
+            'Small Parcel',
+            new ParcelDimensions(100, 100, 100),
+            50
+        );
+
+        // Add a large parcel
+        $parcels[] = new Parcel(
+            'parcel-large',
+            'Large Parcel',
+            new ParcelDimensions(300, 300, 300),
+            150
+        );
+
+        $this->builder = new SmallestParcelBuilder($parcels);
+
+        // The parcels should be sorted now
+
+        $parcels = $this->builder->getParcels();
+        $this->assertEquals('parcel-small', $parcels[0]->getId());
+        $this->assertEquals('parcel-medium', $parcels[1]->getId());
+        $this->assertEquals('parcel-large', $parcels[2]->getId());
+    }
 }

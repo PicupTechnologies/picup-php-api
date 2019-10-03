@@ -61,4 +61,14 @@ final class ParcelDimensions
     {
         return $this->length;
     }
+
+    /**
+     * Returns the total surface area of the parcel
+     *
+     * @return int
+     */
+    public function getArea(): int
+    {
+        return $this->height * $this->width * $this->length;
+    }
 }

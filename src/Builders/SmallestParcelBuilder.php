@@ -24,6 +24,19 @@ final class SmallestParcelBuilder
     public function __construct(array $parcels)
     {
         $this->parcels = $parcels;
+
+        // Immediately sort the parcels by area with the smallest first
+        usort($this->parcels, static function (Parcel $a, Parcel $b) {
+            return $a->getDimensions()->getArea() <=> $b->getDimensions()->getArea();
+        });
+    }
+
+    /**
+     * @return Parcel[]
+     */
+    public function getParcels(): array
+    {
+        return $this->parcels;
     }
 
     /**
@@ -38,6 +51,7 @@ final class SmallestParcelBuilder
      */
     public function find(int $height, int $width, int $length): ?Parcel
     {
+        // Now find the smallest one starting with the largest
         foreach ($this->parcels as $parcel) {
             $productDimensions = new ParcelDimensions($height, $width, $length);
 
