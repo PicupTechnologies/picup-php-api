@@ -32,6 +32,9 @@ class DeliveryShipmentContactTest extends TestCase
 
         $this->subject->setCustomerName($test);
         $this->assertEquals($test, $this->subject->getCustomerName());
+
+        $this->subject->setCustomerName(' bob bobby ');
+        $this->assertEquals('bob bobby', $this->subject->getCustomerName());
     }
 
     public function testCustomerPhone(): void
@@ -48,6 +51,9 @@ class DeliveryShipmentContactTest extends TestCase
 
         $this->subject->setEmailAddress($test);
         $this->assertEquals($test, $this->subject->getEmailAddress());
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->subject->setEmailAddress('invalid');
     }
 
     public function testSpecialInstructions(): void

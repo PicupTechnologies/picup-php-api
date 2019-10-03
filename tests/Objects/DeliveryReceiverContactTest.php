@@ -23,4 +23,21 @@ class DeliveryReceiverContactTest extends TestCase
         $contact->setCellphone('444');
         $this->assertEquals('444', $contact->getCellphone());
     }
+
+    public function testNameIsTrimmed(): void
+    {
+        $contact = new DeliveryReceiverContact();
+
+        $contact->setName(' Leon Schuster ');
+        $this->assertEquals('Leon Schuster', $contact->getName());
+    }
+
+    public function testEmailValidation(): void
+    {
+        $contact = new DeliveryReceiverContact();
+
+        $this->expectException(\InvalidArgumentException::class);
+
+        $contact->setEmail('leon');
+    }
 }
