@@ -132,7 +132,21 @@ final class PicupApi implements PicupApiInterface
     }
 
     /**
-     * Sends the DeliveryBucket to Picup to perform the actual delivery of a shipment
+     * Picup Enterprise is able to group multiple orders for a delivery
+     * into a "bucket" for processing. A bucket allows for multiple
+     * configurations of picup routes to be set, preferences and scheduling.
+     *
+     * Each order requires a unique Business Reference
+     *
+     * If the bucket details vary, a new bucket will be created.
+     *
+     * The warehouseId corresponds to the collection warehouse which will be
+     * set up during the enterprise business creation.
+     *
+     * Buckets can be dispatched when ready, after processing, costing and routing.
+     *
+     * Created buckets are available for viewing at:
+     * http://enterprise.codependent.digital/dashboard/buckets
      *
      * Warning: This sends the delivery to Picup for actual delivery!
      *
@@ -166,9 +180,12 @@ final class PicupApi implements PicupApiInterface
     }
 
     /**
-     * Fetches the integration details for a given business ID
+     * The Business Details call is a simple call, often useful to test
+     * your settings.
      *
-     * This returns the list of warehouses
+     * When successful, this call will return your authorization request, as
+     * well as our standard parcel sizes and any warehouses linked to your
+     * account.
      *
      * @param string $businessId
      *
