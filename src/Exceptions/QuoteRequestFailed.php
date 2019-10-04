@@ -16,7 +16,7 @@ use PicupTechnologies\PicupPHPApi\Requests\DeliveryQuoteRequest;
  *
  * @package PicupTechnologies\PicupPHPApi\Exceptions
  */
-class QuoteRequestFailed extends Exception
+class QuoteRequestFailed extends PicupApiException
 {
     /**
      * @var DeliveryQuoteRequest The quote request that failed
@@ -37,9 +37,9 @@ class QuoteRequestFailed extends Exception
         parent::__construct($message, $code);
     }
 
-    public function __toString()
+    public function __toString(): string
     {
-        return __CLASS__ . ": [{$this->code}]: {$this->message}\n";
+        return __CLASS__ . ": [Quote Request Failed]: {$this->message}\n";
     }
 
     /**

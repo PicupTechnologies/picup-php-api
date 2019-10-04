@@ -16,7 +16,7 @@ use PicupTechnologies\PicupPHPApi\Requests\DeliveryOrderRequest;
  *
  * @package PicupTechnologies\PicupPHPApi\Exceptions
  */
-class OrderRequestFailed extends Exception
+class OrderRequestFailed extends PicupApiException
 {
     /**
      * @var DeliveryOrderRequest The order request that failed
@@ -39,7 +39,7 @@ class OrderRequestFailed extends Exception
 
     public function __toString(): string
     {
-        return __CLASS__ . ": [{$this->code}]: {$this->message}\n";
+        return __CLASS__ . ": [Order Request Failed]]: {$this->message}\n";
     }
 
     /**
