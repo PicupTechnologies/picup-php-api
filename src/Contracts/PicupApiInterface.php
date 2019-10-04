@@ -11,6 +11,7 @@ namespace PicupTechnologies\PicupPHPApi\Contracts;
 use PicupTechnologies\PicupPHPApi\Requests\DeliveryBucketRequest;
 use PicupTechnologies\PicupPHPApi\Requests\DeliveryOrderRequest;
 use PicupTechnologies\PicupPHPApi\Requests\DeliveryQuoteRequest;
+use PicupTechnologies\PicupPHPApi\Requests\StandardBusinessRequest;
 use PicupTechnologies\PicupPHPApi\Responses\DeliveryIntegrationDetailsResponse;
 use PicupTechnologies\PicupPHPApi\Responses\DeliveryOrderResponse;
 use PicupTechnologies\PicupPHPApi\Responses\DeliveryQuoteResponse;
@@ -47,11 +48,11 @@ interface PicupApiInterface
     /**
      * Requests integration details for a given business ID
      *
-     * @param string $businessId
+     * @param StandardBusinessRequest $businessRequest
      *
      * @return DeliveryIntegrationDetailsResponse
      */
-    public function sendIntegrationDetailsRequest(string $businessId): DeliveryIntegrationDetailsResponse;
+    public function sendIntegrationDetailsRequest(StandardBusinessRequest $businessRequest): DeliveryIntegrationDetailsResponse;
 
     /**
      * Returns a list of all the current open Picups, including:
@@ -61,9 +62,9 @@ interface PicupApiInterface
      *  - Completed Parcels
      *  - Failed Parcels
      *
-     * @param string $businessId
+     * @param StandardBusinessRequest $businessRequest
      *
      * @return mixed
      */
-    public function sendDispatchSummaryRequest(string $businessId);
+    public function sendDispatchSummaryRequest(StandardBusinessRequest $businessRequest);
 }

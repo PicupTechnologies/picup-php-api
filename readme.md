@@ -119,10 +119,17 @@ If the Picup is valid, multiple service types will be returned with different co
     $deliveryBucket->setBucketDetails($deliveryBucketDetails);
     $deliveryBucket->setShipments([$deliveryShipment]);
 
+# General Requests
+The DeliveryIntegrationDetails request and DispatchSummary request is a simple request that only requires a Business Id.
+
+    $request = new StandardBusinessRequest('business-1234-5678');
+    $response = $api->sendIntegrationDetailsRequest($request);
+    $response = $api->sendDispatchSummaryRequest($request);
+
 # Api Interface
 
     public function sendQuoteRequest(DeliveryQuoteRequest $deliveryQuoteRequest): DeliveryQuoteResponse;
     public function sendOrderRequest(DeliveryOrderRequest $deliveryOrderRequest): DeliveryOrderResponse;
     public function sendDeliveryBucket(DeliveryBucketRequest $deliveryBucketRequest): DeliveryOrderResponse;
-    public function sendIntegrationDetailsRequest(string $businessId): DeliveryIntegrationDetailsResponse;
-    public function sendDispatchSummaryRequest(string $businessId); DispatchSummeryResponse
+    public function sendIntegrationDetailsRequest(StandardBusinessRequest $request): DeliveryIntegrationDetailsResponse;
+    public function sendDispatchSummaryRequest(StandardBusinessRequest $request); DispatchSummeryResponse

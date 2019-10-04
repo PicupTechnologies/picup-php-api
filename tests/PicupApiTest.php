@@ -11,7 +11,9 @@ use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 use PicupTechnologies\PicupPHPApi\Exceptions\PicupApiException;
 use PicupTechnologies\PicupPHPApi\Exceptions\PicupApiKeyInvalid;
+use PicupTechnologies\PicupPHPApi\Exceptions\PicupRequestFailed;
 use PicupTechnologies\PicupPHPApi\PicupApi;
+use PicupTechnologies\PicupPHPApi\Requests\StandardBusinessRequest;
 use PicupTechnologies\PicupPHPApi\Tests\Fixtures\DeliveryBucketRequestFixture;
 use PicupTechnologies\PicupPHPApi\Tests\Fixtures\OrderRequestFixture;
 use PicupTechnologies\PicupPHPApi\Tests\Fixtures\QuoteRequestFixture;
@@ -65,6 +67,54 @@ class PicupApiTest extends TestCase
         $picupApi->setLive();
         $prefix = $picupApi->getApiPrefix();
         $this->assertContains('knupprd', $prefix);
+    }
+
+    /**
+     * @throws PicupApiException
+     * @throws PicupApiKeyInvalid
+     * @throws PicupRequestFailed
+     */
+    public function testApiKeyIsMalformed(): void
+    {
+        $data = [
+            'message' => 'Identity is invalid'
+        ];
+        $mock = new MockHandler([new Response(401, [], json_encode($data))]);
+        $handler = HandlerStack::create($mock);
+        $client = new Client(['handler' => $handler]);
+
+        $apiKey = 'api-key-123-456';
+        $picupApi = new PicupApi($client, $apiKey);
+        $this->assertEquals($apiKey, $picupApi->getApiKey());
+
+        $businessRequest = new StandardBusinessRequest('malformed-uuid');
+
+        $this->expectException(PicupApiKeyInvalid::class);
+        $picupApi->sendIntegrationDetailsRequest($businessRequest);
+    }
+
+    /**
+     * @throws PicupApiException
+     * @throws PicupApiKeyInvalid
+     * @throws PicupRequestFailed
+     */
+    public function testApiKeyIsIncorrect(): void
+    {
+        $data = [
+            'message' => 'Authorization has been denied'
+        ];
+        $mock = new MockHandler([new Response(401, [], json_encode($data))]);
+        $handler = HandlerStack::create($mock);
+        $client = new Client(['handler' => $handler]);
+
+        $apiKey = 'api-key-123-456';
+        $picupApi = new PicupApi($client, $apiKey);
+        $this->assertEquals($apiKey, $picupApi->getApiKey());
+
+        $businessRequest = new StandardBusinessRequest('valid-uuid-but-auth-denied');
+
+        $this->expectException(PicupApiKeyInvalid::class);
+        $picupApi->sendIntegrationDetailsRequest($businessRequest);
     }
 
     /**
@@ -309,7 +359,7 @@ class PicupApiTest extends TestCase
 
     /**
      * @throws PicupApiException
-     * @throws \PicupTechnologies\PicupPHPApi\Exceptions\PicupApiKeyInvalid
+     * @throws PicupApiKeyInvalid
      */
     public function testSendIntegrationDetailsRequestWithValidApiKey(): void
     {
@@ -332,7 +382,8 @@ class PicupApiTest extends TestCase
 
         $picupApi = new PicupApi($client, 'api-123');
 
-        $apiResponse = $picupApi->sendIntegrationDetailsRequest('123-456');
+        $request = new StandardBusinessRequest('123-456');
+        $apiResponse = $picupApi->sendIntegrationDetailsRequest($request);
 
         // ASSERT REQUEST WAS CORRECT
 
@@ -359,7 +410,7 @@ class PicupApiTest extends TestCase
 
     /**
      * @throws PicupApiException
-     * @throws \PicupTechnologies\PicupPHPApi\Exceptions\PicupApiKeyInvalid
+     * @throws PicupApiKeyInvalid
      */
     public function testSendIntegrationDetailsRequestWithInvalidApiKey(): void
     {
@@ -376,7 +427,8 @@ class PicupApiTest extends TestCase
 
         $this->expectException(PicupApiKeyInvalid::class);
 
-        $picupApi->sendIntegrationDetailsRequest('123-456');
+        $request = new StandardBusinessRequest('123-456');
+        $picupApi->sendIntegrationDetailsRequest($request);
     }
 
     /**
@@ -396,7 +448,8 @@ class PicupApiTest extends TestCase
 
         $this->expectException(PicupApiKeyInvalid::class);
 
-        $picupApi->sendIntegrationDetailsRequest('123-456');
+        $request = new StandardBusinessRequest('123-456');
+        $picupApi->sendIntegrationDetailsRequest($request);
     }
 
     /**
@@ -414,10 +467,11 @@ class PicupApiTest extends TestCase
 
         $picupApi = new PicupApi($client, 'api-123');
 
-        $this->expectException(PicupApiException::class);
-        $this->expectExceptionMessage('IntegrationDetails Error: something else broke');
+        $this->expectException(PicupRequestFailed::class);
+        $this->expectExceptionMessage('IntegrationDetails Error: {"Message":"something else broke"}');
 
-        $picupApi->sendIntegrationDetailsRequest('123-456');
+        $request = new StandardBusinessRequest('123-456');
+        $picupApi->sendIntegrationDetailsRequest($request);
     }
 
     /**
@@ -452,7 +506,8 @@ class PicupApiTest extends TestCase
 
         $picupApi = new PicupApi($client, 'api-123');
 
-        $dispatchSummary = $picupApi->sendDispatchSummaryRequest('123-456');
+        $request = new StandardBusinessRequest('123-456');
+        $dispatchSummary = $picupApi->sendDispatchSummaryRequest($request);
 
         // ASSERT RETURNED OBJECT IS CORRECT
 
@@ -474,8 +529,9 @@ class PicupApiTest extends TestCase
         $picupApi = new PicupApi($client, 'api-123');
 
         $this->expectException(PicupApiException::class);
-        $this->expectExceptionMessage('DispatchSummary Error: {"Message":"something broke again"}');
+        $this->expectExceptionMessage('something broke again');
 
-        $picupApi->sendDispatchSummaryRequest('123-456');
+        $request = new StandardBusinessRequest('123-456');
+        $picupApi->sendDispatchSummaryRequest($request);
     }
 }

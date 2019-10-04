@@ -12,7 +12,7 @@ class PicupApiExceptionTest extends TestCase
         try {
             throw new PicupApiException('Hello World');
         } catch (PicupApiException $e) {
-            $this->assertContains('PicupApiException: [0]: Hello World', (string)$e);
+            $this->assertContains('PicupApiException: Hello World', (string)$e);
         }
     }
 }

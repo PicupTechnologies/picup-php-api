@@ -11,8 +11,5 @@ use Exception;
  */
 class PicupApiKeyInvalid extends PicupApiException
 {
-    public function __toString(): string
-    {
-        return __CLASS__ . ": [Picup Api Key invalid]: {$this->message}\n";
-    }
+
 }

@@ -4,6 +4,7 @@ namespace PicupTechnologies\PicupPHPApi\Requests;
 
 use DateTime;
 use JsonSerializable;
+use PicupTechnologies\PicupPHPApi\Contracts\PicupRequest;
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryReceiver;
 use PicupTechnologies\PicupPHPApi\Objects\DeliverySender;
 
@@ -12,7 +13,7 @@ use PicupTechnologies\PicupPHPApi\Objects\DeliverySender;
  *
  * @package PicupTechnologies\PicupPHPApi\Requests
  */
-class DeliveryQuoteRequest implements JsonSerializable
+class DeliveryQuoteRequest implements PicupRequest, JsonSerializable
 {
     /**
      * Merchant UUID

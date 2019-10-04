@@ -12,7 +12,7 @@ class PicupApiKeyInvalidTest extends TestCase
         try {
             throw new PicupApiKeyInvalid('Key invalid');
         } catch (PicupApiKeyInvalid $e) {
-            $this->assertContains('PicupApiKeyInvalid: [0]: Key invalid', (string)$e);
+            $this->assertContains('PicupApiKeyInvalid: Key invalid', (string)$e);
         }
     }
 }

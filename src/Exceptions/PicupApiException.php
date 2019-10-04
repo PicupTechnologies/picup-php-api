@@ -26,6 +26,8 @@ class PicupApiException extends Exception
 
     public function __toString(): string
     {
-        return __CLASS__ . ": [Picup API General Error]: {$this->message}\n";
+        $className = basename(str_replace('\\', '/', static::class));
+
+        return "{$className}: {$this->message}\n";
     }
 }

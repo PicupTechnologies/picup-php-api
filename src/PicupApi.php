@@ -5,10 +5,9 @@ namespace PicupTechnologies\PicupPHPApi;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use PicupTechnologies\PicupPHPApi\Contracts\PicupApiInterface;
-use PicupTechnologies\PicupPHPApi\Exceptions\OrderRequestFailed;
 use PicupTechnologies\PicupPHPApi\Exceptions\PicupApiException;
 use PicupTechnologies\PicupPHPApi\Exceptions\PicupApiKeyInvalid;
-use PicupTechnologies\PicupPHPApi\Exceptions\QuoteRequestFailed;
+use PicupTechnologies\PicupPHPApi\Exceptions\PicupRequestFailed;
 use PicupTechnologies\PicupPHPApi\Factories\DeliveryIntegrationDetailsResponseFactory;
 use PicupTechnologies\PicupPHPApi\Factories\DeliveryOrderResponseFactory;
 use PicupTechnologies\PicupPHPApi\Factories\DeliveryQuoteResponseFactory;
@@ -16,6 +15,7 @@ use PicupTechnologies\PicupPHPApi\Factories\DispatchSummaryResponseFactory;
 use PicupTechnologies\PicupPHPApi\Requests\DeliveryBucketRequest;
 use PicupTechnologies\PicupPHPApi\Requests\DeliveryOrderRequest;
 use PicupTechnologies\PicupPHPApi\Requests\DeliveryQuoteRequest;
+use PicupTechnologies\PicupPHPApi\Requests\StandardBusinessRequest;
 use PicupTechnologies\PicupPHPApi\Responses\DeliveryIntegrationDetailsResponse;
 use PicupTechnologies\PicupPHPApi\Responses\DeliveryOrderResponse;
 use PicupTechnologies\PicupPHPApi\Responses\DeliveryQuoteResponse;
@@ -72,8 +72,10 @@ final class PicupApi implements PicupApiInterface
      * @param DeliveryQuoteRequest $deliveryQuoteRequest
      *
      * @return DeliveryQuoteResponse
-     * @throws PicupApiKeyInvalid
-     * @throws QuoteRequestFailed
+     *
+     * @throws PicupRequestFailed  Should there be a problem with the request
+     * @throws PicupApiKeyInvalid  Should the API key be invalid
+     * @throws PicupApiException   Should a general problem occur
      */
     public function sendQuoteRequest(DeliveryQuoteRequest $deliveryQuoteRequest): DeliveryQuoteResponse
     {
@@ -92,13 +94,11 @@ final class PicupApi implements PicupApiInterface
             $msg = $e->getMessage();
             if ($response = $e->getResponse()) {
                 $msg = $response->getBody()->getContents();
-
-                /** @throws PicupApiKeyInvalid */
                 $this->checkResponseForErrors($msg);
             }
             $errorMessage = 'QuoteRequest Error: ' . $msg;
 
-            throw new QuoteRequestFailed($deliveryQuoteRequest, $errorMessage);
+            throw new PicupRequestFailed($deliveryQuoteRequest, $errorMessage);
         }
     }
 
@@ -111,8 +111,9 @@ final class PicupApi implements PicupApiInterface
      *
      * @return DeliveryOrderResponse Containing the request_id
      *
-     * @throws OrderRequestFailed
-     * @throws PicupApiKeyInvalid
+     * @throws PicupRequestFailed  Should there be a problem with the request
+     * @throws PicupApiKeyInvalid  Should the API key be invalid
+     * @throws PicupApiException   Should a general problem occur
      */
     public function sendOrderRequest(DeliveryOrderRequest $deliveryOrderRequest): DeliveryOrderResponse
     {
@@ -131,13 +132,11 @@ final class PicupApi implements PicupApiInterface
             $msg = $e->getMessage();
             if ($response = $e->getResponse()) {
                 $msg = $response->getBody()->getContents();
-
-                /** @throws PicupApiKeyInvalid */
                 $this->checkResponseForErrors($msg);
             }
             $errorMessage = 'OrderRequest Error: ' . $msg;
 
-            throw new OrderRequestFailed($deliveryOrderRequest, $errorMessage);
+            throw new PicupRequestFailed($deliveryOrderRequest, $errorMessage);
         }
     }
 
@@ -163,7 +162,10 @@ final class PicupApi implements PicupApiInterface
      * @param DeliveryBucketRequest $deliveryBucket
      *
      * @return DeliveryOrderResponse
-     * @throws PicupApiException
+     *
+     * @throws PicupRequestFailed  Should there be a problem with the request
+     * @throws PicupApiKeyInvalid  Should the API key be invalid
+     * @throws PicupApiException   Should a general problem occur
      */
     public function sendDeliveryBucket(DeliveryBucketRequest $deliveryBucket): DeliveryOrderResponse
     {
@@ -182,13 +184,11 @@ final class PicupApi implements PicupApiInterface
             $msg = $e->getMessage();
             if ($response = $e->getResponse()) {
                 $msg = $response->getBody()->getContents();
-
-                /** @throws PicupApiKeyInvalid */
                 $this->checkResponseForErrors($msg);
             }
             $errorMessage = 'DeliveryBucket Error: ' . $msg;
 
-            throw new PicupApiException($errorMessage);
+            throw new PicupRequestFailed($deliveryBucket, $errorMessage);
         }
     }
 
@@ -200,16 +200,18 @@ final class PicupApi implements PicupApiInterface
      * well as our standard parcel sizes and any warehouses linked to your
      * account.
      *
-     * @param string $businessId
+     * @param StandardBusinessRequest $businessRequest
      *
      * @return DeliveryIntegrationDetailsResponse
-     * @throws PicupApiKeyInvalid
-     * @throws PicupApiException
+     *
+     * @throws PicupRequestFailed  Should there be a problem with the request
+     * @throws PicupApiKeyInvalid  Should the API key be invalid
+     * @throws PicupApiException   Should a general problem occur
      */
-    public function sendIntegrationDetailsRequest(string $businessId): DeliveryIntegrationDetailsResponse
+    public function sendIntegrationDetailsRequest(StandardBusinessRequest $businessRequest): DeliveryIntegrationDetailsResponse
     {
         $urlTemplate = $this->apiPrefix . $this->endpointIntegrationDetails;
-        $endpoint = sprintf($urlTemplate, $businessId);
+        $endpoint = sprintf($urlTemplate, $businessRequest->getBusinessId());
 
         try {
             $response = $this->httpClient->get($endpoint);
@@ -227,13 +229,11 @@ final class PicupApi implements PicupApiInterface
             $msg = $e->getMessage();
             if ($response = $e->getResponse()) {
                 $msg = $response->getBody()->getContents();
-
-                /** @throws PicupApiKeyInvalid */
                 $this->checkResponseForErrors($msg);
             }
 
             $errorMessage = 'IntegrationDetails Error: ' . $msg;
-            throw new PicupApiException($errorMessage);
+            throw new PicupRequestFailed($businessRequest, $errorMessage);
         }
     }
 
@@ -245,16 +245,16 @@ final class PicupApi implements PicupApiInterface
      *  - Completed Parcels
      *  - Failed Parcels
      *
-     * @param string $businessId
+     * @param StandardBusinessRequest $businessRequest
      *
      * @return DispatchSummaryResponse
      * @throws PicupApiException
      */
-    public function sendDispatchSummaryRequest(string $businessId): DispatchSummaryResponse
+    public function sendDispatchSummaryRequest(StandardBusinessRequest $businessRequest): DispatchSummaryResponse
     {
         $headers = ['api-key' => $this->apiKey];
         $urlTemplate = $this->apiPrefix . $this->endpointDispatchSummary;
-        $endpoint = sprintf($urlTemplate, $businessId);
+        $endpoint = sprintf($urlTemplate, $businessRequest->getBusinessId());
 
         try {
             $response = $this->httpClient->get($endpoint, [
@@ -268,13 +268,11 @@ final class PicupApi implements PicupApiInterface
             $msg = $e->getMessage();
             if ($response = $e->getResponse()) {
                 $msg = $response->getBody()->getContents();
-
-                /** @throws PicupApiKeyInvalid */
                 $this->checkResponseForErrors($msg);
             }
             $errorMessage = 'DispatchSummary Error: ' . $msg;
 
-            throw new PicupApiException($errorMessage);
+            throw new PicupRequestFailed($businessRequest, $errorMessage);
         }
     }
 
@@ -284,11 +282,16 @@ final class PicupApi implements PicupApiInterface
      * @param string $response
      *
      * @throws PicupApiKeyInvalid
+     * @throws PicupApiException
      */
     private function checkResponseForErrors(string $response): void
     {
         // picup enterprise sometimes responds with message and sometimes Message
         $decoded = array_change_key_case(json_decode($response, true));
+
+        if (!isset($decoded['message'])) {
+            return;
+        }
 
         // Key is malformed
         if (stripos($decoded['message'], 'Identity is invalid') !== false) {
