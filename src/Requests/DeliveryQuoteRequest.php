@@ -31,7 +31,7 @@ class DeliveryQuoteRequest implements JsonSerializable
     private $isForContractDriver = false;
 
     private $userId = '';
-    private $courierCosting = 'NONE';
+    private $courierCosting = 'ALL';
 
     /**
      * Scheduled date
@@ -49,6 +49,11 @@ class DeliveryQuoteRequest implements JsonSerializable
      * @var DeliveryReceiver[]
      */
     private $receivers;
+
+    /**
+     * @var bool Whether the quote must optimize waypoints or not
+     */
+    private $optimizeWaypoints = true;
 
     /**
      * @return string
@@ -187,6 +192,22 @@ class DeliveryQuoteRequest implements JsonSerializable
     }
 
     /**
+     * @return bool
+     */
+    public function isOptimizeWaypoints(): bool
+    {
+        return $this->optimizeWaypoints;
+    }
+
+    /**
+     * @param bool $optimizeWaypoints
+     */
+    public function setOptimizeWaypoints(bool $optimizeWaypoints): void
+    {
+        $this->optimizeWaypoints = $optimizeWaypoints;
+    }
+
+    /**
      * Specify data which should be serialized to JSON
      *
      * @link  http://php.net/manual/en/jsonserializable.jsonserialize.php
@@ -205,6 +226,7 @@ class DeliveryQuoteRequest implements JsonSerializable
             'courier_costing'               => $this->courierCosting,
             'sender'                        => $this->sender,
             'receivers'                     => $this->receivers,
+            'optimize_waypoints'            => $this->optimizeWaypoints
         ];
 
         return $quote;
