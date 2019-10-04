@@ -13,7 +13,9 @@ use PicupTechnologies\PicupPHPApi\Exceptions\PicupApiException;
 use PicupTechnologies\PicupPHPApi\Exceptions\PicupApiKeyInvalid;
 use PicupTechnologies\PicupPHPApi\Exceptions\PicupRequestFailed;
 use PicupTechnologies\PicupPHPApi\PicupApi;
+use PicupTechnologies\PicupPHPApi\Requests\OrderStatusRequest;
 use PicupTechnologies\PicupPHPApi\Requests\StandardBusinessRequest;
+use PicupTechnologies\PicupPHPApi\Responses\OrderStatusResponse;
 use PicupTechnologies\PicupPHPApi\Tests\Fixtures\DeliveryBucketRequestFixture;
 use PicupTechnologies\PicupPHPApi\Tests\Fixtures\OrderRequestFixture;
 use PicupTechnologies\PicupPHPApi\Tests\Fixtures\QuoteRequestFixture;
@@ -87,7 +89,7 @@ class PicupApiTest extends TestCase
         $picupApi = new PicupApi($client, $apiKey);
         $this->assertEquals($apiKey, $picupApi->getApiKey());
 
-        $businessRequest = new StandardBusinessRequest('malformed-uuid');
+        $businessRequest = new StandardBusinessRequest('business-1234-45676');
 
         $this->expectException(PicupApiKeyInvalid::class);
         $picupApi->sendIntegrationDetailsRequest($businessRequest);
@@ -111,7 +113,7 @@ class PicupApiTest extends TestCase
         $picupApi = new PicupApi($client, $apiKey);
         $this->assertEquals($apiKey, $picupApi->getApiKey());
 
-        $businessRequest = new StandardBusinessRequest('valid-uuid-but-auth-denied');
+        $businessRequest = new StandardBusinessRequest('business-valid-uuid-but-auth-denied');
 
         $this->expectException(PicupApiKeyInvalid::class);
         $picupApi->sendIntegrationDetailsRequest($businessRequest);
@@ -382,7 +384,7 @@ class PicupApiTest extends TestCase
 
         $picupApi = new PicupApi($client, 'api-123');
 
-        $request = new StandardBusinessRequest('123-456');
+        $request = new StandardBusinessRequest('business-123-456');
         $apiResponse = $picupApi->sendIntegrationDetailsRequest($request);
 
         // ASSERT REQUEST WAS CORRECT
@@ -393,7 +395,7 @@ class PicupApiTest extends TestCase
         // Ensure the correct url was used
         $this->assertEquals('https', $sentRequest->getUri()->getScheme());
         $this->assertEquals('otdcpt-knupqa.onthedot.co.za', $sentRequest->getUri()->getHost());
-        $this->assertEquals('/picup-api/v1/integration/123-456/details', $sentRequest->getUri()->getPath());
+        $this->assertEquals('/picup-api/v1/integration/business-123-456/details', $sentRequest->getUri()->getPath());
 
         // ASSERT RETURNED OBJECT IS CORRECT
 
@@ -427,7 +429,7 @@ class PicupApiTest extends TestCase
 
         $this->expectException(PicupApiKeyInvalid::class);
 
-        $request = new StandardBusinessRequest('123-456');
+        $request = new StandardBusinessRequest('business-123-456');
         $picupApi->sendIntegrationDetailsRequest($request);
     }
 
@@ -448,7 +450,7 @@ class PicupApiTest extends TestCase
 
         $this->expectException(PicupApiKeyInvalid::class);
 
-        $request = new StandardBusinessRequest('123-456');
+        $request = new StandardBusinessRequest('business-123-456');
         $picupApi->sendIntegrationDetailsRequest($request);
     }
 
@@ -470,7 +472,7 @@ class PicupApiTest extends TestCase
         $this->expectException(PicupRequestFailed::class);
         $this->expectExceptionMessage('IntegrationDetails Error: {"Message":"something else broke"}');
 
-        $request = new StandardBusinessRequest('123-456');
+        $request = new StandardBusinessRequest('business-123-456');
         $picupApi->sendIntegrationDetailsRequest($request);
     }
 
@@ -506,7 +508,7 @@ class PicupApiTest extends TestCase
 
         $picupApi = new PicupApi($client, 'api-123');
 
-        $request = new StandardBusinessRequest('123-456');
+        $request = new StandardBusinessRequest('business-123-456');
         $dispatchSummary = $picupApi->sendDispatchSummaryRequest($request);
 
         // ASSERT RETURNED OBJECT IS CORRECT
@@ -531,7 +533,52 @@ class PicupApiTest extends TestCase
         $this->expectException(PicupApiException::class);
         $this->expectExceptionMessage('something broke again');
 
-        $request = new StandardBusinessRequest('123-456');
+        $request = new StandardBusinessRequest('business-123-456');
         $picupApi->sendDispatchSummaryRequest($request);
+    }
+
+    /**
+     *
+     * @throws PicupApiException
+     * @throws PicupApiKeyInvalid
+     * @throws PicupRequestFailed
+     */
+    public function testSendOrderStatusRequest(): void
+    {
+        $data = [];
+        $container = [];
+        $history = Middleware::history($container);
+        $mock = new MockHandler([new Response(200, [], json_encode($data))]);
+        $handler = HandlerStack::create($mock);
+        $handler->push($history);
+        $client = new Client(['handler' => $handler]);
+
+        $picupApi = new PicupApi($client, 'business-123');
+
+        $request = new OrderStatusRequest(['ref-555']);
+
+        $picupApi->sendOrderStatusRequest($request);
+
+        /** @var Request $sentRequest */
+        $sentRequest = $container[0]['request'];
+
+        $this->assertEquals('https', $sentRequest->getUri()->getScheme());
+        $this->assertEquals('otdcpt-knupqa.onthedot.co.za', $sentRequest->getUri()->getHost());
+        $this->assertEquals('/picup-api/v1/integration/order-status', $sentRequest->getUri()->getPath());
+    }
+
+    public function testSendOrderStatusRequestFailure(): void
+    {
+        $data = [];
+        $mock = new MockHandler([new Response(500, [], json_encode($data))]);
+        $handler = HandlerStack::create($mock);
+        $client = new Client(['handler' => $handler]);
+
+        $picupApi = new PicupApi($client, 'business-123');
+
+        $request = new OrderStatusRequest(['ref-555']);
+
+        $this->expectException(PicupRequestFailed::class);
+        $picupApi->sendOrderStatusRequest($request);
     }
 }

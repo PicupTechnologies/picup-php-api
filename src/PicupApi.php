@@ -12,14 +12,17 @@ use PicupTechnologies\PicupPHPApi\Factories\DeliveryIntegrationDetailsResponseFa
 use PicupTechnologies\PicupPHPApi\Factories\DeliveryOrderResponseFactory;
 use PicupTechnologies\PicupPHPApi\Factories\DeliveryQuoteResponseFactory;
 use PicupTechnologies\PicupPHPApi\Factories\DispatchSummaryResponseFactory;
+use PicupTechnologies\PicupPHPApi\Factories\OrderStatusResponseFactory;
 use PicupTechnologies\PicupPHPApi\Requests\DeliveryBucketRequest;
 use PicupTechnologies\PicupPHPApi\Requests\DeliveryOrderRequest;
 use PicupTechnologies\PicupPHPApi\Requests\DeliveryQuoteRequest;
+use PicupTechnologies\PicupPHPApi\Requests\OrderStatusRequest;
 use PicupTechnologies\PicupPHPApi\Requests\StandardBusinessRequest;
 use PicupTechnologies\PicupPHPApi\Responses\DeliveryIntegrationDetailsResponse;
 use PicupTechnologies\PicupPHPApi\Responses\DeliveryOrderResponse;
 use PicupTechnologies\PicupPHPApi\Responses\DeliveryQuoteResponse;
 use PicupTechnologies\PicupPHPApi\Responses\DispatchSummaryResponse;
+use PicupTechnologies\PicupPHPApi\Responses\OrderStatusResponse;
 
 /**
  * PicupApi
@@ -53,6 +56,7 @@ final class PicupApi implements PicupApiInterface
     private $endpointAddBucket = '/integration/add-to-bucket';
     private $endpointIntegrationDetails = '/integration/%s/details';
     private $endpointDispatchSummary = '/integration/%s/dispatch-summary';
+    private $endpointOrderStatus = '/integration/order-status';
 
     /**
      * PicupApi constructor.
@@ -273,6 +277,41 @@ final class PicupApi implements PicupApiInterface
             $errorMessage = 'DispatchSummary Error: ' . $msg;
 
             throw new PicupRequestFailed($businessRequest, $errorMessage);
+        }
+    }
+
+    /**
+     * @param OrderStatusRequest $request
+     *
+     * @return OrderStatusResponse
+     *
+     * @throws PicupApiException
+     * @throws PicupApiKeyInvalid
+     * @throws PicupRequestFailed
+     */
+    public function sendOrderStatusRequest(OrderStatusRequest $request): OrderStatusResponse
+    {
+        $headers = ['api-key' => $this->apiKey];
+        $endpoint = $this->apiPrefix . $this->endpointOrderStatus;
+
+        try {
+            $response = $this->httpClient->post($endpoint, [
+                'headers' => $headers,
+                'json' => $request,
+            ]);
+
+            $body = json_decode($response->getBody()->getContents(), true);
+
+            return OrderStatusResponseFactory::make($body);
+        } catch (RequestException $e) {
+            $msg = $e->getMessage();
+            if ($response = $e->getResponse()) {
+                $msg = $response->getBody()->getContents();
+                $this->checkResponseForErrors($msg);
+            }
+            $errorMessage = 'DispatchSummary Error: ' . $msg;
+
+            throw new PicupRequestFailed($request, $errorMessage);
         }
     }
 

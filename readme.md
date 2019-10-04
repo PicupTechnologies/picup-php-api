@@ -15,6 +15,7 @@ We are currently supporting:
 - /integration/add-to-bucket
 - /integration/%s/details
 - /integration/%s/dispatch-summary
+- /integration/order-status
 
 # General Usage
 You will be provided with an API key from Picup to enter into the plugin. You will receive a separate
