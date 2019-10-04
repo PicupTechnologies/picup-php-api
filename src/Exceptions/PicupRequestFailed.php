@@ -8,9 +8,7 @@
 
 namespace PicupTechnologies\PicupPHPApi\Exceptions;
 
-use Exception;
-use PicupTechnologies\PicupPHPApi\Contracts\PicupRequest;
-use PicupTechnologies\PicupPHPApi\Requests\DeliveryOrderRequest;
+use PicupTechnologies\PicupPHPApi\Contracts\PicupRequestInterface;
 
 /**
  * Exception that is thrown when an Order Request fails
@@ -22,18 +20,18 @@ class PicupRequestFailed extends PicupApiException
     /**
      * Stores the picup request that we attempted to send
      *
-     * @var PicupRequest $picupRequest
+     * @var PicupRequestInterface $picupRequest
      */
     private $picupRequest;
 
     /**
      * OrderRequestFailed constructor.
      *
-     * @param PicupRequest $picupRequest
-     * @param string       $message
-     * @param int          $code
+     * @param PicupRequestInterface $picupRequest
+     * @param string                $message
+     * @param int                   $code
      */
-    public function __construct(PicupRequest $picupRequest, string $message, int $code = 0)
+    public function __construct(PicupRequestInterface $picupRequest, string $message, int $code = 0)
     {
         $this->picupRequest = $picupRequest;
 
@@ -43,9 +41,9 @@ class PicupRequestFailed extends PicupApiException
     /**
      * Returns the picup request that failed
      *
-     * @return PicupRequest
+     * @return PicupRequestInterface
      */
-    public function getPicupRequest(): PicupRequest
+    public function getPicupRequest(): PicupRequestInterface
     {
         return $this->picupRequest;
     }

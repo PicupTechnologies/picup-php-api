@@ -9,7 +9,7 @@
 namespace PicupTechnologies\PicupPHPApi\Requests;
 
 use JsonSerializable;
-use PicupTechnologies\PicupPHPApi\Contracts\PicupRequest;
+use PicupTechnologies\PicupPHPApi\Contracts\PicupRequestInterface;
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryBucket\DeliveryBucketDetails;
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryBucket\DeliveryShipment;
 
@@ -18,7 +18,7 @@ use PicupTechnologies\PicupPHPApi\Objects\DeliveryBucket\DeliveryShipment;
  *
  * @package PicupTechnologies\PicupPHPApi\Requests
  */
-class DeliveryBucketRequest implements PicupRequest, JsonSerializable
+class DeliveryBucketRequest implements PicupRequestInterface, JsonSerializable
 {
     /**
      * @var DeliveryBucketDetails

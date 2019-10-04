@@ -11,6 +11,7 @@ namespace PicupTechnologies\PicupPHPApi\Requests;
 use DateTime;
 use JsonSerializable;
 use PicupTechnologies\PicupPHPApi\Contracts\PicupRequest;
+use PicupTechnologies\PicupPHPApi\Contracts\PicupRequestInterface;
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryReceiver;
 use PicupTechnologies\PicupPHPApi\Objects\DeliverySender;
 
@@ -35,7 +36,7 @@ use PicupTechnologies\PicupPHPApi\Objects\DeliverySender;
  * @url http://enterprise.codependent.digital/dashboard/post-dispatch
  * @package PicupTechnologies\PicupPHPApi\Requests
  */
-class DeliveryOrderRequest implements PicupRequest, JsonSerializable
+class DeliveryOrderRequest implements PicupRequestInterface, JsonSerializable
 {
     private $merchantId;
     private $customerRef;

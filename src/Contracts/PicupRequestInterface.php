@@ -7,7 +7,7 @@ namespace PicupTechnologies\PicupPHPApi\Contracts;
  *
  * @package PicupTechnologies\PicupPHPApi\Contracts
  */
-interface PicupRequest
+interface PicupRequestInterface
 {
 
 }

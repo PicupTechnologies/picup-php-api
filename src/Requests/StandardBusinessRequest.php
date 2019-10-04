@@ -2,7 +2,7 @@
 
 namespace PicupTechnologies\PicupPHPApi\Requests;
 
-use PicupTechnologies\PicupPHPApi\Contracts\PicupRequest;
+use PicupTechnologies\PicupPHPApi\Contracts\PicupRequestInterface;
 
 /**
  * Contains a standard business_id request used in:
@@ -11,7 +11,7 @@ use PicupTechnologies\PicupPHPApi\Contracts\PicupRequest;
  *
  * @package PicupTechnologies\PicupPHPApi\Requests
  */
-class StandardBusinessRequest implements PicupRequest
+class StandardBusinessRequest implements PicupRequestInterface
 {
     /**
      * @var string UUID of business id
