@@ -2,6 +2,7 @@
 
 namespace PicupTechnologies\PicupPHPApi\Requests;
 
+use InvalidArgumentException;
 use PicupTechnologies\PicupPHPApi\Contracts\PicupRequestInterface;
 
 /**
@@ -25,6 +26,9 @@ class StandardBusinessRequest implements PicupRequestInterface
      */
     public function __construct(string $businessId)
     {
+        if (strpos($businessId, 'business-') !== 0) {
+            throw new InvalidArgumentException('Supplied businessId must begin with the business prefix');
+        }
         $this->businessId = $businessId;
     }
 
