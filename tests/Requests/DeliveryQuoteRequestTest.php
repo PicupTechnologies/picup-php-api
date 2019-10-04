@@ -52,6 +52,11 @@ class DeliveryQuoteRequestTest extends TestCase
         $deliveryQuoteRequest->setCourierCosting($test);
         $this->assertEquals($test, $deliveryQuoteRequest->getCourierCosting());
 
+        $deliveryQuoteRequest->setOptimizeWaypoints(true);
+        $this->assertTrue($deliveryQuoteRequest->isOptimizeWaypoints());
+        $deliveryQuoteRequest->setOptimizeWaypoints(false);
+        $this->assertFalse($deliveryQuoteRequest->isOptimizeWaypoints());
+
         $senderAddress = new DeliverySenderAddress();
         $senderAddress->setWarehouseId('warehouse-123');
         $senderContact = new DeliverySenderContact();
