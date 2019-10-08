@@ -9,8 +9,11 @@ jobs:
       - uses: actions/checkout@v1
         with:
           fetch-depth: 1
+      - name: Install system dependencies
+        run: apk --update add curl && rm /var/cache/apk/*
+      - name: Install composer
+        run: curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
       - name: Install composer dependencies
-        run: |
-          composer install --prefer-dist --no-scripts -q -o;
+        run: composer install --prefer-dist --no-scripts -q -o
       - name: Run Testsuite
         run: vendor/bin/phpunit tests/
