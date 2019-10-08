@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PicupTechnologies\PicupPHPApi\Tests\Builders;
 
-use PicupTechnologies\PicupPHPApi\Builders\SmallestParcelBuilder;
 use PHPUnit\Framework\TestCase;
+use PicupTechnologies\PicupPHPApi\Builders\SmallestParcelBuilder;
 use PicupTechnologies\PicupPHPApi\Objects\Parcel;
 use PicupTechnologies\PicupPHPApi\Objects\ParcelDimensions;
 
@@ -12,7 +14,7 @@ class SmallestParcelBuilderTest extends TestCase
     /** @var SmallestParcelBuilder */
     private $builder;
 
-    public function setUp()
+    protected function setUp() : void
     {
         parent::setUp();
 
@@ -33,22 +35,22 @@ class SmallestParcelBuilderTest extends TestCase
         $this->builder = new SmallestParcelBuilder($parcels);
     }
 
-    public function testProductTooBigForSmall(): void
+    public function testProductTooBigForSmall() : void
     {
         // test height
         $parcel = $this->builder->find(99, 100, 300);
-        $this->assertEquals('parcel-small', $parcel->getId());
+        $this->assertSame('parcel-small', $parcel->getId());
 
         // test width
         $parcel = $this->builder->find(100, 199, 300);
-        $this->assertEquals('parcel-small', $parcel->getId());
+        $this->assertSame('parcel-small', $parcel->getId());
 
         // test length
         $parcel = $this->builder->find(100, 200, 299);
-        $this->assertEquals('parcel-small', $parcel->getId());
+        $this->assertSame('parcel-small', $parcel->getId());
 
         $parcel = $this->builder->find(150, 100, 150);
-        $this->assertEquals('parcel-medium', $parcel->getId());
+        $this->assertSame('parcel-medium', $parcel->getId());
 
         // test with product too large for any parcel
 
@@ -69,7 +71,7 @@ class SmallestParcelBuilderTest extends TestCase
      * Ensure the parcel builder sorts the incoming parcel list before
      * attempting to find
      */
-    public function testSortingWorks(): void
+    public function testSortingWorks() : void
     {
         // Add a medium parcel
         $parcels[] = new Parcel(
@@ -100,8 +102,8 @@ class SmallestParcelBuilderTest extends TestCase
         // The parcels should be sorted now
 
         $parcels = $this->builder->getParcels();
-        $this->assertEquals('parcel-small', $parcels[0]->getId());
-        $this->assertEquals('parcel-medium', $parcels[1]->getId());
-        $this->assertEquals('parcel-large', $parcels[2]->getId());
+        $this->assertSame('parcel-small', $parcels[0]->getId());
+        $this->assertSame('parcel-medium', $parcels[1]->getId());
+        $this->assertSame('parcel-large', $parcels[2]->getId());
     }
 }

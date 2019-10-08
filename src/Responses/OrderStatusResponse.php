@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PicupTechnologies\PicupPHPApi\Responses;
 
 use PicupTechnologies\PicupPHPApi\Objects\OrderStatus;
@@ -24,7 +26,7 @@ final class OrderStatusResponse
     /**
      * @return OrderStatus[]
      */
-    public function getOrderStatuses(): array
+    public function getOrderStatuses() : array
     {
         return $this->orderStatuses;
     }

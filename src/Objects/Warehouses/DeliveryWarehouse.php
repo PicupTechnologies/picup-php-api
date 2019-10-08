@@ -1,11 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PicupTechnologies\PicupPHPApi\Objects\Warehouses;
 
 /**
  * Class DeliveryWarehouse
- *
- * @package PicupTechnologies\PicupPHPApi\Objects\Warehouses
  */
 class DeliveryWarehouse
 {
@@ -21,9 +21,6 @@ class DeliveryWarehouse
 
     /**
      * DeliveryWarehouse constructor.
-     *
-     * @param string $id
-     * @param string $name
      */
     public function __construct(string $id, string $name)
     {
@@ -31,18 +28,12 @@ class DeliveryWarehouse
         $this->name = $name;
     }
 
-    /**
-     * @return string
-     */
-    public function getId(): string
+    public function getId() : string
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
-    public function getName(): string
+    public function getName() : string
     {
         return $this->name;
     }

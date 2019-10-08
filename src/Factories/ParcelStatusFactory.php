@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PicupTechnologies\PicupPHPApi\Factories;
 
 use PicupTechnologies\PicupPHPApi\Objects\ParcelStatus;
 
 final class ParcelStatusFactory
 {
-    public static function make($body): array
+    public static function make($body) : array
     {
         $statuses = [];
         foreach ($body as $item) {

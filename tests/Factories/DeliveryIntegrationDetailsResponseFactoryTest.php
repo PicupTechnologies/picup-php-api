@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PicupTechnologies\PicupPHPApi\Tests\Factories;
 
 use PHPUnit\Framework\TestCase;
@@ -7,7 +9,7 @@ use PicupTechnologies\PicupPHPApi\Factories\DeliveryIntegrationDetailsResponseFa
 
 class DeliveryIntegrationDetailsResponseFactoryTest extends TestCase
 {
-    public function testMakeWithValidApiKey(): void
+    public function testMakeWithValidApiKey() : void
     {
         $request = [
             'is_key_valid' => true,
@@ -37,34 +39,34 @@ class DeliveryIntegrationDetailsResponseFactoryTest extends TestCase
 
         $deliveryIntegrationDetails = DeliveryIntegrationDetailsResponseFactory::make($request);
 
-        $this->assertEquals($request['is_key_valid'], $deliveryIntegrationDetails->isKeyValid());
-        $this->assertEquals($request['is_key_valid_message'], $deliveryIntegrationDetails->getIsKeyValidMessage());
+        $this->assertSame($request['is_key_valid'], $deliveryIntegrationDetails->isKeyValid());
+        $this->assertSame($request['is_key_valid_message'], $deliveryIntegrationDetails->getIsKeyValidMessage());
 
         $deliveryWarehouses = $deliveryIntegrationDetails->getWarehouses();
         $this->assertCount(1, $deliveryWarehouses);
 
-        $this->assertEquals($request['warehouses'][0]['warehouse_id'], $deliveryWarehouses[0]->getId());
-        $this->assertEquals($request['warehouses'][0]['warehouse_name'], $deliveryWarehouses[0]->getName());
+        $this->assertSame($request['warehouses'][0]['warehouse_id'], $deliveryWarehouses[0]->getId());
+        $this->assertSame($request['warehouses'][0]['warehouse_name'], $deliveryWarehouses[0]->getName());
 
         $parcels = $deliveryIntegrationDetails->getParcels();
         $this->assertCount(2, $parcels);
 
-        $this->assertEquals('parcel-small', $parcels[0]->getId());
-        $this->assertEquals('Small', $parcels[0]->getDisplayName());
-        $this->assertEquals(0, $parcels[0]->getWeight());
-        $this->assertEquals(30, $parcels[0]->getDimensions()->getHeight());
-        $this->assertEquals(15, $parcels[0]->getDimensions()->getWidth());
-        $this->assertEquals(35, $parcels[0]->getDimensions()->getLength());
+        $this->assertSame('parcel-small', $parcels[0]->getId());
+        $this->assertSame('Small', $parcels[0]->getDisplayName());
+        $this->assertSame(0, $parcels[0]->getWeight());
+        $this->assertSame(30, $parcels[0]->getDimensions()->getHeight());
+        $this->assertSame(15, $parcels[0]->getDimensions()->getWidth());
+        $this->assertSame(35, $parcels[0]->getDimensions()->getLength());
 
-        $this->assertEquals('parcel-a4-envelope', $parcels[1]->getId());
-        $this->assertEquals('A4 Envelope', $parcels[1]->getDisplayName());
-        $this->assertEquals(0, $parcels[1]->getWeight());
-        $this->assertEquals(6, $parcels[1]->getDimensions()->getHeight());
-        $this->assertEquals(3, $parcels[1]->getDimensions()->getWidth());
-        $this->assertEquals(8, $parcels[1]->getDimensions()->getLength());
+        $this->assertSame('parcel-a4-envelope', $parcels[1]->getId());
+        $this->assertSame('A4 Envelope', $parcels[1]->getDisplayName());
+        $this->assertSame(0, $parcels[1]->getWeight());
+        $this->assertSame(6, $parcels[1]->getDimensions()->getHeight());
+        $this->assertSame(3, $parcels[1]->getDimensions()->getWidth());
+        $this->assertSame(8, $parcels[1]->getDimensions()->getLength());
     }
 
-    public function testMakeWithInvalidApiKey(): void
+    public function testMakeWithInvalidApiKey() : void
     {
         $request = [
             'is_key_valid' => false,
@@ -73,8 +75,8 @@ class DeliveryIntegrationDetailsResponseFactoryTest extends TestCase
 
         $deliveryIntegrationDetails = DeliveryIntegrationDetailsResponseFactory::make($request);
 
-        $this->assertEquals($request['is_key_valid'], $deliveryIntegrationDetails->isKeyValid());
-        $this->assertEquals($request['is_key_valid_message'], $deliveryIntegrationDetails->getIsKeyValidMessage());
+        $this->assertSame($request['is_key_valid'], $deliveryIntegrationDetails->isKeyValid());
+        $this->assertSame($request['is_key_valid_message'], $deliveryIntegrationDetails->getIsKeyValidMessage());
 
         $this->assertCount(0, $deliveryIntegrationDetails->getWarehouses());
     }

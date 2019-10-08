@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PicupTechnologies\PicupPHPApi\Objects;
 
 final class OrderStatus
@@ -22,8 +24,6 @@ final class OrderStatus
     /**
      * OrderStatus constructor.
      *
-     * @param string         $customerReference
-     * @param string         $orderStatus
      * @param ParcelStatus[] $parcelStatuses
      */
     public function __construct(string $customerReference, string $orderStatus, array $parcelStatuses)
@@ -33,18 +33,12 @@ final class OrderStatus
         $this->parcelStatuses = $parcelStatuses;
     }
 
-    /**
-     * @return string
-     */
-    public function getCustomerReference(): string
+    public function getCustomerReference() : string
     {
         return $this->customerReference;
     }
 
-    /**
-     * @return string
-     */
-    public function getOrderStatus(): string
+    public function getOrderStatus() : string
     {
         return $this->orderStatus;
     }
@@ -52,9 +46,8 @@ final class OrderStatus
     /**
      * @return ParcelStatus[]
      */
-    public function getParcelStatuses(): array
+    public function getParcelStatuses() : array
     {
         return $this->parcelStatuses;
     }
-
 }

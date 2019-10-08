@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PicupTechnologies\PicupPHPApi\Factories;
 
 use PicupTechnologies\PicupPHPApi\Objects\OrderStatus;
@@ -7,7 +9,7 @@ use PicupTechnologies\PicupPHPApi\Responses\OrderStatusResponse;
 
 final class OrderStatusResponseFactory
 {
-    public static function make($body): OrderStatusResponse
+    public static function make($body) : OrderStatusResponse
     {
         $orderStatuses = [];
 

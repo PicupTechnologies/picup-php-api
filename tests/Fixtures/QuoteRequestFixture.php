@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PicupTechnologies\PicupPHPApi\Tests\Fixtures;
 
 use Faker\Factory;
@@ -10,7 +12,7 @@ use PicupTechnologies\PicupPHPApi\Requests\DeliveryQuoteRequest;
 
 class QuoteRequestFixture
 {
-    public static function make(): DeliveryQuoteRequest
+    public static function make() : DeliveryQuoteRequest
     {
         $faker = Factory::create();
 

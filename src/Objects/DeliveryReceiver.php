@@ -1,10 +1,7 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: bryan
- * Date: 2018/10/22
- * Time: 5:17 PM
- */
+
+declare(strict_types=1);
+
 
 namespace PicupTechnologies\PicupPHPApi\Objects;
 
@@ -13,8 +10,6 @@ use PicupTechnologies\PicupPHPApi\Contracts\DeliveryParty;
 
 /**
  * Class DeliveryReceiver
- *
- * @package App\Domains\Delivery\Objects
  */
 class DeliveryReceiver implements DeliveryParty, JsonSerializable
 {
@@ -40,11 +35,6 @@ class DeliveryReceiver implements DeliveryParty, JsonSerializable
 
     /**
      * DeliveryReceiver constructor.
-     *
-     * @param DeliveryReceiverAddress  $deliveryReceiverAddress
-     * @param DeliveryReceiverContact  $deliveryReceiverContact
-     * @param DeliveryParcelCollection $parcels
-     * @param string                   $specialInstructions
      */
     public function __construct(DeliveryReceiverAddress $deliveryReceiverAddress, DeliveryReceiverContact $deliveryReceiverContact, DeliveryParcelCollection $parcels, string $specialInstructions = '')
     {
@@ -54,34 +44,22 @@ class DeliveryReceiver implements DeliveryParty, JsonSerializable
         $this->specialInstructions = $specialInstructions;
     }
 
-    /**
-     * @return DeliveryReceiverAddress
-     */
-    public function getAddress(): DeliveryReceiverAddress
+    public function getAddress() : DeliveryReceiverAddress
     {
         return $this->address;
     }
 
-    /**
-     * @return DeliveryReceiverContact
-     */
-    public function getContact(): DeliveryReceiverContact
+    public function getContact() : DeliveryReceiverContact
     {
         return $this->contact;
     }
 
-    /**
-     * @return DeliveryParcelCollection
-     */
-    public function getParcels(): DeliveryParcelCollection
+    public function getParcels() : DeliveryParcelCollection
     {
         return $this->parcels;
     }
 
-    /**
-     * @return string
-     */
-    public function getSpecialInstructions(): string
+    public function getSpecialInstructions() : string
     {
         return $this->specialInstructions;
     }
@@ -89,17 +67,19 @@ class DeliveryReceiver implements DeliveryParty, JsonSerializable
     /**
      * Specify data which should be serialized to JSON
      *
-     * @link  https://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @see  https://php.net/manual/en/jsonserializable.jsonserialize.php
+     *
      * @return mixed data which can be serialized by <b>json_encode</b>,
-     * which is a value of any type other than a resource.
+     *               which is a value of any type other than a resource
+     *
      * @since 5.4.0
      */
     public function jsonSerialize()
     {
         return [
-            'address'              => $this->address,
-            'contact'              => $this->contact,
-            'parcels'              => $this->parcels->getParcels(),
+            'address' => $this->address,
+            'contact' => $this->contact,
+            'parcels' => $this->parcels->getParcels(),
             'special_instructions' => $this->specialInstructions,
         ];
     }

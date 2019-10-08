@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PicupTechnologies\PicupPHPApi\Objects;
 
 class ParcelStatus
@@ -22,8 +24,6 @@ class ParcelStatus
     /**
      * ParcelStatus constructor.
      *
-     * @param string $reference
-     * @param string $status
      * @param string $trackingNumber
      */
     public function __construct(string $reference, string $status, ?string $trackingNumber)
@@ -33,10 +33,7 @@ class ParcelStatus
         $this->trackingNumber = $trackingNumber;
     }
 
-    /**
-     * @return string
-     */
-    public function getReference(): string
+    public function getReference() : string
     {
         return $this->reference;
     }
@@ -44,15 +41,12 @@ class ParcelStatus
     /**
      * @return string
      */
-    public function getTrackingNumber(): ?string
+    public function getTrackingNumber() : ?string
     {
         return $this->trackingNumber;
     }
 
-    /**
-     * @return string
-     */
-    public function getStatus(): string
+    public function getStatus() : string
     {
         return $this->status;
     }

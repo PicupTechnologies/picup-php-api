@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PicupTechnologies\PicupPHPApi\Tests\Objects\DeliveryBucket;
 
 use DateTime;
@@ -13,7 +15,7 @@ use PicupTechnologies\PicupPHPApi\Requests\DeliveryBucketRequest;
 
 class DeliveryBucketRequestTest extends TestCase
 {
-    public function testShipments(): void
+    public function testShipments() : void
     {
         // Set up
         $consignmentId = 'consignment-555';
@@ -41,12 +43,12 @@ class DeliveryBucketRequestTest extends TestCase
         $shipmentsReturned = $deliveryBucket->getShipments();
         $shipmentReturned = $shipmentsReturned[0];
 
-        $this->assertEquals($consignmentId, $shipmentReturned->getConsignment());
-        $this->assertEquals($businessRef, $shipmentReturned->getBusinessReference());
-        $this->assertEquals($deliveryShipmentAddress, $shipmentReturned->getAddress());
-        $this->assertEquals($deliveryShipmentContact, $shipmentReturned->getContact());
-        $this->assertEquals($deliveryShipmentParcel, $shipmentReturned->getParcels()[0]);
-        $this->assertEquals($deliveryShipmentParcel, $shipmentReturned->getParcels()[1]);
+        $this->assertSame($consignmentId, $shipmentReturned->getConsignment());
+        $this->assertSame($businessRef, $shipmentReturned->getBusinessReference());
+        $this->assertSame($deliveryShipmentAddress, $shipmentReturned->getAddress());
+        $this->assertSame($deliveryShipmentContact, $shipmentReturned->getContact());
+        $this->assertSame($deliveryShipmentParcel, $shipmentReturned->getParcels()[0]);
+        $this->assertSame($deliveryShipmentParcel, $shipmentReturned->getParcels()[1]);
 
         // Test
         $decoded = json_decode(json_encode($deliveryBucket), false);
@@ -54,11 +56,11 @@ class DeliveryBucketRequestTest extends TestCase
         $shipmentsDecoded = $decoded->shipments;
         $shipmentDecoded = $shipmentsDecoded[0];
 
-        $this->assertEquals($consignmentId, $shipmentDecoded->consignment);
-        $this->assertEquals($businessRef, $shipmentDecoded->business_reference);
+        $this->assertSame($consignmentId, $shipmentDecoded->consignment);
+        $this->assertSame($businessRef, $shipmentDecoded->business_reference);
     }
 
-    public function testBucketDetails(): void
+    public function testBucketDetails() : void
     {
         $deliveryBucket = new DeliveryBucketRequest();
 
@@ -66,39 +68,39 @@ class DeliveryBucketRequestTest extends TestCase
 
         $warehouseId = 'warehouse-123';
         $bucketDetails->setWarehouseId($warehouseId);
-        $this->assertEquals($warehouseId, $bucketDetails->getWarehouseId());
+        $this->assertSame($warehouseId, $bucketDetails->getWarehouseId());
 
         $warehouseName = 'Warehouse Tester';
         $bucketDetails->setWarehouseName($warehouseName);
-        $this->assertEquals($warehouseName, $bucketDetails->getWarehouseName());
+        $this->assertSame($warehouseName, $bucketDetails->getWarehouseName());
 
         $deliveryDate = new DateTime('01/01/2000 09:30:00');
         $bucketDetails->setDeliveryDate($deliveryDate);
-        $this->assertEquals($deliveryDate, $bucketDetails->getDeliveryDate());
+        $this->assertSame($deliveryDate, $bucketDetails->getDeliveryDate());
 
         $shiftStart = new DateTime('01/01/2000 09:30:00');
         $bucketDetails->setShiftStart($shiftStart);
-        $this->assertEquals($shiftStart, $bucketDetails->getShiftStart());
+        $this->assertSame($shiftStart, $bucketDetails->getShiftStart());
 
         $shiftEnd = new DateTime('01/01/2000 16:30:00');
         $bucketDetails->setShiftEnd($shiftEnd);
-        $this->assertEquals($shiftEnd, $bucketDetails->getShiftEnd());
+        $this->assertSame($shiftEnd, $bucketDetails->getShiftEnd());
 
         $deliveryBucket->setBucketDetails($bucketDetails);
 
         $testBucketDetails = $deliveryBucket->getBucketDetails();
-        $this->assertEquals($bucketDetails, $testBucketDetails);
+        $this->assertSame($bucketDetails, $testBucketDetails);
 
         // Test
         $decoded = json_decode(json_encode($deliveryBucket), false);
 
         $bucketDetailsReturned = $decoded->bucket_details;
 
-        $this->assertEquals($warehouseId, $bucketDetailsReturned->warehouse_id);
-        $this->assertEquals($warehouseName, $bucketDetailsReturned->warehouse_name);
+        $this->assertSame($warehouseId, $bucketDetailsReturned->warehouse_id);
+        $this->assertSame($warehouseName, $bucketDetailsReturned->warehouse_name);
 
-        $this->assertEquals('2000-01-01', $bucketDetailsReturned->delivery_date);
-        $this->assertEquals('09:30', $bucketDetailsReturned->shift_start);
-        $this->assertEquals('16:30', $bucketDetailsReturned->shift_end);
+        $this->assertSame('2000-01-01', $bucketDetailsReturned->delivery_date);
+        $this->assertSame('09:30', $bucketDetailsReturned->shift_start);
+        $this->assertSame('16:30', $bucketDetailsReturned->shift_end);
     }
 }

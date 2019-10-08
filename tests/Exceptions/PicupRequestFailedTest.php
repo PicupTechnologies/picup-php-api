@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PicupTechnologies\PicupPHPApi\Tests\Exceptions;
 
 use PHPUnit\Framework\TestCase;
@@ -8,7 +10,7 @@ use PicupTechnologies\PicupPHPApi\Requests\DeliveryOrderRequest;
 
 class PicupRequestFailedTest extends TestCase
 {
-    public function testException(): void
+    public function testException() : void
     {
         $orderRequest = new DeliveryOrderRequest();
         $orderRequest->setMerchantId('merchant-999');
@@ -16,9 +18,9 @@ class PicupRequestFailedTest extends TestCase
         try {
             throw new PicupRequestFailed($orderRequest, 'Order Request Failed');
         } catch (PicupRequestFailed $e) {
-            $this->assertContains('PicupRequestFailed: Order Request Failed', (string)$e);
+            $this->assertContains('PicupRequestFailed: Order Request Failed', (string) $e);
 
-            $this->assertEquals($orderRequest, $e->getPicupRequest());
+            $this->assertSame($orderRequest, $e->getPicupRequest());
         }
     }
 }

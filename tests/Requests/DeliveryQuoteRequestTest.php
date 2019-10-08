@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PicupTechnologies\PicupPHPApi\Tests\Requests;
 
 use DateTime;
@@ -19,38 +21,36 @@ use PicupTechnologies\PicupPHPApi\Requests\DeliveryQuoteRequest;
  * Class DeliveryQuoteRequestTest
  *
  * Simply tests that the fields are set correctly to snake_case
- *
- * @package PicupTechnologies\PicupPHPApi\Tests\Objects
  */
 class DeliveryQuoteRequestTest extends TestCase
 {
-    public function testMake(): void
+    public function testMake() : void
     {
         $deliveryQuoteRequest = new DeliveryQuoteRequest();
 
         $test = 'merchant-555-444-333';
         $deliveryQuoteRequest->setMerchantId($test);
-        $this->assertEquals($test, $deliveryQuoteRequest->getMerchantId());
+        $this->assertSame($test, $deliveryQuoteRequest->getMerchantId());
 
         $test = 'customer-123';
         $deliveryQuoteRequest->setCustomerRef($test);
-        $this->assertEquals($test, $deliveryQuoteRequest->getCustomerRef());
+        $this->assertSame($test, $deliveryQuoteRequest->getCustomerRef());
 
         $test = new DateTime();
         $deliveryQuoteRequest->setScheduledDate($test);
-        $this->assertEquals($test, $deliveryQuoteRequest->getScheduledDate());
+        $this->assertSame($test, $deliveryQuoteRequest->getScheduledDate());
 
         $test = true;
         $deliveryQuoteRequest->setIsForContractDriver($test);
-        $this->assertEquals($test, $deliveryQuoteRequest->isForContractDriver());
+        $this->assertSame($test, $deliveryQuoteRequest->isForContractDriver());
 
         $test = 'user-1111-2222';
         $deliveryQuoteRequest->setUserId($test);
-        $this->assertEquals($test, $deliveryQuoteRequest->getUserId());
+        $this->assertSame($test, $deliveryQuoteRequest->getUserId());
 
         $test = 'NONE';
         $deliveryQuoteRequest->setCourierCosting($test);
-        $this->assertEquals($test, $deliveryQuoteRequest->getCourierCosting());
+        $this->assertSame($test, $deliveryQuoteRequest->getCourierCosting());
 
         $deliveryQuoteRequest->setOptimizeWaypoints(true);
         $this->assertTrue($deliveryQuoteRequest->isOptimizeWaypoints());
@@ -69,11 +69,11 @@ class DeliveryQuoteRequestTest extends TestCase
         );
 
         $deliveryQuoteRequest->setSender($sender);
-        $this->assertEquals($sender, $deliveryQuoteRequest->getSender());
+        $this->assertSame($sender, $deliveryQuoteRequest->getSender());
 
         // add receiver
         $deliveryReceiverAddress = new DeliveryReceiverAddress();
-        $deliveryReceiverAddress->setStreetOrFarmNo(123);
+        $deliveryReceiverAddress->setStreetOrFarmNo('123');
 
         $deliveryReceiverContact = new DeliveryReceiverContact();
         $deliveryReceiverContact->setName('Test Name');
@@ -89,21 +89,21 @@ class DeliveryQuoteRequestTest extends TestCase
         );
 
         $deliveryQuoteRequest->addReceiver($deliveryReceiver);
-        $this->assertEquals($deliveryReceiver, $deliveryQuoteRequest->getReceivers()[0]);
+        $this->assertSame($deliveryReceiver, $deliveryQuoteRequest->getReceivers()[0]);
 
         $deliveryQuoteRequest->setReceivers([$deliveryReceiver]);
-        $this->assertEquals($deliveryReceiver, $deliveryQuoteRequest->getReceivers()[0]);
+        $this->assertSame($deliveryReceiver, $deliveryQuoteRequest->getReceivers()[0]);
 
         $serialized = json_encode($deliveryQuoteRequest);
 
         $unserialized = json_decode($serialized, false);
-        $this->assertEquals('customer-123', $unserialized->customer_ref);
-        $this->assertEquals('merchant-555-444-333', $unserialized->merchant_id);
+        $this->assertSame('customer-123', $unserialized->customer_ref);
+        $this->assertSame('merchant-555-444-333', $unserialized->merchant_id);
 
-        $this->assertEquals(true, $unserialized->is_for_contract_driver);
+        $this->assertTrue($unserialized->is_for_contract_driver);
 
         $sender = $unserialized->sender;
-        $this->assertEquals('warehouse-123', $sender->address->warehouse_id);
-        $this->assertEquals('Test 555', $sender->special_instructions);
+        $this->assertSame('warehouse-123', $sender->address->warehouse_id);
+        $this->assertSame('Test 555', $sender->special_instructions);
     }
 }

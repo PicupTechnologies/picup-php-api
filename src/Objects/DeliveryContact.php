@@ -1,10 +1,7 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: bryan
- * Date: 2018/10/22
- * Time: 5:22 PM
- */
+
+declare(strict_types=1);
+
 
 namespace PicupTechnologies\PicupPHPApi\Objects;
 
@@ -13,8 +10,6 @@ use JsonSerializable;
 
 /**
  * Class DeliveryReceiverContact
- *
- * @package App\Domains\Delivery\Objects
  */
 abstract class DeliveryContact implements JsonSerializable
 {
@@ -40,36 +35,24 @@ abstract class DeliveryContact implements JsonSerializable
      */
     private $cellphone = '';
 
-    /**
-     * @return string
-     */
-    public function getName(): string
+    public function getName() : string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     */
-    public function setName(string $name): void
+    public function setName(string $name) : void
     {
         $this->name = trim($name);
     }
 
-    /**
-     * @return string
-     */
-    public function getEmail(): string
+    public function getEmail() : string
     {
         return $this->email;
     }
 
-    /**
-     * @param string $email
-     */
-    public function setEmail(string $email): void
+    public function setEmail(string $email) : void
     {
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        if (! filter_var($email, FILTER_VALIDATE_EMAIL)) {
             throw new InvalidArgumentException(
                 sprintf('%s expects valid email address, %s is not', __METHOD__, $email)
             );
@@ -81,15 +64,12 @@ abstract class DeliveryContact implements JsonSerializable
     /**
      * @return string
      */
-    public function getTelephone(): ?string
+    public function getTelephone() : ?string
     {
         return $this->telephone;
     }
 
-    /**
-     * @param string $telephone
-     */
-    public function setTelephone(string $telephone): void
+    public function setTelephone(string $telephone) : void
     {
         $this->telephone = $telephone;
     }
@@ -97,15 +77,12 @@ abstract class DeliveryContact implements JsonSerializable
     /**
      * @return string
      */
-    public function getCellphone(): ?string
+    public function getCellphone() : ?string
     {
         return $this->cellphone;
     }
 
-    /**
-     * @param string $cellphone
-     */
-    public function setCellphone(string $cellphone): void
+    public function setCellphone(string $cellphone) : void
     {
         $this->cellphone = $cellphone;
     }

@@ -1,17 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: bryan
- * Date: 2018/10/23
- * Time: 2:59 PM
- */
+
+declare(strict_types=1);
+
 
 namespace PicupTechnologies\PicupPHPApi\Responses;
 
 /**
  * Holds the DeliveryOrder response from Picup after creating an order.
- *
- * @package PicupTechnologies\PicupPHPApi\Responses
  */
 class DeliveryOrderResponse
 {
@@ -19,15 +14,13 @@ class DeliveryOrderResponse
 
     /**
      * DeliveryOrderResponse constructor.
-     *
-     * @param int $requestId
      */
     public function __construct(int $requestId)
     {
         $this->requestId = $requestId;
     }
 
-    public function getId(): ?int
+    public function getId() : ?int
     {
         return $this->requestId;
     }

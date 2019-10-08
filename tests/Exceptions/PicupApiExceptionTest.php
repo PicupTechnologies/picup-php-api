@@ -1,18 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PicupTechnologies\PicupPHPApi\Tests\Exceptions;
 
-use PicupTechnologies\PicupPHPApi\Exceptions\PicupApiException;
 use PHPUnit\Framework\TestCase;
+use PicupTechnologies\PicupPHPApi\Exceptions\PicupApiException;
 
 class PicupApiExceptionTest extends TestCase
 {
-    public function testExceptionToString(): void
+    public function testExceptionToString() : void
     {
         try {
             throw new PicupApiException('Hello World');
         } catch (PicupApiException $e) {
-            $this->assertContains('PicupApiException: Hello World', (string)$e);
+            $this->assertContains('PicupApiException: Hello World', (string) $e);
         }
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PicupTechnologies\PicupPHPApi\Tests\Fixtures;
 
 use Faker\Factory;
@@ -16,7 +18,7 @@ use PicupTechnologies\PicupPHPApi\Requests\DeliveryOrderRequest;
 
 final class OrderRequestFixture
 {
-    public static function make(): DeliveryOrderRequest
+    public static function make() : DeliveryOrderRequest
     {
         $faker = Factory::create();
 
@@ -55,6 +57,7 @@ final class OrderRequestFixture
         $receiver = new DeliveryReceiver($receiverAddress, $receiverContact, $receiverParcels, 'Knock knock');
 
         $request->setReceivers([$receiver]);
+
         return $request;
     }
 }

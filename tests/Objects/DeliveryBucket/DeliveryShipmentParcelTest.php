@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PicupTechnologies\PicupPHPApi\Tests\Objects\DeliveryBucket;
 
 use Faker\Factory;
-use PicupTechnologies\PicupPHPApi\Objects\DeliveryBucket\DeliveryShipmentParcel;
 use PHPUnit\Framework\TestCase;
+use PicupTechnologies\PicupPHPApi\Objects\DeliveryBucket\DeliveryShipmentParcel;
 
 class DeliveryShipmentParcelTest extends TestCase
 {
@@ -18,7 +20,7 @@ class DeliveryShipmentParcelTest extends TestCase
      */
     protected $subject;
 
-    public function setUp(): void
+    protected function setUp() : void
     {
         parent::setUp();
 
@@ -26,35 +28,35 @@ class DeliveryShipmentParcelTest extends TestCase
         $this->subject = new DeliveryShipmentParcel();
     }
 
-    public function testSize(): void
+    public function testSize() : void
     {
         $test = $this->faker->name;
 
         $this->subject->setSize($test);
-        $this->assertEquals($test, $this->subject->getSize());
+        $this->assertSame($test, $this->subject->getSize());
     }
 
-    public function testTrackingNumber(): void
+    public function testTrackingNumber() : void
     {
         $test = $this->faker->name;
 
         $this->subject->setTrackingNumber($test);
-        $this->assertEquals($test, $this->subject->getTrackingNumber());
+        $this->assertSame($test, $this->subject->getTrackingNumber());
     }
 
-    public function testParcelReference(): void
+    public function testParcelReference() : void
     {
         $test = $this->faker->name;
 
         $this->subject->setParcelReference($test);
-        $this->assertEquals($test, $this->subject->getParcelReference());
+        $this->assertSame($test, $this->subject->getParcelReference());
     }
 
-    public function testDescription(): void
+    public function testDescription() : void
     {
         $test = $this->faker->name;
 
         $this->subject->setDescription($test);
-        $this->assertEquals($test, $this->subject->getDescription());
+        $this->assertSame($test, $this->subject->getDescription());
     }
 }

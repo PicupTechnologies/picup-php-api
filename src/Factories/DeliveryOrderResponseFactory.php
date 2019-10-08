@@ -1,17 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PicupTechnologies\PicupPHPApi\Factories;
 
 use PicupTechnologies\PicupPHPApi\Responses\DeliveryOrderResponse;
 
 /**
  * Builds a DeliveryOrderResponse
- *
- * @package PicupTechnologies\PicupPHPApi\Factories
  */
 final class DeliveryOrderResponseFactory
 {
-    public static function make(string $request): DeliveryOrderResponse
+    public static function make(string $request) : DeliveryOrderResponse
     {
         $decoded = json_decode($request, false);
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PicupTechnologies\PicupPHPApi\Tests\Objects;
 
 use PHPUnit\Framework\TestCase;
@@ -12,7 +14,7 @@ use PicupTechnologies\PicupPHPApi\Objects\DeliverySenderContact;
 
 class DeliverySenderTest extends TestCase
 {
-    public function testBasics(): void
+    public function testBasics() : void
     {
         $receiverAddress = new DeliverySenderAddress();
         $receiverContact = new DeliverySenderContact();
@@ -22,8 +24,8 @@ class DeliverySenderTest extends TestCase
 
         $receiver = new DeliverySender($receiverAddress, $receiverContact, $specialInstructions);
 
-        $this->assertEquals($receiverAddress, $receiver->getAddress());
-        $this->assertEquals($receiverContact, $receiver->getContact());
-        $this->assertEquals($specialInstructions, $receiver->getSpecialInstructions());
+        $this->assertSame($receiverAddress, $receiver->getAddress());
+        $this->assertSame($receiverContact, $receiver->getContact());
+        $this->assertSame($specialInstructions, $receiver->getSpecialInstructions());
     }
 }

@@ -1,33 +1,30 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PicupTechnologies\PicupPHPApi\Factories;
 
-use PicupTechnologies\PicupPHPApi\Responses\DeliveryQuoteResponse;
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryServiceType;
+use PicupTechnologies\PicupPHPApi\Responses\DeliveryQuoteResponse;
 
 /**
  * Builds a DeliveryQuoteResponse
- *
- * @package PicupTechnologies\PicupPHPApi\Factories
  */
 final class DeliveryQuoteResponseFactory
 {
     /**
      * Factory function to build a quote response
-     *
-     * @param string $body
-     *
-     * @return DeliveryQuoteResponse
      */
-    public static function make(string $body): DeliveryQuoteResponse
+    public static function make(string $body) : DeliveryQuoteResponse
     {
         $decodedObject = json_decode($body, false);
 
         $quoteResponse = new DeliveryQuoteResponse();
 
-        if ((int)$decodedObject->picup->valid !== 1) {
+        if ((int) $decodedObject->picup->valid !== 1) {
             $quoteResponse->setValid(false);
             $quoteResponse->setError($decodedObject->picup->error);
+
             return $quoteResponse;
         }
 

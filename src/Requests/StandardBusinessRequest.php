@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PicupTechnologies\PicupPHPApi\Requests;
 
 use InvalidArgumentException;
@@ -9,8 +11,6 @@ use PicupTechnologies\PicupPHPApi\Contracts\PicupRequestInterface;
  * Contains a standard business_id request used in:
  *  - DeliveryIntegrationDetails
  *  - DispatchSummary
- *
- * @package PicupTechnologies\PicupPHPApi\Requests
  */
 class StandardBusinessRequest implements PicupRequestInterface
 {
@@ -21,8 +21,6 @@ class StandardBusinessRequest implements PicupRequestInterface
 
     /**
      * DeliveryIntegrationDetailsRequest constructor.
-     *
-     * @param string $businessId
      */
     public function __construct(string $businessId)
     {
@@ -32,10 +30,7 @@ class StandardBusinessRequest implements PicupRequestInterface
         $this->businessId = $businessId;
     }
 
-    /**
-     * @return string
-     */
-    public function getBusinessId(): string
+    public function getBusinessId() : string
     {
         return $this->businessId;
     }

@@ -1,10 +1,7 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: bryan
- * Date: 2018/10/22
- * Time: 5:09 PM
- */
+
+declare(strict_types=1);
+
 
 namespace PicupTechnologies\PicupPHPApi\Objects;
 
@@ -13,8 +10,6 @@ use PicupTechnologies\PicupPHPApi\Contracts\DeliveryParty;
 
 /**
  * Class DeliverySender
- *
- * @package App\Domains\Delivery\Objects
  */
 class DeliverySender implements DeliveryParty, JsonSerializable
 {
@@ -37,10 +32,6 @@ class DeliverySender implements DeliveryParty, JsonSerializable
 
     /**
      * DeliverySender constructor.
-     *
-     * @param DeliverySenderAddress $address
-     * @param DeliveryContact       $contact
-     * @param string                $specialInstructions
      */
     public function __construct(DeliverySenderAddress $address, DeliveryContact $contact, string $specialInstructions = '')
     {
@@ -49,26 +40,17 @@ class DeliverySender implements DeliveryParty, JsonSerializable
         $this->specialInstructions = $specialInstructions;
     }
 
-    /**
-     * @return DeliverySenderAddress
-     */
-    public function getAddress(): DeliverySenderAddress
+    public function getAddress() : DeliverySenderAddress
     {
         return $this->address;
     }
 
-    /**
-     * @return DeliveryContact
-     */
-    public function getContact(): DeliveryContact
+    public function getContact() : DeliveryContact
     {
         return $this->contact;
     }
 
-    /**
-     * @return string
-     */
-    public function getSpecialInstructions(): string
+    public function getSpecialInstructions() : string
     {
         return $this->specialInstructions;
     }
@@ -76,9 +58,11 @@ class DeliverySender implements DeliveryParty, JsonSerializable
     /**
      * Specify data which should be serialized to JSON
      *
-     * @link  https://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @see  https://php.net/manual/en/jsonserializable.jsonserialize.php
+     *
      * @return mixed data which can be serialized by <b>json_encode</b>,
-     * which is a value of any type other than a resource.
+     *               which is a value of any type other than a resource
+     *
      * @since 5.4.0
      */
     public function jsonSerialize()

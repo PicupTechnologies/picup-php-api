@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PicupTechnologies\PicupPHPApi\Objects;
 
 /**
@@ -7,8 +9,6 @@ namespace PicupTechnologies\PicupPHPApi\Objects;
  *
  * Represents a parcel returned from the IntegrationDetails endpoint which
  * tells you which parcels are provided by Picup
- *
- * @package PicupTechnologies\PicupPHPApi\Objects
  */
 final class Parcel
 {
@@ -34,11 +34,6 @@ final class Parcel
 
     /**
      * Parcel constructor.
-     *
-     * @param string           $id
-     * @param string           $displayName
-     * @param ParcelDimensions $dimensions
-     * @param int              $weight
      */
     public function __construct(string $id, string $displayName, ParcelDimensions $dimensions, int $weight)
     {
@@ -48,46 +43,30 @@ final class Parcel
         $this->weight = $weight;
     }
 
-    /**
-     * @return string
-     */
-    public function getId(): string
+    public function getId() : string
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
-    public function getDisplayName(): string
+    public function getDisplayName() : string
     {
         return $this->displayName;
     }
 
-    /**
-     * @return ParcelDimensions
-     */
-    public function getDimensions(): ParcelDimensions
+    public function getDimensions() : ParcelDimensions
     {
         return $this->dimensions;
     }
 
-    /**
-     * @return int
-     */
-    public function getWeight(): int
+    public function getWeight() : int
     {
         return $this->weight;
     }
 
     /**
      * Returns whether or not an item with specific dimensions can fit into this parcel
-     *
-     * @param ParcelDimensions $dimensions
-     *
-     * @return bool
      */
-    public function canFit(ParcelDimensions $dimensions): bool
+    public function canFit(ParcelDimensions $dimensions) : bool
     {
         if ($this->getDimensions()->getWidth() < $dimensions->getWidth()) {
             return false;

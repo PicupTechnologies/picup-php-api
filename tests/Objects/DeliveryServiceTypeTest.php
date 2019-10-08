@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PicupTechnologies\PicupPHPApi\Tests\Objects;
 
 use InvalidArgumentException;
@@ -8,15 +10,15 @@ use PicupTechnologies\PicupPHPApi\Objects\DeliveryServiceType;
 
 class DeliveryServiceTypeTest extends TestCase
 {
-    public function testGetVehicleName(): void
+    public function testGetVehicleName() : void
     {
         $serviceType = new DeliveryServiceType();
 
         $serviceType->setDescription('vehicle-bicycle');
-        $this->assertEquals('Bicycle', $serviceType->getVehicleName());
+        $this->assertSame('Bicycle', $serviceType->getVehicleName());
     }
 
-    public function testGetVehicleNameWithInvalidDescription(): void
+    public function testGetVehicleNameWithInvalidDescription() : void
     {
         $serviceType = new DeliveryServiceType();
 

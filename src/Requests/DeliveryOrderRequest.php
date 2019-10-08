@@ -1,16 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: bryan
- * Date: 2018/10/23
- * Time: 2:45 PM
- */
+
+declare(strict_types=1);
+
 
 namespace PicupTechnologies\PicupPHPApi\Requests;
 
 use DateTime;
 use JsonSerializable;
-use PicupTechnologies\PicupPHPApi\Contracts\PicupRequest;
 use PicupTechnologies\PicupPHPApi\Contracts\PicupRequestInterface;
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryReceiver;
 use PicupTechnologies\PicupPHPApi\Objects\DeliverySender;
@@ -34,7 +30,6 @@ use PicupTechnologies\PicupPHPApi\Objects\DeliverySender;
  * This will also add the addresses created to the Geocoder module.
  *
  * @url http://enterprise.codependent.digital/dashboard/post-dispatch
- * @package PicupTechnologies\PicupPHPApi\Requests
  */
 class DeliveryOrderRequest implements PicupRequestInterface, JsonSerializable
 {
@@ -67,114 +62,72 @@ class DeliveryOrderRequest implements PicupRequestInterface, JsonSerializable
      */
     private $receivers;
 
-    /**
-     * @return mixed
-     */
     public function getMerchantId()
     {
         return $this->merchantId;
     }
 
-    /**
-     * @param mixed $merchantId
-     */
-    public function setMerchantId($merchantId): void
+    public function setMerchantId($merchantId) : void
     {
         $this->merchantId = $merchantId;
     }
 
-    /**
-     * @return mixed
-     */
     public function getCustomerRef()
     {
         return $this->customerRef;
     }
 
-    /**
-     * @param mixed $customerRef
-     */
-    public function setCustomerRef($customerRef): void
+    public function setCustomerRef($customerRef) : void
     {
         $this->customerRef = $customerRef;
     }
 
-    /**
-     * @return mixed
-     */
     public function getVehicleId()
     {
         return $this->vehicleId;
     }
 
-    /**
-     * @param mixed $vehicleId
-     */
-    public function setVehicleId($vehicleId): void
+    public function setVehicleId($vehicleId) : void
     {
         $this->vehicleId = $vehicleId;
     }
 
-    /**
-     * @return bool
-     */
-    public function isForContractDriver(): bool
+    public function isForContractDriver() : bool
     {
         return $this->isForContractDriver;
     }
 
-    /**
-     * @param bool $isForContractDriver
-     */
-    public function setIsForContractDriver(bool $isForContractDriver): void
+    public function setIsForContractDriver(bool $isForContractDriver) : void
     {
         $this->isForContractDriver = $isForContractDriver;
     }
 
-    /**
-     * @return bool
-     */
-    public function isRoundTrip(): bool
+    public function isRoundTrip() : bool
     {
         return $this->isRoundTrip;
     }
 
-    /**
-     * @param bool $isRoundTrip
-     */
-    public function setIsRoundTrip(bool $isRoundTrip): void
+    public function setIsRoundTrip(bool $isRoundTrip) : void
     {
         $this->isRoundTrip = $isRoundTrip;
     }
 
-    /**
-     * @return DateTime
-     */
-    public function getScheduledDate(): DateTime
+    public function getScheduledDate() : DateTime
     {
         return $this->scheduledDate;
     }
 
-    /**
-     * @param DateTime $scheduledDate
-     */
-    public function setScheduledDate(DateTime $scheduledDate): void
+    public function setScheduledDate(DateTime $scheduledDate) : void
     {
         $this->scheduledDate = $scheduledDate;
     }
 
-    /**
-     * @return DeliverySender
-     */
-    public function getSender(): DeliverySender
+    public function getSender() : DeliverySender
     {
         return $this->sender;
     }
 
-    /**
-     * @param DeliverySender $sender
-     */
-    public function setSender(DeliverySender $sender): void
+    public function setSender(DeliverySender $sender) : void
     {
         $this->sender = $sender;
     }
@@ -182,7 +135,7 @@ class DeliveryOrderRequest implements PicupRequestInterface, JsonSerializable
     /**
      * @return DeliveryReceiver[]
      */
-    public function getReceivers(): array
+    public function getReceivers() : array
     {
         return $this->receivers;
     }
@@ -190,7 +143,7 @@ class DeliveryOrderRequest implements PicupRequestInterface, JsonSerializable
     /**
      * @param DeliveryReceiver[] $receivers
      */
-    public function setReceivers(array $receivers): void
+    public function setReceivers(array $receivers) : void
     {
         $this->receivers = $receivers;
     }
@@ -198,26 +151,26 @@ class DeliveryOrderRequest implements PicupRequestInterface, JsonSerializable
     /**
      * Specify data which should be serialized to JSON
      *
-     * @link  http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @see  http://php.net/manual/en/jsonserializable.jsonserialize.php
+     *
      * @return mixed data which can be serialized by <b>json_encode</b>,
-     * which is a value of any type other than a resource.
+     *               which is a value of any type other than a resource
+     *
      * @since 5.4.0
      */
     public function jsonSerialize()
     {
-        $quote = [
-            'merchant_id'  => $this->merchantId,
+        return [
+            'merchant_id' => $this->merchantId,
             'customer_ref' => $this->customerRef,
-            'vehicle_id'   => $this->vehicleId,
+            'vehicle_id' => $this->vehicleId,
 
-            'is_for_contract_driver'        => $this->isForContractDriver,
-            'is_round_trip'                 => $this->isRoundTrip,
+            'is_for_contract_driver' => $this->isForContractDriver,
+            'is_round_trip' => $this->isRoundTrip,
 
             'scheduled_date' => $this->scheduledDate->format('Y-m-d\TH:i:s.u\Z'),
-            'sender'         => $this->sender,
-            'receivers'      => $this->receivers,
+            'sender' => $this->sender,
+            'receivers' => $this->receivers,
         ];
-
-        return $quote;
     }
 }

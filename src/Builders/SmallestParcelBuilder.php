@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PicupTechnologies\PicupPHPApi\Builders;
 
 use PicupTechnologies\PicupPHPApi\Objects\Parcel;
@@ -14,12 +16,10 @@ final class SmallestParcelBuilder
     /**
      * @var Parcel[]
      */
-    protected $parcels;
+    private $parcels;
 
     /**
      * Builds the parcel builder with the list of parcels allowed
-     *
-     * @param array $parcels
      */
     public function __construct(array $parcels)
     {
@@ -34,7 +34,7 @@ final class SmallestParcelBuilder
     /**
      * @return Parcel[]
      */
-    public function getParcels(): array
+    public function getParcels() : array
     {
         return $this->parcels;
     }
@@ -49,7 +49,7 @@ final class SmallestParcelBuilder
      *
      * @return Parcel
      */
-    public function find(int $height, int $width, int $length): ?Parcel
+    public function find(int $height, int $width, int $length) : ?Parcel
     {
         // Now find the smallest one starting with the largest
         foreach ($this->parcels as $parcel) {

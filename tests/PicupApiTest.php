@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PicupTechnologies\PicupPHPApi\Tests;
 
 use GuzzleHttp\Client;
@@ -15,14 +17,13 @@ use PicupTechnologies\PicupPHPApi\Exceptions\PicupRequestFailed;
 use PicupTechnologies\PicupPHPApi\PicupApi;
 use PicupTechnologies\PicupPHPApi\Requests\OrderStatusRequest;
 use PicupTechnologies\PicupPHPApi\Requests\StandardBusinessRequest;
-use PicupTechnologies\PicupPHPApi\Responses\OrderStatusResponse;
 use PicupTechnologies\PicupPHPApi\Tests\Fixtures\DeliveryBucketRequestFixture;
 use PicupTechnologies\PicupPHPApi\Tests\Fixtures\OrderRequestFixture;
 use PicupTechnologies\PicupPHPApi\Tests\Fixtures\QuoteRequestFixture;
 
 class PicupApiTest extends TestCase
 {
-    public function testBasics(): void
+    public function testBasics() : void
     {
         $mock = new MockHandler([new Response(200, [], json_encode([]))]);
         $handler = HandlerStack::create($mock);
@@ -32,10 +33,10 @@ class PicupApiTest extends TestCase
         $apiKey = 'api-key-123-456';
         $picupApi = new PicupApi($client, $apiKey);
 
-        $this->assertEquals($apiKey, $picupApi->getApiKey());
+        $this->assertSame($apiKey, $picupApi->getApiKey());
 
         $picupApi->setApiKey('api-changed-555');
-        $this->assertEquals('api-changed-555', $picupApi->getApiKey());
+        $this->assertSame('api-changed-555', $picupApi->getApiKey());
 
         // live mode
         $this->assertFalse($picupApi->isLive());    // should default to false
@@ -49,7 +50,7 @@ class PicupApiTest extends TestCase
     /**
      * Ensures that endpoints match live/testing mode
      */
-    public function testEndpointsMatchLiveTestingMode(): void
+    public function testEndpointsMatchLiveTestingMode() : void
     {
         $mock = new MockHandler([new Response(200, [], json_encode([]))]);
         $handler = HandlerStack::create($mock);
@@ -58,7 +59,7 @@ class PicupApiTest extends TestCase
         // api key getters + setters
         $apiKey = 'api-key-123-456';
         $picupApi = new PicupApi($client, $apiKey);
-        $this->assertEquals($apiKey, $picupApi->getApiKey());
+        $this->assertSame($apiKey, $picupApi->getApiKey());
 
         // set to TESTING MODE
         $picupApi->setTesting();
@@ -76,7 +77,7 @@ class PicupApiTest extends TestCase
      * @throws PicupApiKeyInvalid
      * @throws PicupRequestFailed
      */
-    public function testApiKeyIsMalformed(): void
+    public function testApiKeyIsMalformed() : void
     {
         $data = [
             'message' => 'Identity is invalid'
@@ -87,7 +88,7 @@ class PicupApiTest extends TestCase
 
         $apiKey = 'api-key-123-456';
         $picupApi = new PicupApi($client, $apiKey);
-        $this->assertEquals($apiKey, $picupApi->getApiKey());
+        $this->assertSame($apiKey, $picupApi->getApiKey());
 
         $businessRequest = new StandardBusinessRequest('business-1234-45676');
 
@@ -100,7 +101,7 @@ class PicupApiTest extends TestCase
      * @throws PicupApiKeyInvalid
      * @throws PicupRequestFailed
      */
-    public function testApiKeyIsIncorrect(): void
+    public function testApiKeyIsIncorrect() : void
     {
         $data = [
             'message' => 'Authorization has been denied'
@@ -111,7 +112,7 @@ class PicupApiTest extends TestCase
 
         $apiKey = 'api-key-123-456';
         $picupApi = new PicupApi($client, $apiKey);
-        $this->assertEquals($apiKey, $picupApi->getApiKey());
+        $this->assertSame($apiKey, $picupApi->getApiKey());
 
         $businessRequest = new StandardBusinessRequest('business-valid-uuid-but-auth-denied');
 
@@ -124,7 +125,7 @@ class PicupApiTest extends TestCase
      *
      * @throws PicupApiException
      */
-    public function testSendQuoteRequest(): void
+    public function testSendQuoteRequest() : void
     {
         // 1 - Build Mock
         $data = [
@@ -133,8 +134,8 @@ class PicupApiTest extends TestCase
                 'service_types' => [
                     [
                         'description' => 'vehicle-space-ship',
-                        'price_incl_vat' => 500,
-                        'price_ex_vat' => 400,
+                        'price_incl_vat' => 500.45,
+                        'price_ex_vat' => 400.3,
                         'duration' => '24:00:00',
                         'distance' => '500'
                     ]
@@ -162,38 +163,38 @@ class PicupApiTest extends TestCase
         $sentRequest = $container[0]['request'];
 
         // Ensure the correct url was used
-        $this->assertEquals('https', $sentRequest->getUri()->getScheme());
-        $this->assertEquals('otdcpt-knupqa.onthedot.co.za', $sentRequest->getUri()->getHost());
-        $this->assertEquals('/picup-api/v1/integration/quote/one-to-many', $sentRequest->getUri()->getPath());
+        $this->assertSame('https', $sentRequest->getUri()->getScheme());
+        $this->assertSame('otdcpt-knupqa.onthedot.co.za', $sentRequest->getUri()->getHost());
+        $this->assertSame('/picup-api/v1/integration/quote/one-to-many', $sentRequest->getUri()->getPath());
 
         // Ensure the api key was added to header
-        $this->assertEquals('api-123', $sentRequest->getHeaderLine('api-key'));
+        $this->assertSame('api-123', $sentRequest->getHeaderLine('api-key'));
 
         // Ensure the json was sent as expected
         $expectedData = json_encode($quoteRequestFixture);
         $sentData = $sentRequest->getBody()->getContents();
-        $this->assertEquals($expectedData, $sentData);
+        $this->assertSame($expectedData, $sentData);
 
         // ASSERT RETURNED OBJECT IS CORRECT
 
-        $this->assertEquals(true, $deliveryQuoteResponse->isValid());
+        $this->assertTrue($deliveryQuoteResponse->isValid());
 
         $serviceTypes = $deliveryQuoteResponse->getServiceTypes();
         $this->assertCount(1, $serviceTypes);
 
         $serviceType = $serviceTypes[0];
-        $this->assertEquals('vehicle-space-ship', $serviceType->getDescription());
-        $this->assertEquals(500, $serviceType->getPriceInclusive());
-        $this->assertEquals(400, $serviceType->getPriceExclusive());
-        $this->assertEquals('24:00:00', $serviceType->getDuration());
-        $this->assertEquals(500, $serviceType->getDistance());
-        $this->assertEquals('Space Ship', $serviceType->getVehicleName());
+        $this->assertSame('vehicle-space-ship', $serviceType->getDescription());
+        $this->assertSame(500.45, $serviceType->getPriceInclusive());
+        $this->assertSame(400.3, $serviceType->getPriceExclusive());
+        $this->assertSame('24:00:00', $serviceType->getDuration());
+        $this->assertSame('500', $serviceType->getDistance());
+        $this->assertSame('Space Ship', $serviceType->getVehicleName());
     }
 
     /**
      * @throws PicupApiException
      */
-    public function testSendQuoteRequestFailure(): void
+    public function testSendQuoteRequestFailure() : void
     {
         $data = [
             'error' => 'houston. problem.'
@@ -216,7 +217,7 @@ class PicupApiTest extends TestCase
     /**
      * @throws PicupApiException
      */
-    public function testSendOrderRequest(): void
+    public function testSendOrderRequest() : void
     {
         // 1 - Build Mock
         $data = [
@@ -243,27 +244,27 @@ class PicupApiTest extends TestCase
         $sentRequest = $container[0]['request'];
 
         // Ensure the correct url was used
-        $this->assertEquals('https', $sentRequest->getUri()->getScheme());
-        $this->assertEquals('otdcpt-knupqa.onthedot.co.za', $sentRequest->getUri()->getHost());
-        $this->assertEquals('/picup-api/v1/integration/create/one-to-many', $sentRequest->getUri()->getPath());
+        $this->assertSame('https', $sentRequest->getUri()->getScheme());
+        $this->assertSame('otdcpt-knupqa.onthedot.co.za', $sentRequest->getUri()->getHost());
+        $this->assertSame('/picup-api/v1/integration/create/one-to-many', $sentRequest->getUri()->getPath());
 
         // Ensure the api key was added to header
-        $this->assertEquals('api-123', $sentRequest->getHeaderLine('api-key'));
+        $this->assertSame('api-123', $sentRequest->getHeaderLine('api-key'));
 
         // Ensure the json was sent as expected
         $expectedData = json_encode($orderRequest);
         $sentData = $sentRequest->getBody()->getContents();
-        $this->assertEquals($expectedData, $sentData);
+        $this->assertSame($expectedData, $sentData);
 
         // ASSERT RETURNED OBJECT IS CORRECT
 
-        $this->assertEquals(555, $response->getId());
+        $this->assertSame(555, $response->getId());
     }
 
     /**
      * @throws PicupApiException
      */
-    public function testSendOrderRequestFailure(): void
+    public function testSendOrderRequestFailure() : void
     {
         // 1 - Build Mock
         $data = [
@@ -289,7 +290,7 @@ class PicupApiTest extends TestCase
     /**
      * @throws PicupApiException
      */
-    public function testSendDeliveryBucket(): void
+    public function testSendDeliveryBucket() : void
     {
         // 1 - Build Mock
         $data = [
@@ -316,27 +317,27 @@ class PicupApiTest extends TestCase
         $sentRequest = $container[0]['request'];
 
         // Ensure the correct url was used
-        $this->assertEquals('https', $sentRequest->getUri()->getScheme());
-        $this->assertEquals('otdcpt-knupqa.onthedot.co.za', $sentRequest->getUri()->getHost());
-        $this->assertEquals('/picup-api/v1/integration/add-to-bucket', $sentRequest->getUri()->getPath());
+        $this->assertSame('https', $sentRequest->getUri()->getScheme());
+        $this->assertSame('otdcpt-knupqa.onthedot.co.za', $sentRequest->getUri()->getHost());
+        $this->assertSame('/picup-api/v1/integration/add-to-bucket', $sentRequest->getUri()->getPath());
 
         // Ensure the api key was added to header
-        $this->assertEquals('api-123', $sentRequest->getHeaderLine('api-key'));
+        $this->assertSame('api-123', $sentRequest->getHeaderLine('api-key'));
 
         // Ensure the json was sent as expected
         $expectedData = json_encode($request);
         $sentData = $sentRequest->getBody()->getContents();
-        $this->assertEquals($expectedData, $sentData);
+        $this->assertSame($expectedData, $sentData);
 
         // ASSERT RETURNED OBJECT IS CORRECT
 
-        $this->assertEquals(666, $response->getId());
+        $this->assertSame(666, $response->getId());
     }
 
     /**
      * @throws PicupApiException
      */
-    public function testSendDeliveryBucketFailure(): void
+    public function testSendDeliveryBucketFailure() : void
     {
         // 1 - Build Mock
         $data = [
@@ -363,7 +364,7 @@ class PicupApiTest extends TestCase
      * @throws PicupApiException
      * @throws PicupApiKeyInvalid
      */
-    public function testSendIntegrationDetailsRequestWithValidApiKey(): void
+    public function testSendIntegrationDetailsRequestWithValidApiKey() : void
     {
         $data = [
             'is_key_valid' => true,
@@ -393,28 +394,28 @@ class PicupApiTest extends TestCase
         $sentRequest = $container[0]['request'];
 
         // Ensure the correct url was used
-        $this->assertEquals('https', $sentRequest->getUri()->getScheme());
-        $this->assertEquals('otdcpt-knupqa.onthedot.co.za', $sentRequest->getUri()->getHost());
-        $this->assertEquals('/picup-api/v1/integration/business-123-456/details', $sentRequest->getUri()->getPath());
+        $this->assertSame('https', $sentRequest->getUri()->getScheme());
+        $this->assertSame('otdcpt-knupqa.onthedot.co.za', $sentRequest->getUri()->getHost());
+        $this->assertSame('/picup-api/v1/integration/business-123-456/details', $sentRequest->getUri()->getPath());
 
         // ASSERT RETURNED OBJECT IS CORRECT
 
         $this->assertTrue($apiResponse->isKeyValid());
-        $this->assertEquals('Your key is valid', $apiResponse->getIsKeyValidMessage());
+        $this->assertSame('Your key is valid', $apiResponse->getIsKeyValidMessage());
 
         $warehouses = $apiResponse->getWarehouses();
         $this->assertCount(1, $warehouses);
 
         $warehouse = $warehouses[0];
-        $this->assertEquals('warehouse-123', $warehouse->getId());
-        $this->assertEquals('Test Warehouse', $warehouse->getName());
+        $this->assertSame('warehouse-123', $warehouse->getId());
+        $this->assertSame('Test Warehouse', $warehouse->getName());
     }
 
     /**
      * @throws PicupApiException
      * @throws PicupApiKeyInvalid
      */
-    public function testSendIntegrationDetailsRequestWithInvalidApiKey(): void
+    public function testSendIntegrationDetailsRequestWithInvalidApiKey() : void
     {
         $data = [
             'is_key_valid' => false,
@@ -437,7 +438,7 @@ class PicupApiTest extends TestCase
      * @throws PicupApiException
      * @throws PicupApiKeyInvalid
      */
-    public function testSendIntegrationDetailsRequestWithInvalidIdentity(): void
+    public function testSendIntegrationDetailsRequestWithInvalidIdentity() : void
     {
         $data = [
             'Message' => 'Identity is invalid'
@@ -458,7 +459,7 @@ class PicupApiTest extends TestCase
      * @throws PicupApiException
      * @throws PicupApiKeyInvalid
      */
-    public function testSendIntegrationDetailsRequestWithInvalidResponse(): void
+    public function testSendIntegrationDetailsRequestWithInvalidResponse() : void
     {
         $data = [
             'Message' => 'something else broke'
@@ -483,7 +484,7 @@ class PicupApiTest extends TestCase
      *
      * @throws PicupApiException
      */
-    public function testSendDispatchSummaryRequest(): void
+    public function testSendDispatchSummaryRequest() : void
     {
         $data = [
             'picup_count' => 1,
@@ -513,13 +514,13 @@ class PicupApiTest extends TestCase
 
         // ASSERT RETURNED OBJECT IS CORRECT
 
-        $this->assertEquals(1, $dispatchSummary->getPicupCount());
+        $this->assertSame(1, $dispatchSummary->getPicupCount());
     }
 
     /**
      * @throws PicupApiException
      */
-    public function testSendDispatchSummaryRequestWithInvalidResponse(): void
+    public function testSendDispatchSummaryRequestWithInvalidResponse() : void
     {
         $data = [
             'Message' => 'something broke again'
@@ -538,12 +539,11 @@ class PicupApiTest extends TestCase
     }
 
     /**
-     *
      * @throws PicupApiException
      * @throws PicupApiKeyInvalid
      * @throws PicupRequestFailed
      */
-    public function testSendOrderStatusRequest(): void
+    public function testSendOrderStatusRequest() : void
     {
         $data = [];
         $container = [];
@@ -562,12 +562,12 @@ class PicupApiTest extends TestCase
         /** @var Request $sentRequest */
         $sentRequest = $container[0]['request'];
 
-        $this->assertEquals('https', $sentRequest->getUri()->getScheme());
-        $this->assertEquals('otdcpt-knupqa.onthedot.co.za', $sentRequest->getUri()->getHost());
-        $this->assertEquals('/picup-api/v1/integration/order-status', $sentRequest->getUri()->getPath());
+        $this->assertSame('https', $sentRequest->getUri()->getScheme());
+        $this->assertSame('otdcpt-knupqa.onthedot.co.za', $sentRequest->getUri()->getHost());
+        $this->assertSame('/picup-api/v1/integration/order-status', $sentRequest->getUri()->getPath());
     }
 
-    public function testSendOrderStatusRequestFailure(): void
+    public function testSendOrderStatusRequestFailure() : void
     {
         $data = [];
         $mock = new MockHandler([new Response(500, [], json_encode($data))]);

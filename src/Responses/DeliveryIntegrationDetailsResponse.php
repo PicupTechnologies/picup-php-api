@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PicupTechnologies\PicupPHPApi\Responses;
 
 use PicupTechnologies\PicupPHPApi\Objects\Parcel;
@@ -7,8 +9,6 @@ use PicupTechnologies\PicupPHPApi\Objects\Warehouses\DeliveryWarehouse;
 
 /**
  * Holds the DeliveryIntegrationDetails response from Picup
- *
- * @package PicupTechnologies\PicupPHPApi\Responses
  */
 class DeliveryIntegrationDetailsResponse
 {
@@ -43,8 +43,6 @@ class DeliveryIntegrationDetailsResponse
     /**
      * DeliveryIntegrationDetailsResponse constructor.
      *
-     * @param bool                $isKeyValid
-     * @param string              $isKeyValidMessage
      * @param DeliveryWarehouse[] $warehouses
      * @param Parcel[]            $parcels
      */
@@ -56,18 +54,12 @@ class DeliveryIntegrationDetailsResponse
         $this->parcels = $parcels;
     }
 
-    /**
-     * @return bool
-     */
-    public function isKeyValid(): bool
+    public function isKeyValid() : bool
     {
         return $this->isKeyValid;
     }
 
-    /**
-     * @return string
-     */
-    public function getIsKeyValidMessage(): string
+    public function getIsKeyValidMessage() : string
     {
         return $this->isKeyValidMessage;
     }
@@ -75,7 +67,7 @@ class DeliveryIntegrationDetailsResponse
     /**
      * @return DeliveryWarehouse[]
      */
-    public function getWarehouses(): ?array
+    public function getWarehouses() : ?array
     {
         return $this->warehouses;
     }
@@ -83,7 +75,7 @@ class DeliveryIntegrationDetailsResponse
     /**
      * @return Parcel[]
      */
-    public function getParcels(): ?array
+    public function getParcels() : ?array
     {
         return $this->parcels;
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PicupTechnologies\PicupPHPApi\Objects;
 
 use InvalidArgumentException;
@@ -8,8 +10,6 @@ use InvalidArgumentException;
  * Class DeliveryServiceType
  *
  * Holds each service type containing the vehicle/cost etc for a picup quote
- *
- * @package App\Domains\Delivery\Objects
  */
 final class DeliveryServiceType
 {
@@ -38,82 +38,52 @@ final class DeliveryServiceType
      */
     private $duration;
 
-    /**
-     * @return string
-     */
-    public function getDescription(): string
+    public function getDescription() : string
     {
         return $this->description;
     }
 
-    /**
-     * @param string $description
-     */
-    public function setDescription(string $description): void
+    public function setDescription(string $description) : void
     {
         $this->description = $description;
     }
 
-    /**
-     * @return float
-     */
-    public function getPriceInclusive(): float
+    public function getPriceInclusive() : float
     {
         return $this->priceInclusive;
     }
 
-    /**
-     * @param float $priceInclusive
-     */
-    public function setPriceInclusive(float $priceInclusive): void
+    public function setPriceInclusive(float $priceInclusive) : void
     {
         $this->priceInclusive = $priceInclusive;
     }
 
-    /**
-     * @return float
-     */
-    public function getPriceExclusive(): float
+    public function getPriceExclusive() : float
     {
         return $this->priceExclusive;
     }
 
-    /**
-     * @param float $priceExclusive
-     */
-    public function setPriceExclusive(float $priceExclusive): void
+    public function setPriceExclusive(float $priceExclusive) : void
     {
         $this->priceExclusive = $priceExclusive;
     }
 
-    /**
-     * @return string
-     */
-    public function getDistance(): string
+    public function getDistance() : string
     {
         return $this->distance;
     }
 
-    /**
-     * @param string $distance
-     */
-    public function setDistance(string $distance): void
+    public function setDistance(string $distance) : void
     {
         $this->distance = $distance;
     }
 
-    /**
-     * @return string
-     */
-    public function getDuration(): string
+    public function getDuration() : string
     {
         return $this->duration;
     }
 
-    /**
-     * @param string $duration
-     */
-    public function setDuration(string $duration): void
+    public function setDuration(string $duration) : void
     {
         $this->duration = $duration;
     }
@@ -126,10 +96,8 @@ final class DeliveryServiceType
      *
      * input: vehicle-space-ship
      * output: Space Ship
-     *
-     * @return string
      */
-    public function getVehicleName(): string
+    public function getVehicleName() : string
     {
         if (strpos($this->description, '-') === false) {
             throw new InvalidArgumentException('Invalid vehicle name in description returned.');

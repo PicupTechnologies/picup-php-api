@@ -1,22 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PicupTechnologies\PicupPHPApi\Factories;
 
 use PicupTechnologies\PicupPHPApi\Objects\DispatchSummary\ParcelDetails;
 
 /**
  * Builds the ParcelDetails for a DispatchSummaryResponse
- *
- * @package PicupTechnologies\PicupPHPApi\Factories
  */
 final class DispatchSummaryParcelFactory
 {
     /**
-     * @param array $parcelArray
-     *
      * @return ParcelDetails[]
      */
-    public static function make(array $parcelArray): array
+    public static function make(array $parcelArray) : array
     {
         $parcels = [];
 

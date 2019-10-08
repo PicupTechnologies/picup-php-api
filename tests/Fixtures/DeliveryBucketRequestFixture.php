@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PicupTechnologies\PicupPHPApi\Tests\Fixtures;
 
 use Faker\Factory;
@@ -9,7 +11,7 @@ use PicupTechnologies\PicupPHPApi\Requests\DeliveryBucketRequest;
 
 final class DeliveryBucketRequestFixture
 {
-    public static function make(): DeliveryBucketRequest
+    public static function make() : DeliveryBucketRequest
     {
         $faker = Factory::create();
 

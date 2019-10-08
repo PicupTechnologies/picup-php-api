@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PicupTechnologies\PicupPHPApi\Tests\Responses;
 
+use PHPUnit\Framework\TestCase;
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryServiceType;
 use PicupTechnologies\PicupPHPApi\Responses\DeliveryQuoteResponse;
-use PHPUnit\Framework\TestCase;
 
 class DeliveryQuoteResponseTest extends TestCase
 {
-    public function testBasics(): void
+    public function testBasics() : void
     {
         $response = new DeliveryQuoteResponse();
 
@@ -20,20 +22,20 @@ class DeliveryQuoteResponseTest extends TestCase
 
         $errorMessage = 'testing this error message';
         $response->setError($errorMessage);
-        $this->assertEquals($errorMessage, $response->getError());
+        $this->assertSame($errorMessage, $response->getError());
 
         $serviceType = new DeliveryServiceType();
 
         $response->setServiceTypes([$serviceType]);
         $this->assertCount(1, $response->getServiceTypes());
-        $this->assertEquals($serviceType, $response->getServiceTypes()[0]);
+        $this->assertSame($serviceType, $response->getServiceTypes()[0]);
 
         $serviceTypeTwo = new DeliveryServiceType();
         $response->addServiceType($serviceTypeTwo);
 
         $types = $response->getServiceTypes();
         $this->assertCount(2, $types);
-        $this->assertEquals($serviceType, $types[0]);
-        $this->assertEquals($serviceTypeTwo, $types[1]);
+        $this->assertSame($serviceType, $types[0]);
+        $this->assertSame($serviceTypeTwo, $types[1]);
     }
 }

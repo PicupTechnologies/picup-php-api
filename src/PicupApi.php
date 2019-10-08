@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PicupTechnologies\PicupPHPApi;
 
 use GuzzleHttp\Client;
@@ -28,9 +30,6 @@ use PicupTechnologies\PicupPHPApi\Responses\OrderStatusResponse;
  * PicupApi
  *
  * Communicates with the Picup API
- *
- * @package PicupPHPApi
- * @author Bryan Paddock <bryan@bryan.za.net>
  */
 final class PicupApi implements PicupApiInterface
 {
@@ -62,7 +61,6 @@ final class PicupApi implements PicupApiInterface
      * PicupApi constructor.
      *
      * @param Client $httpClient HttpClient to communicate with
-     * @param string $apiKey
      */
     public function __construct(Client $httpClient, string $apiKey)
     {
@@ -73,22 +71,18 @@ final class PicupApi implements PicupApiInterface
     /**
      * Fetches a quick delivery quote from the Picup service
      *
-     * @param DeliveryQuoteRequest $deliveryQuoteRequest
-     *
-     * @return DeliveryQuoteResponse
-     *
-     * @throws PicupRequestFailed  Should there be a problem with the request
-     * @throws PicupApiKeyInvalid  Should the API key be invalid
-     * @throws PicupApiException   Should a general problem occur
+     * @throws PicupRequestFailed Should there be a problem with the request
+     * @throws PicupApiKeyInvalid Should the API key be invalid
+     * @throws PicupApiException  Should a general problem occur
      */
-    public function sendQuoteRequest(DeliveryQuoteRequest $deliveryQuoteRequest): DeliveryQuoteResponse
+    public function sendQuoteRequest(DeliveryQuoteRequest $deliveryQuoteRequest) : DeliveryQuoteResponse
     {
         $headers = ['api-key' => $this->apiKey];
 
         try {
             $guzzleResponse = $this->httpClient->post($this->apiPrefix . $this->endpointQuote, [
                 'headers' => $headers,
-                'json'    => $deliveryQuoteRequest,
+                'json' => $deliveryQuoteRequest,
             ]);
 
             $body = $guzzleResponse->getBody()->getContents();
@@ -111,22 +105,20 @@ final class PicupApi implements PicupApiInterface
      *
      * Warning: This sends the delivery to Picup for actual delivery!
      *
-     * @param DeliveryOrderRequest $deliveryOrderRequest
+     * @throws PicupRequestFailed Should there be a problem with the request
+     * @throws PicupApiKeyInvalid Should the API key be invalid
+     * @throws PicupApiException  Should a general problem occur
      *
      * @return DeliveryOrderResponse Containing the request_id
-     *
-     * @throws PicupRequestFailed  Should there be a problem with the request
-     * @throws PicupApiKeyInvalid  Should the API key be invalid
-     * @throws PicupApiException   Should a general problem occur
      */
-    public function sendOrderRequest(DeliveryOrderRequest $deliveryOrderRequest): DeliveryOrderResponse
+    public function sendOrderRequest(DeliveryOrderRequest $deliveryOrderRequest) : DeliveryOrderResponse
     {
         $headers = ['api-key' => $this->apiKey];
 
         try {
             $response = $this->httpClient->post($this->apiPrefix . $this->endpointOrder, [
                 'headers' => $headers,
-                'json'    => $deliveryOrderRequest,
+                'json' => $deliveryOrderRequest,
             ]);
 
             $body = $response->getBody()->getContents();
@@ -163,22 +155,18 @@ final class PicupApi implements PicupApiInterface
      *
      * Warning: This sends the delivery to Picup for actual delivery!
      *
-     * @param DeliveryBucketRequest $deliveryBucket
-     *
-     * @return DeliveryOrderResponse
-     *
-     * @throws PicupRequestFailed  Should there be a problem with the request
-     * @throws PicupApiKeyInvalid  Should the API key be invalid
-     * @throws PicupApiException   Should a general problem occur
+     * @throws PicupRequestFailed Should there be a problem with the request
+     * @throws PicupApiKeyInvalid Should the API key be invalid
+     * @throws PicupApiException  Should a general problem occur
      */
-    public function sendDeliveryBucket(DeliveryBucketRequest $deliveryBucket): DeliveryOrderResponse
+    public function sendDeliveryBucket(DeliveryBucketRequest $deliveryBucket) : DeliveryOrderResponse
     {
         $headers = ['api-key' => $this->apiKey];
 
         try {
             $response = $this->httpClient->post($this->apiPrefix . $this->endpointAddBucket, [
                 'headers' => $headers,
-                'json'    => $deliveryBucket,
+                'json' => $deliveryBucket,
             ]);
 
             $body = $response->getBody()->getContents();
@@ -204,15 +192,11 @@ final class PicupApi implements PicupApiInterface
      * well as our standard parcel sizes and any warehouses linked to your
      * account.
      *
-     * @param StandardBusinessRequest $businessRequest
-     *
-     * @return DeliveryIntegrationDetailsResponse
-     *
-     * @throws PicupRequestFailed  Should there be a problem with the request
-     * @throws PicupApiKeyInvalid  Should the API key be invalid
-     * @throws PicupApiException   Should a general problem occur
+     * @throws PicupRequestFailed Should there be a problem with the request
+     * @throws PicupApiKeyInvalid Should the API key be invalid
+     * @throws PicupApiException  Should a general problem occur
      */
-    public function sendIntegrationDetailsRequest(StandardBusinessRequest $businessRequest): DeliveryIntegrationDetailsResponse
+    public function sendIntegrationDetailsRequest(StandardBusinessRequest $businessRequest) : DeliveryIntegrationDetailsResponse
     {
         $urlTemplate = $this->apiPrefix . $this->endpointIntegrationDetails;
         $endpoint = sprintf($urlTemplate, $businessRequest->getBusinessId());
@@ -224,7 +208,7 @@ final class PicupApi implements PicupApiInterface
 
             $deliveryIntegrationDetailsResponse = DeliveryIntegrationDetailsResponseFactory::make($body);
 
-            if (!$deliveryIntegrationDetailsResponse->isKeyValid()) {
+            if (! $deliveryIntegrationDetailsResponse->isKeyValid()) {
                 throw new PicupApiKeyInvalid($deliveryIntegrationDetailsResponse->getIsKeyValidMessage());
             }
 
@@ -237,6 +221,7 @@ final class PicupApi implements PicupApiInterface
             }
 
             $errorMessage = 'IntegrationDetails Error: ' . $msg;
+
             throw new PicupRequestFailed($businessRequest, $errorMessage);
         }
     }
@@ -249,12 +234,9 @@ final class PicupApi implements PicupApiInterface
      *  - Completed Parcels
      *  - Failed Parcels
      *
-     * @param StandardBusinessRequest $businessRequest
-     *
-     * @return DispatchSummaryResponse
      * @throws PicupApiException
      */
-    public function sendDispatchSummaryRequest(StandardBusinessRequest $businessRequest): DispatchSummaryResponse
+    public function sendDispatchSummaryRequest(StandardBusinessRequest $businessRequest) : DispatchSummaryResponse
     {
         $headers = ['api-key' => $this->apiKey];
         $urlTemplate = $this->apiPrefix . $this->endpointDispatchSummary;
@@ -281,15 +263,11 @@ final class PicupApi implements PicupApiInterface
     }
 
     /**
-     * @param OrderStatusRequest $request
-     *
-     * @return OrderStatusResponse
-     *
      * @throws PicupApiException
      * @throws PicupApiKeyInvalid
      * @throws PicupRequestFailed
      */
-    public function sendOrderStatusRequest(OrderStatusRequest $request): OrderStatusResponse
+    public function sendOrderStatusRequest(OrderStatusRequest $request) : OrderStatusResponse
     {
         $headers = ['api-key' => $this->apiKey];
         $endpoint = $this->apiPrefix . $this->endpointOrderStatus;
@@ -315,20 +293,56 @@ final class PicupApi implements PicupApiInterface
         }
     }
 
+    public function getApiKey() : string
+    {
+        return $this->apiKey;
+    }
+
+    public function setApiKey(string $apiKey) : void
+    {
+        $this->apiKey = $apiKey;
+    }
+
+    public function isLive() : bool
+    {
+        return $this->live;
+    }
+
+    /**
+     * Sets live mode.
+     */
+    public function setLive() : void
+    {
+        $this->live = true;
+        $this->apiPrefix = 'https://otdcpt-knupprd.onthedot.co.za/picup-api/v1';
+    }
+
+    /**
+     * Sets testing mode
+     */
+    public function setTesting() : void
+    {
+        $this->live = false;
+        $this->apiPrefix = 'https://otdcpt-knupqa.onthedot.co.za/picup-api/v1';
+    }
+
+    public function getApiPrefix() : string
+    {
+        return $this->apiPrefix;
+    }
+
     /**
      * Checks the response from Picup for any errors that should be thrown
-     *
-     * @param string $response
      *
      * @throws PicupApiKeyInvalid
      * @throws PicupApiException
      */
-    private function checkResponseForErrors(string $response): void
+    private function checkResponseForErrors(string $response) : void
     {
         // picup enterprise sometimes responds with message and sometimes Message
         $decoded = array_change_key_case(json_decode($response, true));
 
-        if (!isset($decoded['message'])) {
+        if (! isset($decoded['message'])) {
             return;
         }
 
@@ -341,55 +355,5 @@ final class PicupApi implements PicupApiInterface
         if (stripos($decoded['message'], 'Authorization has been denied') !== false) {
             throw new PicupApiKeyInvalid($decoded['message']);
         }
-    }
-
-    /**
-     * @return string
-     */
-    public function getApiKey(): string
-    {
-        return $this->apiKey;
-    }
-
-    /**
-     * @param string $apiKey
-     */
-    public function setApiKey(string $apiKey): void
-    {
-        $this->apiKey = $apiKey;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isLive(): bool
-    {
-        return $this->live;
-    }
-
-    /**
-     * Sets live mode.
-     */
-    public function setLive(): void
-    {
-        $this->live = true;
-        $this->apiPrefix = 'https://otdcpt-knupprd.onthedot.co.za/picup-api/v1';
-    }
-
-    /**
-     * Sets testing mode
-     */
-    public function setTesting(): void
-    {
-        $this->live = false;
-        $this->apiPrefix = 'https://otdcpt-knupqa.onthedot.co.za/picup-api/v1';
-    }
-
-    /**
-     * @return string
-     */
-    public function getApiPrefix(): string
-    {
-        return $this->apiPrefix;
     }
 }

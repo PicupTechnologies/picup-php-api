@@ -1,13 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PicupTechnologies\PicupPHPApi\Responses;
 
 use PicupTechnologies\PicupPHPApi\Objects\DispatchSummary\ParcelDetails;
 
 /**
  * Holds the DispatchSummary response from Picup
- *
- * @package PicupTechnologies\PicupPHPApi\Responses
  */
 final class DispatchSummaryResponse
 {
@@ -44,11 +44,6 @@ final class DispatchSummaryResponse
     /**
      * DispatchSummaryResponse constructor.
      *
-     * @param int             $picupCount
-     * @param int             $totalParcels
-     * @param int             $pendingParcels
-     * @param int             $failedParcels
-     * @param int             $completedParcels
      * @param ParcelDetails[] $parcels
      */
     public function __construct(int $picupCount, int $totalParcels, int $pendingParcels, int $failedParcels, int $completedParcels, array $parcels)
@@ -61,42 +56,27 @@ final class DispatchSummaryResponse
         $this->parcels = $parcels;
     }
 
-    /**
-     * @return int
-     */
-    public function getPicupCount(): int
+    public function getPicupCount() : int
     {
         return $this->picupCount;
     }
 
-    /**
-     * @return int
-     */
-    public function getTotalParcels(): int
+    public function getTotalParcels() : int
     {
         return $this->totalParcels;
     }
 
-    /**
-     * @return int
-     */
-    public function getPendingParcels(): int
+    public function getPendingParcels() : int
     {
         return $this->pendingParcels;
     }
 
-    /**
-     * @return int
-     */
-    public function getFailedParcels(): int
+    public function getFailedParcels() : int
     {
         return $this->failedParcels;
     }
 
-    /**
-     * @return int
-     */
-    public function getCompletedParcels(): int
+    public function getCompletedParcels() : int
     {
         return $this->completedParcels;
     }
@@ -104,7 +84,7 @@ final class DispatchSummaryResponse
     /**
      * @return ParcelDetails[]
      */
-    public function getParcels(): array
+    public function getParcels() : array
     {
         return $this->parcels;
     }

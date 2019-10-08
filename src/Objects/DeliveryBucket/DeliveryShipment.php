@@ -1,11 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PicupTechnologies\PicupPHPApi\Objects\DeliveryBucket;
 
 use JsonSerializable;
 
 class DeliveryShipment implements JsonSerializable
 {
+    /**
+     * @var DeliveryShipmentParcel[]
+     */
+    public $parcels;
     /**
      * @var string
      */
@@ -26,71 +32,42 @@ class DeliveryShipment implements JsonSerializable
      */
     private $contact;
 
-    /**
-     * @var DeliveryShipmentParcel[]
-     */
-    public $parcels;
-
-    /**
-     * @return string
-     */
-    public function getConsignment(): string
+    public function getConsignment() : string
     {
         return $this->consignment;
     }
 
-    /**
-     * @param string $consignment
-     */
-    public function setConsignment(string $consignment): void
+    public function setConsignment(string $consignment) : void
     {
         $this->consignment = $consignment;
     }
 
-    /**
-     * @return string
-     */
-    public function getBusinessReference(): string
+    public function getBusinessReference() : string
     {
         return $this->businessReference;
     }
 
-    /**
-     * @param string $businessReference
-     */
-    public function setBusinessReference(string $businessReference): void
+    public function setBusinessReference(string $businessReference) : void
     {
         $this->businessReference = $businessReference;
     }
 
-    /**
-     * @return DeliveryShipmentAddress
-     */
-    public function getAddress(): DeliveryShipmentAddress
+    public function getAddress() : DeliveryShipmentAddress
     {
         return $this->address;
     }
 
-    /**
-     * @param DeliveryShipmentAddress $address
-     */
-    public function setAddress(DeliveryShipmentAddress $address): void
+    public function setAddress(DeliveryShipmentAddress $address) : void
     {
         $this->address = $address;
     }
 
-    /**
-     * @return DeliveryShipmentContact
-     */
-    public function getContact(): DeliveryShipmentContact
+    public function getContact() : DeliveryShipmentContact
     {
         return $this->contact;
     }
 
-    /**
-     * @param DeliveryShipmentContact $contact
-     */
-    public function setContact(DeliveryShipmentContact $contact): void
+    public function setContact(DeliveryShipmentContact $contact) : void
     {
         $this->contact = $contact;
     }
@@ -98,7 +75,7 @@ class DeliveryShipment implements JsonSerializable
     /**
      * @return DeliveryShipmentParcel[]
      */
-    public function getParcels(): array
+    public function getParcels() : array
     {
         return $this->parcels;
     }
@@ -106,17 +83,15 @@ class DeliveryShipment implements JsonSerializable
     /**
      * @param DeliveryShipmentParcel[] $parcels
      */
-    public function setParcels(array $parcels): void
+    public function setParcels(array $parcels) : void
     {
         $this->parcels = $parcels;
     }
 
     /**
      * Add a parcel to the collection
-     *
-     * @param DeliveryShipmentParcel $parcel
      */
-    public function addParcel(DeliveryShipmentParcel $parcel): void
+    public function addParcel(DeliveryShipmentParcel $parcel) : void
     {
         $this->parcels[] = $parcel;
     }
@@ -124,15 +99,17 @@ class DeliveryShipment implements JsonSerializable
     /**
      * Specify data which should be serialized to JSON
      *
-     * @link  https://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @see  https://php.net/manual/en/jsonserializable.jsonserialize.php
+     *
      * @return mixed data which can be serialized by <b>json_encode</b>,
-     * which is a value of any type other than a resource.
+     *               which is a value of any type other than a resource
+     *
      * @since 5.4.0
      */
     public function jsonSerialize()
     {
         return [
-            'consignment'        => $this->consignment,
+            'consignment' => $this->consignment,
             'business_reference' => $this->businessReference,
 
             'address' => $this->address,

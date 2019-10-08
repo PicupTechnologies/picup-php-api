@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PicupTechnologies\PicupPHPApi\Tests\Responses;
 
 use PHPUnit\Framework\TestCase;
@@ -8,7 +10,7 @@ use PicupTechnologies\PicupPHPApi\Responses\DispatchSummaryResponse;
 
 class DispatchSummaryResponseTest extends TestCase
 {
-    public function testGetters(): void
+    public function testGetters() : void
     {
         $picupCount = 1;
         $totalParcels = 2;
@@ -34,18 +36,18 @@ class DispatchSummaryResponseTest extends TestCase
             [$parcelDetail]
         );
 
-        $this->assertEquals($picupCount, $dispatchSummary->getPicupCount());
-        $this->assertEquals($totalParcels, $dispatchSummary->getTotalParcels());
-        $this->assertEquals($pendingParcels, $dispatchSummary->getPendingParcels());
-        $this->assertEquals($failedParcels, $dispatchSummary->getFailedParcels());
-        $this->assertEquals($completedParcels, $dispatchSummary->getCompletedParcels());
+        $this->assertSame($picupCount, $dispatchSummary->getPicupCount());
+        $this->assertSame($totalParcels, $dispatchSummary->getTotalParcels());
+        $this->assertSame($pendingParcels, $dispatchSummary->getPendingParcels());
+        $this->assertSame($failedParcels, $dispatchSummary->getFailedParcels());
+        $this->assertSame($completedParcels, $dispatchSummary->getCompletedParcels());
 
         $parcel = $dispatchSummary->getParcels()[0];
-        $this->assertEquals('tracking', $parcel->getTrackingNumber());
-        $this->assertEquals('parcel-ref', $parcel->getParcelReference());
-        $this->assertEquals('pending', $parcel->getStatus());
-        $this->assertEquals(null, $parcel->getFailedReason());
-        $this->assertEquals('name', $parcel->getContactName());
-        $this->assertEquals('phone', $parcel->getContactPhone());
+        $this->assertSame('tracking', $parcel->getTrackingNumber());
+        $this->assertSame('parcel-ref', $parcel->getParcelReference());
+        $this->assertSame('pending', $parcel->getStatus());
+        $this->assertNull($parcel->getFailedReason());
+        $this->assertSame('name', $parcel->getContactName());
+        $this->assertSame('phone', $parcel->getContactPhone());
     }
 }

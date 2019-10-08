@@ -1,10 +1,7 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: bryan
- * Date: 2019/01/28
- * Time: 2:41 PM
- */
+
+declare(strict_types=1);
+
 
 namespace PicupTechnologies\PicupPHPApi\Objects;
 

@@ -1,16 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: bryan
- * Date: 2018/10/22
- * Time: 5:18 PM
- */
+
+declare(strict_types=1);
+
 
 namespace PicupTechnologies\PicupPHPApi\Objects;
 
 /**
  * Class DeliveryReceiverAddress
- *
  */
 abstract class DeliveryAddress
 {
@@ -67,15 +63,12 @@ abstract class DeliveryAddress
     /**
      * @return string
      */
-    public function getUnitNo(): ?string
+    public function getUnitNo() : ?string
     {
         return $this->unitNo;
     }
 
-    /**
-     * @param string $unitNo
-     */
-    public function setUnitNo(string $unitNo): void
+    public function setUnitNo(string $unitNo) : void
     {
         $this->unitNo = $unitNo;
     }
@@ -83,15 +76,12 @@ abstract class DeliveryAddress
     /**
      * @return string
      */
-    public function getComplex(): ?string
+    public function getComplex() : ?string
     {
         return $this->complex;
     }
 
-    /**
-     * @param string $complex
-     */
-    public function setComplex(string $complex): void
+    public function setComplex(string $complex) : void
     {
         $this->complex = $complex;
     }
@@ -99,15 +89,12 @@ abstract class DeliveryAddress
     /**
      * @return string
      */
-    public function getStreetOrFarmNo(): ?string
+    public function getStreetOrFarmNo() : ?string
     {
         return $this->streetOrFarmNo;
     }
 
-    /**
-     * @param string $streetOrFarmNo
-     */
-    public function setStreetOrFarmNo(string $streetOrFarmNo): void
+    public function setStreetOrFarmNo(string $streetOrFarmNo) : void
     {
         $this->streetOrFarmNo = $streetOrFarmNo;
     }
@@ -115,15 +102,12 @@ abstract class DeliveryAddress
     /**
      * @return string
      */
-    public function getStreetOrFarm(): ?string
+    public function getStreetOrFarm() : ?string
     {
         return $this->streetOrFarm;
     }
 
-    /**
-     * @param string $streetOrFarm
-     */
-    public function setStreetOrFarm(string $streetOrFarm): void
+    public function setStreetOrFarm(string $streetOrFarm) : void
     {
         $this->streetOrFarm = $streetOrFarm;
     }
@@ -131,15 +115,12 @@ abstract class DeliveryAddress
     /**
      * @return string
      */
-    public function getSuburb(): ?string
+    public function getSuburb() : ?string
     {
         return $this->suburb;
     }
 
-    /**
-     * @param string $suburb
-     */
-    public function setSuburb(string $suburb): void
+    public function setSuburb(string $suburb) : void
     {
         $this->suburb = $suburb;
     }
@@ -147,15 +128,12 @@ abstract class DeliveryAddress
     /**
      * @return string
      */
-    public function getCity(): ?string
+    public function getCity() : ?string
     {
         return $this->city;
     }
 
-    /**
-     * @param string $city
-     */
-    public function setCity(string $city): void
+    public function setCity(string $city) : void
     {
         $this->city = $city;
     }
@@ -163,15 +141,12 @@ abstract class DeliveryAddress
     /**
      * @return string
      */
-    public function getPostalCode(): ?string
+    public function getPostalCode() : ?string
     {
         return $this->postalCode;
     }
 
-    /**
-     * @param string $postalCode
-     */
-    public function setPostalCode(string $postalCode): void
+    public function setPostalCode(string $postalCode) : void
     {
         $this->postalCode = $postalCode;
     }
@@ -179,15 +154,12 @@ abstract class DeliveryAddress
     /**
      * @return string
      */
-    public function getCountry(): ?string
+    public function getCountry() : ?string
     {
         return $this->country;
     }
 
-    /**
-     * @param string $country
-     */
-    public function setCountry(string $country): void
+    public function setCountry(string $country) : void
     {
         $this->country = $country;
     }
@@ -195,15 +167,12 @@ abstract class DeliveryAddress
     /**
      * @return float
      */
-    public function getLatitude(): ?float
+    public function getLatitude() : ?float
     {
         return $this->latitude;
     }
 
-    /**
-     * @param float $latitude
-     */
-    public function setLatitude(float $latitude): void
+    public function setLatitude(float $latitude) : void
     {
         $this->latitude = $latitude;
     }
@@ -211,15 +180,12 @@ abstract class DeliveryAddress
     /**
      * @return float
      */
-    public function getLongitude(): ?float
+    public function getLongitude() : ?float
     {
         return $this->longitude;
     }
 
-    /**
-     * @param float $longitude
-     */
-    public function setLongitude(float $longitude): void
+    public function setLongitude(float $longitude) : void
     {
         $this->longitude = $longitude;
     }
@@ -227,9 +193,11 @@ abstract class DeliveryAddress
     /**
      * Specify data which should be serialized to JSON
      *
-     * @link  https://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @see  https://php.net/manual/en/jsonserializable.jsonserialize.php
+     *
      * @return mixed data which can be serialized by <b>json_encode</b>,
-     * which is a value of any type other than a resource.
+     *               which is a value of any type other than a resource
+     *
      * @since 5.4.0
      */
     public function jsonSerialize()

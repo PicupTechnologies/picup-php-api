@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PicupTechnologies\PicupPHPApi\Tests\Factories;
 
 use PHPUnit\Framework\TestCase;
@@ -7,7 +9,7 @@ use PicupTechnologies\PicupPHPApi\Factories\OrderStatusResponseFactory;
 
 class OrderStatusResponseFactoryTest extends TestCase
 {
-    public function testMake(): void
+    public function testMake() : void
     {
         $customerRef = 'ref-123';
         $orderStatusText = 'Pending Delivery';
@@ -33,13 +35,13 @@ class OrderStatusResponseFactoryTest extends TestCase
 
         $orderStatus = $response->getOrderStatuses()[0];
 
-        $this->assertEquals($customerRef, $orderStatus->getCustomerReference());
-        $this->assertEquals($orderStatusText, $orderStatus->getOrderStatus());
+        $this->assertSame($customerRef, $orderStatus->getCustomerReference());
+        $this->assertSame($orderStatusText, $orderStatus->getOrderStatus());
 
         $parcel = $orderStatus->getParcelStatuses()[0];
 
-        $this->assertEquals($parcelReference, $parcel->getReference());
-        $this->assertEquals($parcelTracking, $parcel->getTrackingNumber());
-        $this->assertEquals($parcelStatus, $parcel->getStatus());
+        $this->assertSame($parcelReference, $parcel->getReference());
+        $this->assertSame($parcelTracking, $parcel->getTrackingNumber());
+        $this->assertSame($parcelStatus, $parcel->getStatus());
     }
 }

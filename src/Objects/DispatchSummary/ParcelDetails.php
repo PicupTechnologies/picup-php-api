@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PicupTechnologies\PicupPHPApi\Objects\DispatchSummary;
 
 class ParcelDetails
@@ -38,11 +40,7 @@ class ParcelDetails
      * ParcelDetails constructor.
      *
      * @param string $trackingNumber
-     * @param string $parcelReference
-     * @param string $status
      * @param string $failedReason
-     * @param string $contactName
-     * @param string $contactPhone
      */
     public function __construct(?string $trackingNumber, string $parcelReference, string $status, ?string $failedReason, string $contactName, string $contactPhone)
     {
@@ -54,26 +52,17 @@ class ParcelDetails
         $this->contactPhone = $contactPhone;
     }
 
-    /**
-     * @return string
-     */
-    public function getTrackingNumber(): string
+    public function getTrackingNumber() : string
     {
         return $this->trackingNumber;
     }
 
-    /**
-     * @return string
-     */
-    public function getParcelReference(): string
+    public function getParcelReference() : string
     {
         return $this->parcelReference;
     }
 
-    /**
-     * @return string
-     */
-    public function getStatus(): string
+    public function getStatus() : string
     {
         return $this->status;
     }
@@ -81,23 +70,17 @@ class ParcelDetails
     /**
      * @return string
      */
-    public function getFailedReason(): ?string
+    public function getFailedReason() : ?string
     {
         return $this->failedReason;
     }
 
-    /**
-     * @return string
-     */
-    public function getContactName(): string
+    public function getContactName() : string
     {
         return $this->contactName;
     }
 
-    /**
-     * @return string
-     */
-    public function getContactPhone(): string
+    public function getContactPhone() : string
     {
         return $this->contactPhone;
     }

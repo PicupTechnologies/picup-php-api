@@ -1,10 +1,7 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: bryan
- * Date: 2018/10/22
- * Time: 5:10 PM
- */
+
+declare(strict_types=1);
+
 
 namespace PicupTechnologies\PicupPHPApi\Objects;
 
@@ -20,15 +17,12 @@ class DeliverySenderAddress extends DeliveryAddress implements JsonSerializable
     /**
      * @return string
      */
-    public function getWarehouseId(): ?string
+    public function getWarehouseId() : ?string
     {
         return $this->warehouseId;
     }
 
-    /**
-     * @param string $warehouseId
-     */
-    public function setWarehouseId(string $warehouseId): void
+    public function setWarehouseId(string $warehouseId) : void
     {
         $this->warehouseId = $warehouseId;
     }
@@ -36,9 +30,11 @@ class DeliverySenderAddress extends DeliveryAddress implements JsonSerializable
     /**
      * Specify data which should be serialized to JSON
      *
-     * @link  https://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @see  https://php.net/manual/en/jsonserializable.jsonserialize.php
+     *
      * @return mixed data which can be serialized by <b>json_encode</b>,
-     * which is a value of any type other than a resource.
+     *               which is a value of any type other than a resource
+     *
      * @since 5.4.0
      */
     public function jsonSerialize()

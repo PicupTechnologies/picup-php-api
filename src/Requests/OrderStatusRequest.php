@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace PicupTechnologies\PicupPHPApi\Requests;
 
 use JsonSerializable;
@@ -25,7 +27,7 @@ final class OrderStatusRequest implements PicupRequestInterface, JsonSerializabl
     /**
      * @return string[]
      */
-    public function getCustomerReferences(): array
+    public function getCustomerReferences() : array
     {
         return $this->customerReferences;
     }
@@ -33,9 +35,11 @@ final class OrderStatusRequest implements PicupRequestInterface, JsonSerializabl
     /**
      * Specify data which should be serialized to JSON
      *
-     * @link  https://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @see  https://php.net/manual/en/jsonserializable.jsonserialize.php
+     *
      * @return mixed data which can be serialized by <b>json_encode</b>,
-     * which is a value of any type other than a resource.
+     *               which is a value of any type other than a resource
+     *
      * @since 5.4.0
      */
     public function jsonSerialize()
