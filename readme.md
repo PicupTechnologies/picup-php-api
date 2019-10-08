@@ -1,5 +1,7 @@
 # Picup PHP API
 
+![Test suite badge](https://github.com/PicupTechnologies/picup-php-api/workflows/Run%20phpunit%20testsuite/badge.svg)
+
 This package provides a PHP API for Picup deliveries. We are currently working against v1 of the Picup API.
 
 ## Requirements
