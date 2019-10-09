@@ -29,7 +29,7 @@ final class DeliveryServiceType
     private $priceExclusive;
 
     /**
-     * @var string
+     * @var float
      */
     private $distance;
 
@@ -68,12 +68,12 @@ final class DeliveryServiceType
         $this->priceExclusive = $priceExclusive;
     }
 
-    public function getDistance() : string
+    public function getDistance() : float
     {
         return $this->distance;
     }
 
-    public function setDistance(string $distance) : void
+    public function setDistance(float $distance) : void
     {
         $this->distance = $distance;
     }
