@@ -73,9 +73,9 @@ final class DeliveryServiceType
         return $this->distance;
     }
 
-    public function setDistance(float $distance) : void
+    public function setDistance($distance) : void
     {
-        $this->distance = $distance;
+        $this->distance = (float)$distance;
     }
 
     public function getDuration() : string

@@ -137,7 +137,7 @@ class PicupApiTest extends TestCase
                         'price_incl_vat' => 500.45,
                         'price_ex_vat' => 400.3,
                         'duration' => '24:00:00',
-                        'distance' => '500'
+                        'distance' => 500.4,
                     ]
                 ]
             ]
@@ -187,7 +187,7 @@ class PicupApiTest extends TestCase
         $this->assertSame(500.45, $serviceType->getPriceInclusive());
         $this->assertSame(400.3, $serviceType->getPriceExclusive());
         $this->assertSame('24:00:00', $serviceType->getDuration());
-        $this->assertSame('500', $serviceType->getDistance());
+        $this->assertSame(500.4, $serviceType->getDistance());
         $this->assertSame('Space Ship', $serviceType->getVehicleName());
     }
 

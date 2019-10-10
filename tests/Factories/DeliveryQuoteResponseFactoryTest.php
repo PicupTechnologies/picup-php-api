@@ -23,7 +23,7 @@ class DeliveryQuoteResponseFactoryTest extends TestCase
                         'price_incl_vat' => 500.123,
                         'price_ex_vat' => 400.5,
                         'duration' => '24:00:00',
-                        'distance' => '123.45'
+                        'distance' => 123.45
                     ]
                 ]
             ]
@@ -41,7 +41,7 @@ class DeliveryQuoteResponseFactoryTest extends TestCase
         $this->assertSame(500.123, $serviceType->getPriceInclusive());
         $this->assertSame(400.5, $serviceType->getPriceExclusive());
         $this->assertSame('24:00:00', $serviceType->getDuration());
-        $this->assertSame('123.45', $serviceType->getDistance());
+        $this->assertSame(123.45, $serviceType->getDistance());
         $this->assertSame('Space Ship', $serviceType->getVehicleName());
     }
 
