@@ -28,19 +28,19 @@ final class Parcel
     private $dimensions;
 
     /**
-     * @var int
+     * @var float
      */
     private $weight;
 
     /**
      * Parcel constructor.
      */
-    public function __construct(string $id, string $displayName, ParcelDimensions $dimensions, int $weight)
+    public function __construct(string $id, string $displayName, ParcelDimensions $dimensions, $weight)
     {
         $this->id = $id;
         $this->displayName = $displayName;
         $this->dimensions = $dimensions;
-        $this->weight = $weight;
+        $this->weight = (float)$weight;
     }
 
     public function getId() : string
@@ -58,7 +58,7 @@ final class Parcel
         return $this->dimensions;
     }
 
-    public function getWeight() : int
+    public function getWeight() : float
     {
         return $this->weight;
     }

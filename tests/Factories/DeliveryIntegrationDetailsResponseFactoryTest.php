@@ -24,7 +24,7 @@ class DeliveryIntegrationDetailsResponseFactoryTest extends TestCase
                     'dimensions' => [
                         'height' => 30, 'width' => 15, 'length' => 35
                     ],
-                    'weight' => 0
+                    'weight' => 0.0
                 ],
                 [
                     'display_name' => 'A4 Envelope',
