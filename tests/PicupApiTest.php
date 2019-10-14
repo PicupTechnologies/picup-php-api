@@ -294,7 +294,7 @@ class PicupApiTest extends TestCase
     {
         // 1 - Build Mock
         $data = [
-            'request_id' => 666
+            666
         ];
 
         $container = [];

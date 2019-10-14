@@ -10,6 +10,7 @@ use PicupTechnologies\PicupPHPApi\Contracts\PicupApiInterface;
 use PicupTechnologies\PicupPHPApi\Exceptions\PicupApiException;
 use PicupTechnologies\PicupPHPApi\Exceptions\PicupApiKeyInvalid;
 use PicupTechnologies\PicupPHPApi\Exceptions\PicupRequestFailed;
+use PicupTechnologies\PicupPHPApi\Factories\DeliveryBucketResponseFactory;
 use PicupTechnologies\PicupPHPApi\Factories\DeliveryIntegrationDetailsResponseFactory;
 use PicupTechnologies\PicupPHPApi\Factories\DeliveryOrderResponseFactory;
 use PicupTechnologies\PicupPHPApi\Factories\DeliveryQuoteResponseFactory;
@@ -20,6 +21,7 @@ use PicupTechnologies\PicupPHPApi\Requests\DeliveryOrderRequest;
 use PicupTechnologies\PicupPHPApi\Requests\DeliveryQuoteRequest;
 use PicupTechnologies\PicupPHPApi\Requests\OrderStatusRequest;
 use PicupTechnologies\PicupPHPApi\Requests\StandardBusinessRequest;
+use PicupTechnologies\PicupPHPApi\Responses\DeliveryBucketResponse;
 use PicupTechnologies\PicupPHPApi\Responses\DeliveryIntegrationDetailsResponse;
 use PicupTechnologies\PicupPHPApi\Responses\DeliveryOrderResponse;
 use PicupTechnologies\PicupPHPApi\Responses\DeliveryQuoteResponse;
@@ -155,11 +157,14 @@ final class PicupApi implements PicupApiInterface
      *
      * Warning: This sends the delivery to Picup for actual delivery!
      *
-     * @throws PicupRequestFailed Should there be a problem with the request
-     * @throws PicupApiKeyInvalid Should the API key be invalid
-     * @throws PicupApiException  Should a general problem occur
+     * @param DeliveryBucketRequest $deliveryBucket
+     *
+     * @return DeliveryBucketResponse
+     * @throws PicupApiException       Should a general problem occur
+     * @throws PicupApiKeyInvalid      Should the API key be invalid
+     * @throws PicupRequestFailed      Should there be a problem with the request
      */
-    public function sendDeliveryBucket(DeliveryBucketRequest $deliveryBucket) : DeliveryOrderResponse
+    public function sendDeliveryBucket(DeliveryBucketRequest $deliveryBucket) : DeliveryBucketResponse
     {
         $headers = ['api-key' => $this->apiKey];
 
@@ -171,7 +176,7 @@ final class PicupApi implements PicupApiInterface
 
             $body = $response->getBody()->getContents();
 
-            return DeliveryOrderResponseFactory::make($body);
+            return DeliveryBucketResponseFactory::make($body);
         } catch (RequestException $e) {
             $msg = $e->getMessage();
             if ($response = $e->getResponse()) {
