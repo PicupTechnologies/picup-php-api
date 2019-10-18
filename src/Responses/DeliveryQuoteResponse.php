@@ -38,7 +38,7 @@ final class DeliveryQuoteResponse
         $this->valid = $valid;
     }
 
-    public function getError() : string
+    public function getError() : ?string
     {
         return $this->error;
     }
@@ -51,7 +51,7 @@ final class DeliveryQuoteResponse
     /**
      * @return DeliveryServiceType[]
      */
-    public function getServiceTypes() : array
+    public function getServiceTypes() : ?array
     {
         return $this->serviceTypes;
     }
