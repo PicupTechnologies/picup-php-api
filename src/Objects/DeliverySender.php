@@ -2,16 +2,14 @@
 
 declare(strict_types=1);
 
-
 namespace PicupTechnologies\PicupPHPApi\Objects;
 
 use JsonSerializable;
-use PicupTechnologies\PicupPHPApi\Contracts\DeliveryParty;
 
 /**
  * Class DeliverySender
  */
-class DeliverySender implements DeliveryParty, JsonSerializable
+final class DeliverySender implements JsonSerializable
 {
     /**
      * @var DeliverySenderAddress
@@ -32,6 +30,10 @@ class DeliverySender implements DeliveryParty, JsonSerializable
 
     /**
      * DeliverySender constructor.
+     *
+     * @param DeliverySenderAddress $address
+     * @param DeliveryContact       $contact
+     * @param string                $specialInstructions
      */
     public function __construct(DeliverySenderAddress $address, DeliveryContact $contact, string $specialInstructions = '')
     {

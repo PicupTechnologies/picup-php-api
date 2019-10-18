@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace PicupTechnologies\PicupPHPApi\Contracts;
 
 use PicupTechnologies\PicupPHPApi\Requests\DeliveryBucketRequest;

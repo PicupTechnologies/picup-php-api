@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace PicupTechnologies\PicupPHPApi\Objects;
 
 use JsonSerializable;
@@ -11,8 +10,10 @@ use JsonSerializable;
  * Class DeliveryParcelCollection
  *
  * Stores a collection of DeliveryParcels for usage in a DeliveryOrderQuoteRequest
+ *
+ * @package PicupTechnologies\PicupPHPApi\Objects
  */
-class DeliveryParcelCollection implements JsonSerializable
+final class DeliveryParcelCollection implements JsonSerializable
 {
     /**
      * @var DeliveryParcel[]
@@ -21,6 +22,8 @@ class DeliveryParcelCollection implements JsonSerializable
 
     /**
      * Adds a parcel to the collection
+     *
+     * @param DeliveryParcel $parcel
      */
     public function addParcel(DeliveryParcel $parcel) : void
     {

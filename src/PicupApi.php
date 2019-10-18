@@ -29,19 +29,22 @@ use PicupTechnologies\PicupPHPApi\Responses\DispatchSummaryResponse;
 use PicupTechnologies\PicupPHPApi\Responses\OrderStatusResponse;
 
 /**
- * PicupApi
+ * Picup API
  *
- * Communicates with the Picup API
+ * Communicates with the Picup API to provide Shipping Rates and
+ * create deliveries.
+ *
+ * @package PicupTechnologies\PicupPHPApi
  */
 final class PicupApi implements PicupApiInterface
 {
     /**
-     * @var Client
+     * @var Client HttpClient to use to communicate with
      */
     private $httpClient;
 
     /**
-     * @var string
+     * @var string API Key from Picup
      */
     private $apiKey;
 
@@ -80,6 +83,7 @@ final class PicupApi implements PicupApiInterface
      *
      * @throws PicupApiKeyInvalid Should the API key be invalid
      * @throws PicupRequestFailed Should there be a problem with the request
+     * @throws PicupApiException  Should there be a general problem with the API
      */
     public function sendQuoteRequest(DeliveryQuoteRequest $deliveryQuoteRequest) : DeliveryQuoteResponse
     {
@@ -117,6 +121,7 @@ final class PicupApi implements PicupApiInterface
      *
      * @throws PicupApiKeyInvalid Should the API key be invalid
      * @throws PicupRequestFailed Should there be a problem with the request
+     * @throws PicupApiException  Should there be a general problem with the API
      */
     public function sendOrderRequest(DeliveryOrderRequest $deliveryOrderRequest) : DeliveryOrderResponse
     {
@@ -166,9 +171,9 @@ final class PicupApi implements PicupApiInterface
      *
      * @return DeliveryBucketResponse
      *
-     * @throws PicupApiException       Should a general problem occur
-     * @throws PicupApiKeyInvalid      Should the API key be invalid
-     * @throws PicupRequestFailed      Should there be a problem with the request
+     * @throws PicupApiKeyInvalid Should the API key be invalid
+     * @throws PicupRequestFailed Should there be a problem with the request
+     * @throws PicupApiException  Should there be a general problem with the API
      */
     public function sendDeliveryBucket(DeliveryBucketRequest $deliveryBucket) : DeliveryBucketResponse
     {
@@ -207,9 +212,9 @@ final class PicupApi implements PicupApiInterface
      *
      * @return DeliveryIntegrationDetailsResponse
      *
-     * @throws PicupApiException Should a general problem occur
      * @throws PicupApiKeyInvalid Should the API key be invalid
      * @throws PicupRequestFailed Should there be a problem with the request
+     * @throws PicupApiException  Should there be a general problem with the API
      */
     public function sendIntegrationDetailsRequest(StandardBusinessRequest $businessRequest) : DeliveryIntegrationDetailsResponse
     {
@@ -253,9 +258,9 @@ final class PicupApi implements PicupApiInterface
      *
      * @return DispatchSummaryResponse
      *
-     * @throws PicupApiException
-     * @throws PicupApiKeyInvalid
-     * @throws PicupRequestFailed
+     * @throws PicupApiKeyInvalid Should the API key be invalid
+     * @throws PicupRequestFailed Should there be a problem with the request
+     * @throws PicupApiException  Should there be a general problem with the API
      */
     public function sendDispatchSummaryRequest(StandardBusinessRequest $businessRequest) : DispatchSummaryResponse
     {
@@ -284,13 +289,15 @@ final class PicupApi implements PicupApiInterface
     }
 
     /**
+     * Fetches the status for an order
+     * 
      * @param OrderStatusRequest $request
      *
      * @return OrderStatusResponse
      *
-     * @throws PicupApiException
-     * @throws PicupApiKeyInvalid
-     * @throws PicupRequestFailed
+     * @throws PicupApiKeyInvalid Should the API key be invalid
+     * @throws PicupRequestFailed Should there be a problem with the request
+     * @throws PicupApiException  Should there be a general problem with the API
      */
     public function sendOrderStatusRequest(OrderStatusRequest $request) : OrderStatusResponse
     {

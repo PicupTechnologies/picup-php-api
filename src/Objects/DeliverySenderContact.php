@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-
 namespace PicupTechnologies\PicupPHPApi\Objects;
 
-class DeliverySenderContact extends DeliveryContact
+final class DeliverySenderContact extends DeliveryContact
 {
     /**
      * Specify data which should be serialized to JSON

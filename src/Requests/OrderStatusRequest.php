@@ -7,6 +7,11 @@ namespace PicupTechnologies\PicupPHPApi\Requests;
 use JsonSerializable;
 use PicupTechnologies\PicupPHPApi\Contracts\PicupRequestInterface;
 
+/**
+ * Class OrderStatusRequest
+ *
+ * @package PicupTechnologies\PicupPHPApi\Requests
+ */
 final class OrderStatusRequest implements PicupRequestInterface, JsonSerializable
 {
     /**

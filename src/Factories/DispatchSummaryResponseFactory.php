@@ -8,6 +8,8 @@ use PicupTechnologies\PicupPHPApi\Responses\DispatchSummaryResponse;
 
 /**
  * Builds a DispatchSummaryResponse
+ *
+ * @package PicupTechnologies\PicupPHPApi\Factories
  */
 final class DispatchSummaryResponseFactory
 {

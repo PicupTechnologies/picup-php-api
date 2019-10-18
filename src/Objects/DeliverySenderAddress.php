@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-
 namespace PicupTechnologies\PicupPHPApi\Objects;
 
 use JsonSerializable;
 
-class DeliverySenderAddress extends DeliveryAddress implements JsonSerializable
+final class DeliverySenderAddress extends DeliveryAddress implements JsonSerializable
 {
     /**
      * @var string

@@ -6,8 +6,10 @@ namespace PicupTechnologies\PicupPHPApi\Objects\Warehouses;
 
 /**
  * Class DeliveryWarehouse
+ *
+ * @package PicupTechnologies\PicupPHPApi\Objects\Warehouses
  */
-class DeliveryWarehouse
+final class DeliveryWarehouse
 {
     /**
      * @var string
@@ -21,6 +23,9 @@ class DeliveryWarehouse
 
     /**
      * DeliveryWarehouse constructor.
+     *
+     * @param string $id
+     * @param string $name
      */
     public function __construct(string $id, string $name)
     {

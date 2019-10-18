@@ -11,8 +11,10 @@ use PicupTechnologies\PicupPHPApi\Contracts\PicupRequestInterface;
  * Contains a standard business_id request used in:
  *  - DeliveryIntegrationDetails
  *  - DispatchSummary
+ *
+ * @package PicupTechnologies\PicupPHPApi\Requests
  */
-class StandardBusinessRequest implements PicupRequestInterface
+final class StandardBusinessRequest implements PicupRequestInterface
 {
     /**
      * @var string UUID of business id
@@ -21,6 +23,8 @@ class StandardBusinessRequest implements PicupRequestInterface
 
     /**
      * DeliveryIntegrationDetailsRequest constructor.
+     *
+     * @param string $businessId
      */
     public function __construct(string $businessId)
     {

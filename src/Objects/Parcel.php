@@ -9,6 +9,8 @@ namespace PicupTechnologies\PicupPHPApi\Objects;
  *
  * Represents a parcel returned from the IntegrationDetails endpoint which
  * tells you which parcels are provided by Picup
+ *
+ * @package PicupTechnologies\PicupPHPApi\Objects
  */
 final class Parcel
 {
@@ -34,6 +36,11 @@ final class Parcel
 
     /**
      * Parcel constructor.
+     *
+     * @param string           $id
+     * @param string           $displayName
+     * @param ParcelDimensions $dimensions
+     * @param mixed            $weight
      */
     public function __construct(string $id, string $displayName, ParcelDimensions $dimensions, $weight)
     {
@@ -65,6 +72,10 @@ final class Parcel
 
     /**
      * Returns whether or not an item with specific dimensions can fit into this parcel
+     *
+     * @param ParcelDimensions $dimensions
+     *
+     * @return bool
      */
     public function canFit(ParcelDimensions $dimensions) : bool
     {

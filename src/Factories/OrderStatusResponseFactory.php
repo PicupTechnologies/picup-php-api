@@ -7,9 +7,19 @@ namespace PicupTechnologies\PicupPHPApi\Factories;
 use PicupTechnologies\PicupPHPApi\Objects\OrderStatus;
 use PicupTechnologies\PicupPHPApi\Responses\OrderStatusResponse;
 
+/**
+ * Builds an OrderStatusResponse
+ *
+ * @package PicupTechnologies\PicupPHPApi\Factories
+ */
 final class OrderStatusResponseFactory
 {
-    public static function make($body) : OrderStatusResponse
+    /**
+     * @param array $body
+     *
+     * @return OrderStatusResponse
+     */
+    public static function make(array $body) : OrderStatusResponse
     {
         $orderStatuses = [];
 

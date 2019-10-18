@@ -7,6 +7,11 @@ namespace PicupTechnologies\PicupPHPApi\Objects\DeliveryBucket;
 use DateTime;
 use JsonSerializable;
 
+/**
+ * Class DeliveryBucketDetails
+ *
+ * @package PicupTechnologies\PicupPHPApi\Objects\DeliveryBucket
+ */
 class DeliveryBucketDetails implements JsonSerializable
 {
     /**

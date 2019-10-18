@@ -4,7 +4,12 @@ declare(strict_types=1);
 
 namespace PicupTechnologies\PicupPHPApi\Objects;
 
-class ParcelStatus
+/**
+ * Class ParcelStatus
+ *
+ * @package PicupTechnologies\PicupPHPApi\Objects
+ */
+final class ParcelStatus
 {
     /**
      * @var string
@@ -24,6 +29,8 @@ class ParcelStatus
     /**
      * ParcelStatus constructor.
      *
+     * @param string $reference
+     * @param string $status
      * @param string $trackingNumber
      */
     public function __construct(string $reference, string $status, ?string $trackingNumber)

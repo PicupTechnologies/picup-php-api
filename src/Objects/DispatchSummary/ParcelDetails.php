@@ -4,7 +4,12 @@ declare(strict_types=1);
 
 namespace PicupTechnologies\PicupPHPApi\Objects\DispatchSummary;
 
-class ParcelDetails
+/**
+ * Class ParcelDetails
+ *
+ * @package PicupTechnologies\PicupPHPApi\Objects\DispatchSummary
+ */
+final class ParcelDetails
 {
     /**
      * @var string
@@ -40,7 +45,11 @@ class ParcelDetails
      * ParcelDetails constructor.
      *
      * @param string $trackingNumber
+     * @param string $parcelReference
+     * @param string $status
      * @param string $failedReason
+     * @param string $contactName
+     * @param string $contactPhone
      */
     public function __construct(?string $trackingNumber, string $parcelReference, string $status, ?string $failedReason, string $contactName, string $contactPhone)
     {
@@ -67,9 +76,6 @@ class ParcelDetails
         return $this->status;
     }
 
-    /**
-     * @return string
-     */
     public function getFailedReason() : ?string
     {
         return $this->failedReason;

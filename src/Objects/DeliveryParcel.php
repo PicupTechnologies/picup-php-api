@@ -2,15 +2,18 @@
 
 declare(strict_types=1);
 
-
 namespace PicupTechnologies\PicupPHPApi\Objects;
+
+use JsonSerializable;
 
 /**
  * Class DeliveryParcel
  *
  * Represents a single parcel in a delivery quote
+ *
+ * @package PicupTechnologies\PicupPHPApi\Objects
  */
-class DeliveryParcel implements \JsonSerializable
+final class DeliveryParcel implements JsonSerializable
 {
     /**
      * @var string
@@ -24,6 +27,9 @@ class DeliveryParcel implements \JsonSerializable
 
     /**
      * DeliveryParcel constructor.
+     *
+     * @param string $reference
+     * @param string $size
      */
     public function __construct(string $reference, string $size)
     {

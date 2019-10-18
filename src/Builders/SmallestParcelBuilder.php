@@ -20,6 +20,8 @@ final class SmallestParcelBuilder
 
     /**
      * Builds the parcel builder with the list of parcels allowed
+     *
+     * @param array $parcels
      */
     public function __construct(array $parcels)
     {

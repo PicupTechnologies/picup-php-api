@@ -9,6 +9,8 @@ use PicupTechnologies\PicupPHPApi\Contracts\PicupRequestInterface;
 
 /**
  * Exception that is thrown when an Order Request fails
+ *
+ * The request that failed can be obtained by calling $e->getPicupRequest()
  */
 class PicupRequestFailed extends PicupApiException
 {
@@ -21,6 +23,10 @@ class PicupRequestFailed extends PicupApiException
 
     /**
      * OrderRequestFailed constructor.
+     *
+     * @param PicupRequestInterface $picupRequest
+     * @param string                $message
+     * @param int                   $code
      */
     public function __construct(PicupRequestInterface $picupRequest, string $message, int $code = 0)
     {

@@ -6,6 +6,11 @@ namespace PicupTechnologies\PicupPHPApi\Responses;
 
 use PicupTechnologies\PicupPHPApi\Objects\OrderStatus;
 
+/**
+ * Holds the OrderStatusResponse from Picup
+ *
+ * @package PicupTechnologies\PicupPHPApi\Responses
+ */
 final class OrderStatusResponse
 {
     /**

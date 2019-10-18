@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace PicupTechnologies\PicupPHPApi\Objects;
 
+/**
+ * Class OrderStatus
+ *
+ * @package PicupTechnologies\PicupPHPApi\Objects
+ */
 final class OrderStatus
 {
     /**
@@ -24,6 +29,8 @@ final class OrderStatus
     /**
      * OrderStatus constructor.
      *
+     * @param string         $customerReference
+     * @param string         $orderStatus
      * @param ParcelStatus[] $parcelStatuses
      */
     public function __construct(string $customerReference, string $orderStatus, array $parcelStatuses)

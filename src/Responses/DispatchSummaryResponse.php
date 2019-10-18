@@ -8,6 +8,8 @@ use PicupTechnologies\PicupPHPApi\Objects\DispatchSummary\ParcelDetails;
 
 /**
  * Holds the DispatchSummary response from Picup
+ *
+ * @package PicupTechnologies\PicupPHPApi\Responses
  */
 final class DispatchSummaryResponse
 {
@@ -44,6 +46,11 @@ final class DispatchSummaryResponse
     /**
      * DispatchSummaryResponse constructor.
      *
+     * @param int             $picupCount
+     * @param int             $totalParcels
+     * @param int             $pendingParcels
+     * @param int             $failedParcels
+     * @param int             $completedParcels
      * @param ParcelDetails[] $parcels
      */
     public function __construct(int $picupCount, int $totalParcels, int $pendingParcels, int $failedParcels, int $completedParcels, array $parcels)

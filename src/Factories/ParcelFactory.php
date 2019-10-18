@@ -9,9 +9,16 @@ use PicupTechnologies\PicupPHPApi\Objects\ParcelDimensions;
 
 /**
  * Builds a Parcel including it's dimensions and weight
+ *
+ * @package PicupTechnologies\PicupPHPApi\Factories
  */
 final class ParcelFactory
 {
+    /**
+     * @param array $data
+     *
+     * @return Parcel
+     */
     public static function make(array $data) : Parcel
     {
         $dimensions = $data['dimensions'];

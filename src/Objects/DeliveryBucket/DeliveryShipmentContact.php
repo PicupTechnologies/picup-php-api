@@ -7,6 +7,11 @@ namespace PicupTechnologies\PicupPHPApi\Objects\DeliveryBucket;
 use InvalidArgumentException;
 use JsonSerializable;
 
+/**
+ * Class DeliveryShipmentContact
+ *
+ * @package PicupTechnologies\PicupPHPApi\Objects\DeliveryBucket
+ */
 class DeliveryShipmentContact implements JsonSerializable
 {
     /**

@@ -10,6 +10,8 @@ use InvalidArgumentException;
  * Class DeliveryServiceType
  *
  * Holds each service type containing the vehicle/cost etc for a picup quote
+ *
+ * @package PicupTechnologies\PicupPHPApi\Objects
  */
 final class DeliveryServiceType
 {

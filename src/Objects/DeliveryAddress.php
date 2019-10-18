@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-
 namespace PicupTechnologies\PicupPHPApi\Objects;
 
 /**
  * Class DeliveryReceiverAddress
+ *
+ * @package PicupTechnologies\PicupPHPApi\Objects
  */
 abstract class DeliveryAddress
 {

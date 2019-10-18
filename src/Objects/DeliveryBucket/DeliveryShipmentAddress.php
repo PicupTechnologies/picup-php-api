@@ -6,6 +6,11 @@ namespace PicupTechnologies\PicupPHPApi\Objects\DeliveryBucket;
 
 use JsonSerializable;
 
+/**
+ * Class DeliveryShipmentAddress
+ *
+ * @package PicupTechnologies\PicupPHPApi\Objects\DeliveryBucket
+ */
 class DeliveryShipmentAddress implements JsonSerializable
 {
     private $addressReference;

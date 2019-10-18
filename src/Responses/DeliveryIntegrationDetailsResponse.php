@@ -9,8 +9,10 @@ use PicupTechnologies\PicupPHPApi\Objects\Warehouses\DeliveryWarehouse;
 
 /**
  * Holds the DeliveryIntegrationDetails response from Picup
+ *
+ * @package PicupTechnologies\PicupPHPApi\Responses
  */
-class DeliveryIntegrationDetailsResponse
+final class DeliveryIntegrationDetailsResponse
 {
     /**
      * Whether this key is valid or not
@@ -43,6 +45,8 @@ class DeliveryIntegrationDetailsResponse
     /**
      * DeliveryIntegrationDetailsResponse constructor.
      *
+     * @param bool                $isKeyValid
+     * @param string              $isKeyValidMessage
      * @param DeliveryWarehouse[] $warehouses
      * @param Parcel[]            $parcels
      */

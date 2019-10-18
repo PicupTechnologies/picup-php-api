@@ -11,9 +11,13 @@ use PicupTechnologies\PicupPHPApi\Objects\DeliveryReceiver;
 use PicupTechnologies\PicupPHPApi\Objects\DeliverySender;
 
 /**
+ * Class DeliveryQuoteRequest
+ *
  * Holds all the details for a DeliveryQuoteRequest
+ *
+ * @package PicupTechnologies\PicupPHPApi\Requests
  */
-class DeliveryQuoteRequest implements PicupRequestInterface, JsonSerializable
+final class DeliveryQuoteRequest implements PicupRequestInterface, JsonSerializable
 {
     /**
      * Merchant UUID

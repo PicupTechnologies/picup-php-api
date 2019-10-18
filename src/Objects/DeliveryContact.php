@@ -2,14 +2,15 @@
 
 declare(strict_types=1);
 
-
 namespace PicupTechnologies\PicupPHPApi\Objects;
 
 use InvalidArgumentException;
 use JsonSerializable;
 
 /**
- * Class DeliveryReceiverContact
+ * Class DeliveryContact
+ *
+ * @package PicupTechnologies\PicupPHPApi\Objects
  */
 abstract class DeliveryContact implements JsonSerializable
 {

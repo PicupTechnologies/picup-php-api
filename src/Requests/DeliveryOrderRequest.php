@@ -29,7 +29,8 @@ use PicupTechnologies\PicupPHPApi\Objects\DeliverySender;
  *
  * This will also add the addresses created to the Geocoder module.
  *
- * @url http://enterprise.codependent.digital/dashboard/post-dispatch
+ * @package PicupTechnologies\PicupPHPApi\Requests
+ * @url     http://enterprise.codependent.digital/dashboard/post-dispatch
  */
 class DeliveryOrderRequest implements PicupRequestInterface, JsonSerializable
 {

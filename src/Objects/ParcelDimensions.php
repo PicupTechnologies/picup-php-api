@@ -6,6 +6,8 @@ namespace PicupTechnologies\PicupPHPApi\Objects;
 
 /**
  * Represents the dimensions for a parcel
+ *
+ * @package PicupTechnologies\PicupPHPApi\Objects
  */
 final class ParcelDimensions
 {
@@ -26,6 +28,10 @@ final class ParcelDimensions
 
     /**
      * ParcelDimensions constructor.
+     *
+     * @param int $height
+     * @param int $width
+     * @param int $length
      */
     public function __construct(int $height, int $width, int $length)
     {

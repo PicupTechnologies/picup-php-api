@@ -6,9 +6,19 @@ namespace PicupTechnologies\PicupPHPApi\Factories;
 
 use PicupTechnologies\PicupPHPApi\Objects\ParcelStatus;
 
+/**
+ * Builds a ParcelStatus object for use within an OrderStatusResponse
+ *
+ * @package PicupTechnologies\PicupPHPApi\Factories
+ */
 final class ParcelStatusFactory
 {
-    public static function make($body) : array
+    /**
+     * @param array $body
+     *
+     * @return ParcelStatus[]
+     */
+    public static function make(array $body) : array
     {
         $statuses = [];
         foreach ($body as $item) {

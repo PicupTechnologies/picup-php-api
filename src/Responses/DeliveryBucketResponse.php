@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace PicupTechnologies\PicupPHPApi\Responses;
 
 /**
@@ -13,6 +12,9 @@ namespace PicupTechnologies\PicupPHPApi\Responses;
  */
 final class DeliveryBucketResponse
 {
+    /**
+     * @var int Picup Bucket ID
+     */
     private $requestId;
 
     /**

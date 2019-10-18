@@ -12,6 +12,8 @@ use PicupTechnologies\PicupPHPApi\Objects\DeliveryBucket\DeliveryShipment;
 
 /**
  * Holds all the details for a DeliveryBucketRequest
+ *
+ * @package PicupTechnologies\PicupPHPApi\Requests
  */
 class DeliveryBucketRequest implements PicupRequestInterface, JsonSerializable
 {

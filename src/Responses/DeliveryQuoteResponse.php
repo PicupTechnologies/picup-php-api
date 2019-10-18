@@ -8,6 +8,8 @@ use PicupTechnologies\PicupPHPApi\Objects\DeliveryServiceType;
 
 /**
  * Holds the full quote response provided by Picup
+ *
+ * @package PicupTechnologies\PicupPHPApi\Responses
  */
 final class DeliveryQuoteResponse
 {
