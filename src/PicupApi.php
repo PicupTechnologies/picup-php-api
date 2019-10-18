@@ -386,8 +386,14 @@ final class PicupApi implements PicupApiInterface
      */
     private function checkResponseForErrors(string $response) : void
     {
+        $jsonDecoded = json_decode($response, true);
+
+        if ($jsonDecoded === null) {
+            throw new PicupApiException('Response from Picup does not contain valid JSON');
+        }
+
         // picup enterprise sometimes responds with message and sometimes Message
-        $decoded = array_change_key_case(json_decode($response, true));
+        $decoded = array_change_key_case($jsonDecoded);
 
         if (! isset($decoded['message'])) {
             return;
