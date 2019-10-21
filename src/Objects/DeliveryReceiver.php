@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PicupTechnologies\PicupPHPApi\Objects;
 
 use JsonSerializable;
+use PicupTechnologies\PicupPHPApi\Collections\ParcelCollection;
 
 /**
  * Class DeliveryReceiver
@@ -24,7 +25,7 @@ final class DeliveryReceiver implements JsonSerializable
     private $contact;
 
     /**
-     * @var DeliveryParcelCollection
+     * @var ParcelCollection
      */
     private $parcels;
 
@@ -36,12 +37,12 @@ final class DeliveryReceiver implements JsonSerializable
     /**
      * DeliveryReceiver constructor.
      *
-     * @param DeliveryReceiverAddress  $deliveryReceiverAddress
-     * @param DeliveryReceiverContact  $deliveryReceiverContact
-     * @param DeliveryParcelCollection $parcels
-     * @param string                   $specialInstructions
+     * @param DeliveryReceiverAddress $deliveryReceiverAddress
+     * @param DeliveryReceiverContact $deliveryReceiverContact
+     * @param ParcelCollection        $parcels
+     * @param string                  $specialInstructions
      */
-    public function __construct(DeliveryReceiverAddress $deliveryReceiverAddress, DeliveryReceiverContact $deliveryReceiverContact, DeliveryParcelCollection $parcels, string $specialInstructions = '')
+    public function __construct(DeliveryReceiverAddress $deliveryReceiverAddress, DeliveryReceiverContact $deliveryReceiverContact, ParcelCollection $parcels, string $specialInstructions = '')
     {
         $this->address = $deliveryReceiverAddress;
         $this->contact = $deliveryReceiverContact;
@@ -59,7 +60,7 @@ final class DeliveryReceiver implements JsonSerializable
         return $this->contact;
     }
 
-    public function getParcels() : DeliveryParcelCollection
+    public function getParcels() : ParcelCollection
     {
         return $this->parcels;
     }

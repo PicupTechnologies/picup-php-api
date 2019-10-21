@@ -5,15 +5,16 @@ declare(strict_types=1);
 namespace PicupTechnologies\PicupPHPApi\Tests\Fixtures;
 
 use Faker\Factory;
+use PicupTechnologies\PicupPHPApi\Collections\ParcelCollection;
 use PicupTechnologies\PicupPHPApi\Enums\ParcelSizeEnum;
-use PicupTechnologies\PicupPHPApi\Objects\DeliveryParcel;
-use PicupTechnologies\PicupPHPApi\Objects\DeliveryParcelCollection;
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryReceiver;
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryReceiverAddress;
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryReceiverContact;
 use PicupTechnologies\PicupPHPApi\Objects\DeliverySender;
 use PicupTechnologies\PicupPHPApi\Objects\DeliverySenderAddress;
 use PicupTechnologies\PicupPHPApi\Objects\DeliverySenderContact;
+use PicupTechnologies\PicupPHPApi\Objects\Parcel;
+use PicupTechnologies\PicupPHPApi\Objects\ParcelDimensions;
 use PicupTechnologies\PicupPHPApi\Requests\DeliveryOrderRequest;
 
 final class OrderRequestFixture
@@ -46,15 +47,12 @@ final class OrderRequestFixture
 
         $request->setSender($sender);
 
-        $collection = new DeliveryParcelCollection();
-        $collection->addParcel(new DeliveryParcel('parcel-ref', ParcelSizeEnum::PARCEL_MEDIUM));
-
         $receiverAddress = new DeliveryReceiverAddress();
         $receiverContact = new DeliveryReceiverContact();
-        $receiverParcels = new DeliveryParcelCollection();
-        $receiverParcels->addParcel(new DeliveryParcel('123', 'parcel-large'));
+        $receiverParcelCollection = new ParcelCollection();
+        $receiverParcelCollection->addParcel(new Parcel(ParcelSizeEnum::PARCEL_MEDIUM, 'Medium Parcel', new ParcelDimensions(1, 2, 3), 0.0));
 
-        $receiver = new DeliveryReceiver($receiverAddress, $receiverContact, $receiverParcels, 'Knock knock');
+        $receiver = new DeliveryReceiver($receiverAddress, $receiverContact, $receiverParcelCollection, 'Knock knock');
 
         $request->setReceivers([$receiver]);
 

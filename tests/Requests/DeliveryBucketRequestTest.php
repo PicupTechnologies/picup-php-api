@@ -6,11 +6,14 @@ namespace PicupTechnologies\PicupPHPApi\Tests\Objects\DeliveryBucket;
 
 use DateTime;
 use PHPUnit\Framework\TestCase;
+use PicupTechnologies\PicupPHPApi\Collections\ParcelCollection;
+use PicupTechnologies\PicupPHPApi\Enums\ParcelSizeEnum;
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryBucket\DeliveryBucketDetails;
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryBucket\DeliveryShipment;
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryBucket\DeliveryShipmentAddress;
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryBucket\DeliveryShipmentContact;
-use PicupTechnologies\PicupPHPApi\Objects\DeliveryBucket\DeliveryShipmentParcel;
+use PicupTechnologies\PicupPHPApi\Objects\Parcel;
+use PicupTechnologies\PicupPHPApi\Objects\ParcelDimensions;
 use PicupTechnologies\PicupPHPApi\Requests\DeliveryBucketRequest;
 
 class DeliveryBucketRequestTest extends TestCase
@@ -34,8 +37,10 @@ class DeliveryBucketRequestTest extends TestCase
         $deliveryShipmentContact = new DeliveryShipmentContact();
         $shipment->setContact($deliveryShipmentContact);
 
-        $deliveryShipmentParcel = new DeliveryShipmentParcel();
-        $shipment->setParcels([$deliveryShipmentParcel]);
+        $deliveryShipmentParcelCollection = new ParcelCollection();
+        $deliveryShipmentParcel = new Parcel(ParcelSizeEnum::PARCEL_MEDIUM, 'Medium Parcel', new ParcelDimensions(1, 2, 3), 0.0);
+        $deliveryShipmentParcelCollection->addParcel($deliveryShipmentParcel);
+        $shipment->setParcelCollection($deliveryShipmentParcelCollection);
         $shipment->addParcel($deliveryShipmentParcel);
 
         $deliveryBucket->setShipments([$shipment]);
@@ -43,12 +48,14 @@ class DeliveryBucketRequestTest extends TestCase
         $shipmentsReturned = $deliveryBucket->getShipments();
         $shipmentReturned = $shipmentsReturned[0];
 
+        $parcels = $shipmentReturned->getParcelCollection()->getParcels();
+
         $this->assertSame($consignmentId, $shipmentReturned->getConsignment());
         $this->assertSame($businessRef, $shipmentReturned->getBusinessReference());
         $this->assertSame($deliveryShipmentAddress, $shipmentReturned->getAddress());
         $this->assertSame($deliveryShipmentContact, $shipmentReturned->getContact());
-        $this->assertSame($deliveryShipmentParcel, $shipmentReturned->getParcels()[0]);
-        $this->assertSame($deliveryShipmentParcel, $shipmentReturned->getParcels()[1]);
+        $this->assertSame($deliveryShipmentParcel, $parcels[0]);
+        $this->assertSame($deliveryShipmentParcel, $parcels[1]);
 
         // Test
         $decoded = json_decode(json_encode($deliveryBucket), false);

@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace PicupTechnologies\PicupPHPApi\Objects\DeliveryBucket;
 
 use JsonSerializable;
+use PicupTechnologies\PicupPHPApi\Collections\ParcelCollection;
+use PicupTechnologies\PicupPHPApi\Objects\Parcel;
 
 /**
  * Class DeliveryShipment
@@ -14,9 +16,10 @@ use JsonSerializable;
 class DeliveryShipment implements JsonSerializable
 {
     /**
-     * @var DeliveryShipmentParcel[]
+     * @var ParcelCollection
      */
-    public $parcels;
+    private $parcels;
+
     /**
      * @var string
      */
@@ -36,6 +39,14 @@ class DeliveryShipment implements JsonSerializable
      * @var DeliveryShipmentContact
      */
     private $contact;
+
+    /**
+     * DeliveryShipment constructor.
+     */
+    public function __construct()
+    {
+        $this->parcels = new ParcelCollection();
+    }
 
     public function getConsignment() : string
     {
@@ -77,28 +88,19 @@ class DeliveryShipment implements JsonSerializable
         $this->contact = $contact;
     }
 
-    /**
-     * @return DeliveryShipmentParcel[]
-     */
-    public function getParcels() : array
+    public function getParcelCollection() : ParcelCollection
     {
         return $this->parcels;
     }
 
-    /**
-     * @param DeliveryShipmentParcel[] $parcels
-     */
-    public function setParcels(array $parcels) : void
+    public function setParcelCollection(ParcelCollection $parcels): void
     {
         $this->parcels = $parcels;
     }
 
-    /**
-     * Add a parcel to the collection
-     */
-    public function addParcel(DeliveryShipmentParcel $parcel) : void
+    public function addParcel(Parcel $parcel): void
     {
-        $this->parcels[] = $parcel;
+        $this->parcels->addParcel($parcel);
     }
 
     /**
@@ -113,13 +115,30 @@ class DeliveryShipment implements JsonSerializable
      */
     public function jsonSerialize()
     {
-        return [
+        $return = [
             'consignment' => $this->consignment,
             'business_reference' => $this->businessReference,
 
             'address' => $this->address,
-            'contact' => $this->contact,
-            'parcels' => $this->parcels,
+            'contact' => $this->contact
         ];
+
+        // Alright - so we have different field names depending on which endpoints
+        // we use. AddToBucket uses a totally different format to all the others.
+
+        if (isset($this->parcels) && !empty($this->parcels->getParcels())) {
+            $parcelsToAdd = [];
+            foreach ($this->parcels->getParcels() as $parcel) {
+                $parcelsToAdd[] = [
+                    'size' => $parcel->getId(),
+                    'parcel_reference' => $parcel->getReference(),
+                    'description' => $parcel->getDescription()
+                ];
+            }
+
+            $return['parcels'] = $parcelsToAdd;
+        }
+
+        return $return;
     }
 }

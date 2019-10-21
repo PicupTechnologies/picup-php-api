@@ -25,6 +25,10 @@ final class SmallestParcelBuilder
      */
     public function __construct(array $parcels)
     {
+        if (empty($parcels)) {
+            throw new \InvalidArgumentException('Cannot construct builder - parcels are empty');
+        }
+
         $this->parcels = $parcels;
 
         // Immediately sort the parcels by area with the smallest first

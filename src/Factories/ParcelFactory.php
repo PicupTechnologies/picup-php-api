@@ -23,15 +23,11 @@ final class ParcelFactory
     {
         $dimensions = $data['dimensions'];
 
-        return new Parcel(
-            $data['parcel_id'],
-            $data['display_name'],
-            new ParcelDimensions(
-                $dimensions['height'],
-                $dimensions['width'],
-                $dimensions['length']
-            ),
-            $data['weight']
-        );
+        $parcel = new Parcel($data['parcel_id'], $data['display_name']);
+
+        $parcel->setDimensions(new ParcelDimensions($dimensions['height'], $dimensions['width'], $dimensions['length']));
+        $parcel->setWeight((float)$data['weight']);
+
+        return $parcel;
     }
 }

@@ -6,6 +6,7 @@ namespace PicupTechnologies\PicupPHPApi\Tests\Requests;
 
 use DateTime;
 use PHPUnit\Framework\TestCase;
+use PicupTechnologies\PicupPHPApi\Collections\ParcelCollection;
 use PicupTechnologies\PicupPHPApi\Enums\ParcelSizeEnum;
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryParcel;
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryParcelCollection;
@@ -15,6 +16,8 @@ use PicupTechnologies\PicupPHPApi\Objects\DeliveryReceiverContact;
 use PicupTechnologies\PicupPHPApi\Objects\DeliverySender;
 use PicupTechnologies\PicupPHPApi\Objects\DeliverySenderAddress;
 use PicupTechnologies\PicupPHPApi\Objects\DeliverySenderContact;
+use PicupTechnologies\PicupPHPApi\Objects\Parcel;
+use PicupTechnologies\PicupPHPApi\Objects\ParcelDimensions;
 use PicupTechnologies\PicupPHPApi\Requests\DeliveryQuoteRequest;
 
 /**
@@ -79,8 +82,8 @@ class DeliveryQuoteRequestTest extends TestCase
         $deliveryReceiverContact->setName('Test Name');
         $deliveryReceiverContact->setEmail('test@email.com');
 
-        $parcels = new DeliveryParcelCollection();
-        $parcels->addParcel(new DeliveryParcel('123', ParcelSizeEnum::PARCEL_MEDIUM));
+        $parcels = new ParcelCollection();
+        $parcels->addParcel(new Parcel(ParcelSizeEnum::PARCEL_MEDIUM, 'Medium Parcel', new ParcelDimensions(1, 2, 3), 0.0));
 
         $deliveryReceiver = new DeliveryReceiver(
             $deliveryReceiverAddress,

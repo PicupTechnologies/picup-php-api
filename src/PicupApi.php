@@ -290,7 +290,7 @@ final class PicupApi implements PicupApiInterface
 
     /**
      * Fetches the status for an order
-     * 
+     *
      * @param OrderStatusRequest $request
      *
      * @return OrderStatusResponse

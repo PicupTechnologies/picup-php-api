@@ -18,19 +18,19 @@ class SmallestParcelBuilderTest extends TestCase
     {
         parent::setUp();
 
-        $parcels[] = new Parcel(
-            'parcel-small',
-            'Small Parcel',
-            new ParcelDimensions(100, 200, 300),
-            100
-        );
+        $parcels = [];
 
-        $parcels[] = new Parcel(
-            'parcel-medium',
-            'Medium Parcel',
-            new ParcelDimensions(200, 300, 400),
-            100
-        );
+        $parcel = new Parcel('parcel-small', 'Small Parcel');
+        $parcel->setDimensions(new ParcelDimensions(100, 200, 300));
+        $parcel->setWeight(100);
+
+        $parcels[] = $parcel;
+
+        $parcel = new Parcel('parcel-medium', 'Medium Parcel');
+        $parcel->setDimensions(new ParcelDimensions(200, 300, 400));
+        $parcel->setWeight(100);
+
+        $parcels[] = $parcel;
 
         $this->builder = new SmallestParcelBuilder($parcels);
     }
@@ -73,29 +73,25 @@ class SmallestParcelBuilderTest extends TestCase
      */
     public function testSortingWorks() : void
     {
+        $parcels = [];
+
         // Add a medium parcel
-        $parcels[] = new Parcel(
-            'parcel-medium',
-            'Medium Parcel',
-            new ParcelDimensions(200, 200, 200),
-            100
-        );
+        $parcel = new Parcel('parcel-medium', 'Medium Parcel');
+        $parcel->setDimensions(new ParcelDimensions(200, 200, 200));
+        $parcel->setWeight(100);
+        $parcels[] = $parcel;
 
         // Add a small parcel
-        $parcels[] = new Parcel(
-            'parcel-small',
-            'Small Parcel',
-            new ParcelDimensions(100, 100, 100),
-            50
-        );
+        $parcel = new Parcel('parcel-small', 'Small Parcel');
+        $parcel->setDimensions(new ParcelDimensions(100, 100, 100));
+        $parcel->setWeight(50);
+        $parcels[] = $parcel;
 
         // Add a large parcel
-        $parcels[] = new Parcel(
-            'parcel-large',
-            'Large Parcel',
-            new ParcelDimensions(300, 300, 300),
-            150
-        );
+        $parcel = new Parcel('parcel-large', 'Large Parcel');
+        $parcel->setDimensions(new ParcelDimensions(300, 300, 300));
+        $parcel->setWeight(150);
+        $parcels[] = $parcel;
 
         $this->builder = new SmallestParcelBuilder($parcels);
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PicupTechnologies\PicupPHPApi\Factories;
 
+use PicupTechnologies\PicupPHPApi\Objects\Parcel;
 use PicupTechnologies\PicupPHPApi\Objects\Warehouses\DeliveryWarehouse;
 use PicupTechnologies\PicupPHPApi\Responses\DeliveryIntegrationDetailsResponse;
 

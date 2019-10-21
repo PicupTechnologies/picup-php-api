@@ -7,15 +7,16 @@ namespace PicupTechnologies\PicupPHPApi\Tests\Requests;
 use DateTime;
 use Faker\Factory;
 use PHPUnit\Framework\TestCase;
+use PicupTechnologies\PicupPHPApi\Collections\ParcelCollection;
 use PicupTechnologies\PicupPHPApi\Enums\ParcelSizeEnum;
-use PicupTechnologies\PicupPHPApi\Objects\DeliveryParcel;
-use PicupTechnologies\PicupPHPApi\Objects\DeliveryParcelCollection;
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryReceiver;
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryReceiverAddress;
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryReceiverContact;
 use PicupTechnologies\PicupPHPApi\Objects\DeliverySender;
 use PicupTechnologies\PicupPHPApi\Objects\DeliverySenderAddress;
 use PicupTechnologies\PicupPHPApi\Objects\DeliverySenderContact;
+use PicupTechnologies\PicupPHPApi\Objects\Parcel;
+use PicupTechnologies\PicupPHPApi\Objects\ParcelDimensions;
 use PicupTechnologies\PicupPHPApi\Requests\DeliveryOrderRequest;
 
 class DeliveryOrderRequestTest extends TestCase
@@ -96,8 +97,8 @@ class DeliveryOrderRequestTest extends TestCase
         $receiverContact->setEmail('test@email.com');
         $this->assertSame('test@email.com', $receiverContact->getEmail());
 
-        $parcels = new DeliveryParcelCollection();
-        $parcels->addParcel(new DeliveryParcel('parcel-123', 'parcel-medium'));
+        $parcels = new ParcelCollection();
+        $parcels->addParcel(new Parcel(ParcelSizeEnum::PARCEL_MEDIUM, 'Medium Parcel', new ParcelDimensions(1, 2, 3), 0.0));
 
         $receiver = new DeliveryReceiver($receiverAddress, $receiverContact, $parcels, 'Go home');
 
@@ -120,8 +121,8 @@ class DeliveryOrderRequestTest extends TestCase
         $deliveryOrderRequest->setIsForContractDriver(true);
         $deliveryOrderRequest->setScheduledDate(new DateTime());
 
-        $parcels = new DeliveryParcelCollection();
-        $parcels->addParcel(new DeliveryParcel('123', ParcelSizeEnum::PARCEL_MEDIUM));
+        $parcels = new ParcelCollection();
+        $parcels->addParcel(new Parcel(ParcelSizeEnum::PARCEL_MEDIUM, 'Medium Parcel', new ParcelDimensions(1, 2, 3), 0.0));
 
         $serialized = json_encode($deliveryOrderRequest);
 

@@ -52,14 +52,14 @@ class DeliveryIntegrationDetailsResponseFactoryTest extends TestCase
         $this->assertCount(2, $parcels);
 
         $this->assertSame('parcel-small', $parcels[0]->getId());
-        $this->assertSame('Small', $parcels[0]->getDisplayName());
+        $this->assertSame('Small', $parcels[0]->getDescription());
         $this->assertSame(0.0, $parcels[0]->getWeight());
         $this->assertSame(30, $parcels[0]->getDimensions()->getHeight());
         $this->assertSame(15, $parcels[0]->getDimensions()->getWidth());
         $this->assertSame(35, $parcels[0]->getDimensions()->getLength());
 
         $this->assertSame('parcel-a4-envelope', $parcels[1]->getId());
-        $this->assertSame('A4 Envelope', $parcels[1]->getDisplayName());
+        $this->assertSame('A4 Envelope', $parcels[1]->getDescription());
         $this->assertSame(0.0, $parcels[1]->getWeight());
         $this->assertSame(6, $parcels[1]->getDimensions()->getHeight());
         $this->assertSame(3, $parcels[1]->getDimensions()->getWidth());
