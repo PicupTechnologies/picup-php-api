@@ -82,11 +82,26 @@ final class DeliveryReceiver implements JsonSerializable
      */
     public function jsonSerialize()
     {
-        return [
+        $return = [
             'address' => $this->address,
             'contact' => $this->contact,
-            'parcels' => $this->parcels->getParcels(),
             'special_instructions' => $this->specialInstructions,
         ];
+
+        if (isset($this->parcels) && !empty($this->parcels->getParcels())) {
+            $parcelsToAdd = [];
+            foreach ($this->parcels->getParcels() as $parcel) {
+                $parcelsToAdd[] = [
+                    'size' => $parcel->getId(),
+                    'reference' => $parcel->getReference(),
+                    'description' => $parcel->getDescription(),
+                    'tracking_number' => $parcel->getTrackingNumber()
+                ];
+            }
+
+            $return['parcels'] = $parcelsToAdd;
+        }
+
+        return $return;
     }
 }
