@@ -132,7 +132,8 @@ class DeliveryShipment implements JsonSerializable
                 $parcelsToAdd[] = [
                     'size' => $parcel->getId(),
                     'parcel_reference' => $parcel->getReference(),
-                    'description' => $parcel->getDescription()
+                    'description' => $parcel->getDescription(),
+                    'tracking_number ' => $parcel->getTrackingNumber()
                 ];
             }
 
