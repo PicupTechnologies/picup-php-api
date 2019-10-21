@@ -133,7 +133,7 @@ class DeliveryShipment implements JsonSerializable
                     'size' => $parcel->getId(),
                     'parcel_reference' => $parcel->getReference(),
                     'description' => $parcel->getDescription(),
-                    'tracking_number ' => $parcel->getTrackingNumber()
+                    'tracking_number' => $parcel->getTrackingNumber()
                 ];
             }
 
