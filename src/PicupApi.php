@@ -44,7 +44,17 @@ final class PicupApi implements PicupApiInterface
     private $httpClient;
 
     /**
-     * @var string API Key from Picup
+     * @var string Live API Key from Picup
+     */
+    private $liveApiKey;
+
+    /**
+     * @var string Testing API Key from Picup
+     */
+    private $testApiKey;
+
+    /**
+     * @var string The API key that is currently in use
      */
     private $apiKey;
 
@@ -53,6 +63,9 @@ final class PicupApi implements PicupApiInterface
      */
     private $live = false;
 
+    /**
+     * @var string Current API host prefix
+     */
     private $apiPrefix = 'https://otdcpt-knupqa.onthedot.co.za/picup-api/v1';
 
     private $endpointQuote = '/integration/quote/one-to-many';
@@ -65,13 +78,20 @@ final class PicupApi implements PicupApiInterface
     /**
      * PicupApi constructor.
      *
+     * We default to testing mode so the client must setLive() manually.
+     *
      * @param Client $httpClient HttpClient to communicate with
-     * @param string $apiKey
+     * @param string $liveApiKey Live API key
+     * @param string $testApiKey Testing API key
      */
-    public function __construct(Client $httpClient, string $apiKey)
+    public function __construct(Client $httpClient, string $liveApiKey, string $testApiKey)
     {
         $this->httpClient = $httpClient;
-        $this->apiKey = $apiKey;
+        $this->liveApiKey = $liveApiKey;
+        $this->testApiKey = $testApiKey;
+
+        // default to testing
+        $this->apiKey = $testApiKey;
     }
 
     /**
@@ -361,6 +381,7 @@ final class PicupApi implements PicupApiInterface
     public function setLive() : void
     {
         $this->live = true;
+        $this->apiKey = $this->liveApiKey;
         $this->apiPrefix = 'https://otdcpt-knupprd.onthedot.co.za/picup-api/v1';
     }
 
@@ -370,6 +391,7 @@ final class PicupApi implements PicupApiInterface
     public function setTesting() : void
     {
         $this->live = false;
+        $this->apiKey = $this->testApiKey;
         $this->apiPrefix = 'https://otdcpt-knupqa.onthedot.co.za/picup-api/v1';
     }
 

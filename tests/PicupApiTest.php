@@ -30,21 +30,24 @@ class PicupApiTest extends TestCase
         $client = new Client(['handler' => $handler]);
 
         // api key getters + setters
-        $apiKey = 'api-key-123-456';
-        $picupApi = new PicupApi($client, $apiKey);
+        $liveApiKey = 'api-key-123-456';
+        $testingApiKey = 'api-key-testing-123';
+        $picupApi = new PicupApi($client, $liveApiKey, $testingApiKey);
 
-        $this->assertSame($apiKey, $picupApi->getApiKey());
+        // should default to testing
+        $this->assertSame($testingApiKey, $picupApi->getApiKey());
 
-        $picupApi->setApiKey('api-changed-555');
-        $this->assertSame('api-changed-555', $picupApi->getApiKey());
+        // should default to testing mode
+        $this->assertFalse($picupApi->isLive());
 
-        // live mode
-        $this->assertFalse($picupApi->isLive());    // should default to false
+        // test switching
         $picupApi->setLive();
         $this->assertTrue($picupApi->isLive());
+        $this->assertEquals($liveApiKey, $picupApi->getApiKey());
 
         $picupApi->setTesting();
         $this->assertFalse($picupApi->isLive());
+        $this->assertEquals($testingApiKey, $picupApi->getApiKey());
     }
 
     /**
@@ -57,9 +60,9 @@ class PicupApiTest extends TestCase
         $client = new Client(['handler' => $handler]);
 
         // api key getters + setters
-        $apiKey = 'api-key-123-456';
-        $picupApi = new PicupApi($client, $apiKey);
-        $this->assertSame($apiKey, $picupApi->getApiKey());
+        $liveApiKey = 'api-key-123-456';
+        $testingApiKey = 'api-key-testing-123';
+        $picupApi = new PicupApi($client, $liveApiKey, $testingApiKey);
 
         // set to TESTING MODE
         $picupApi->setTesting();
@@ -86,9 +89,9 @@ class PicupApiTest extends TestCase
         $handler = HandlerStack::create($mock);
         $client = new Client(['handler' => $handler]);
 
-        $apiKey = 'api-key-123-456';
-        $picupApi = new PicupApi($client, $apiKey);
-        $this->assertSame($apiKey, $picupApi->getApiKey());
+        $liveApiKey = 'api-key-123-456';
+        $testingApiKey = 'api-key-testing-123';
+        $picupApi = new PicupApi($client, $liveApiKey, $testingApiKey);
 
         $businessRequest = new StandardBusinessRequest('business-1234-45676');
 
@@ -110,9 +113,9 @@ class PicupApiTest extends TestCase
         $handler = HandlerStack::create($mock);
         $client = new Client(['handler' => $handler]);
 
-        $apiKey = 'api-key-123-456';
-        $picupApi = new PicupApi($client, $apiKey);
-        $this->assertSame($apiKey, $picupApi->getApiKey());
+        $liveApiKey = 'api-key-123-456';
+        $testingApiKey = 'api-key-testing-123';
+        $picupApi = new PicupApi($client, $liveApiKey, $testingApiKey);
 
         $businessRequest = new StandardBusinessRequest('business-valid-uuid-but-auth-denied');
 
@@ -154,7 +157,10 @@ class PicupApiTest extends TestCase
         $quoteRequestFixture = QuoteRequestFixture::make();
 
         // 3 - Send Test Request
-        $picupApi = new PicupApi($client, 'api-123');
+        $liveApiKey = 'api-key-123-456';
+        $testingApiKey = 'api-key-testing-123';
+        $picupApi = new PicupApi($client, $liveApiKey, $testingApiKey);
+
         $deliveryQuoteResponse = $picupApi->sendQuoteRequest($quoteRequestFixture);
 
         // ASSERT REQUEST WAS CORRECT
@@ -168,7 +174,7 @@ class PicupApiTest extends TestCase
         $this->assertSame('/picup-api/v1/integration/quote/one-to-many', $sentRequest->getUri()->getPath());
 
         // Ensure the api key was added to header
-        $this->assertSame('api-123', $sentRequest->getHeaderLine('api-key'));
+        $this->assertSame($testingApiKey, $sentRequest->getHeaderLine('api-key'));
 
         // Ensure the json was sent as expected
         $expectedData = json_encode($quoteRequestFixture);
@@ -202,9 +208,10 @@ class PicupApiTest extends TestCase
         $mock = new MockHandler([new Response(500, [], json_encode($data))]);
         $handler = HandlerStack::create($mock);
         $client = new Client(['handler' => $handler]);
-        $apiKey = 'api-555';
 
-        $picupApi = new PicupApi($client, $apiKey);
+        $liveApiKey = 'api-key-123-456';
+        $testingApiKey = 'api-key-testing-123';
+        $picupApi = new PicupApi($client, $liveApiKey, $testingApiKey);
 
         $quoteRequestFixture = QuoteRequestFixture::make();
 
@@ -235,7 +242,9 @@ class PicupApiTest extends TestCase
         $orderRequest = OrderRequestFixture::make();
 
         // 3 - Send Test Request
-        $picupApi = new PicupApi($client, 'api-123');
+        $liveApiKey = 'api-key-123-456';
+        $testingApiKey = 'api-key-testing-123';
+        $picupApi = new PicupApi($client, $liveApiKey, $testingApiKey);
         $response = $picupApi->sendOrderRequest($orderRequest);
 
         // ASSERT REQUEST WAS CORRECT
@@ -249,7 +258,7 @@ class PicupApiTest extends TestCase
         $this->assertSame('/picup-api/v1/integration/create/one-to-many', $sentRequest->getUri()->getPath());
 
         // Ensure the api key was added to header
-        $this->assertSame('api-123', $sentRequest->getHeaderLine('api-key'));
+        $this->assertSame($testingApiKey, $sentRequest->getHeaderLine('api-key'));
 
         // Ensure the json was sent as expected
         $expectedData = json_encode($orderRequest);
@@ -279,7 +288,9 @@ class PicupApiTest extends TestCase
         $orderRequest = OrderRequestFixture::make();
 
         // 3 - Send Test Request
-        $picupApi = new PicupApi($client, 'api-123');
+        $liveApiKey = 'api-key-123-456';
+        $testingApiKey = 'api-key-testing-123';
+        $picupApi = new PicupApi($client, $liveApiKey, $testingApiKey);
 
         $this->expectException(PicupApiException::class);
         $this->expectExceptionMessage('OrderRequest Error: {"error":"houston. another problem."}');
@@ -308,7 +319,9 @@ class PicupApiTest extends TestCase
         $request = DeliveryBucketRequestFixture::make();
 
         // 3 - Send Test Request
-        $picupApi = new PicupApi($client, 'api-123');
+        $liveApiKey = 'api-key-123-456';
+        $testingApiKey = 'api-key-testing-123';
+        $picupApi = new PicupApi($client, $liveApiKey, $testingApiKey);
         $response = $picupApi->sendDeliveryBucket($request);
 
         // ASSERT REQUEST WAS CORRECT
@@ -322,7 +335,7 @@ class PicupApiTest extends TestCase
         $this->assertSame('/picup-api/v1/integration/add-to-bucket', $sentRequest->getUri()->getPath());
 
         // Ensure the api key was added to header
-        $this->assertSame('api-123', $sentRequest->getHeaderLine('api-key'));
+        $this->assertSame($testingApiKey, $sentRequest->getHeaderLine('api-key'));
 
         // Ensure the json was sent as expected
         $expectedData = json_encode($request);
@@ -352,7 +365,9 @@ class PicupApiTest extends TestCase
         $request = DeliveryBucketRequestFixture::make();
 
         // 3 - Send Test Request
-        $picupApi = new PicupApi($client, 'api-123');
+        $liveApiKey = 'api-key-123-456';
+        $testingApiKey = 'api-key-testing-123';
+        $picupApi = new PicupApi($client, $liveApiKey, $testingApiKey);
 
         $this->expectException(PicupApiException::class);
         $this->expectExceptionMessage('DeliveryBucket Error: {"error":"houston. another problem."}');
@@ -383,7 +398,9 @@ class PicupApiTest extends TestCase
         $handler->push($history);
         $client = new Client(['handler' => $handler]);
 
-        $picupApi = new PicupApi($client, 'api-123');
+        $liveApiKey = 'api-key-123-456';
+        $testingApiKey = 'api-key-testing-123';
+        $picupApi = new PicupApi($client, $liveApiKey, $testingApiKey);
 
         $request = new StandardBusinessRequest('business-123-456');
         $apiResponse = $picupApi->sendIntegrationDetailsRequest($request);
@@ -426,7 +443,9 @@ class PicupApiTest extends TestCase
         $handler = HandlerStack::create($mock);
         $client = new Client(['handler' => $handler]);
 
-        $picupApi = new PicupApi($client, 'api-123');
+        $liveApiKey = 'api-key-123-456';
+        $testingApiKey = 'api-key-testing-123';
+        $picupApi = new PicupApi($client, $liveApiKey, $testingApiKey);
 
         $this->expectException(PicupApiKeyInvalid::class);
 
@@ -447,7 +466,9 @@ class PicupApiTest extends TestCase
         $handler = HandlerStack::create($mock);
         $client = new Client(['handler' => $handler]);
 
-        $picupApi = new PicupApi($client, 'api-123');
+        $liveApiKey = 'api-key-123-456';
+        $testingApiKey = 'api-key-testing-123';
+        $picupApi = new PicupApi($client, $liveApiKey, $testingApiKey);
 
         $this->expectException(PicupApiKeyInvalid::class);
 
@@ -468,7 +489,9 @@ class PicupApiTest extends TestCase
         $handler = HandlerStack::create($mock);
         $client = new Client(['handler' => $handler]);
 
-        $picupApi = new PicupApi($client, 'api-123');
+        $liveApiKey = 'api-key-123-456';
+        $testingApiKey = 'api-key-testing-123';
+        $picupApi = new PicupApi($client, $liveApiKey, $testingApiKey);
 
         $this->expectException(PicupRequestFailed::class);
         $this->expectExceptionMessage('IntegrationDetails Error: {"Message":"something else broke"}');
@@ -507,7 +530,9 @@ class PicupApiTest extends TestCase
         $handler = HandlerStack::create($mock);
         $client = new Client(['handler' => $handler]);
 
-        $picupApi = new PicupApi($client, 'api-123');
+        $liveApiKey = 'api-key-123-456';
+        $testingApiKey = 'api-key-testing-123';
+        $picupApi = new PicupApi($client, $liveApiKey, $testingApiKey);
 
         $request = new StandardBusinessRequest('business-123-456');
         $dispatchSummary = $picupApi->sendDispatchSummaryRequest($request);
@@ -529,7 +554,9 @@ class PicupApiTest extends TestCase
         $handler = HandlerStack::create($mock);
         $client = new Client(['handler' => $handler]);
 
-        $picupApi = new PicupApi($client, 'api-123');
+        $liveApiKey = 'api-key-123-456';
+        $testingApiKey = 'api-key-testing-123';
+        $picupApi = new PicupApi($client, $liveApiKey, $testingApiKey);
 
         $this->expectException(PicupApiException::class);
         $this->expectExceptionMessage('something broke again');
@@ -553,7 +580,9 @@ class PicupApiTest extends TestCase
         $handler->push($history);
         $client = new Client(['handler' => $handler]);
 
-        $picupApi = new PicupApi($client, 'business-123');
+        $liveApiKey = 'api-key-123-456';
+        $testingApiKey = 'api-key-testing-123';
+        $picupApi = new PicupApi($client, $liveApiKey, $testingApiKey);
 
         $request = new OrderStatusRequest(['ref-555']);
 
@@ -574,11 +603,14 @@ class PicupApiTest extends TestCase
         $handler = HandlerStack::create($mock);
         $client = new Client(['handler' => $handler]);
 
-        $picupApi = new PicupApi($client, 'business-123');
+        $liveApiKey = 'api-key-123-456';
+        $testingApiKey = 'api-key-testing-123';
+        $picupApi = new PicupApi($client, $liveApiKey, $testingApiKey);
 
         $request = new OrderStatusRequest(['ref-555']);
 
         $this->expectException(PicupRequestFailed::class);
         $picupApi->sendOrderStatusRequest($request);
     }
+
 }
