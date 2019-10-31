@@ -7,9 +7,11 @@ namespace PicupTechnologies\PicupPHPApi;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use PicupTechnologies\PicupPHPApi\Contracts\PicupApiInterface;
+use PicupTechnologies\PicupPHPApi\Contracts\PicupRequestInterface;
 use PicupTechnologies\PicupPHPApi\Exceptions\PicupApiException;
 use PicupTechnologies\PicupPHPApi\Exceptions\PicupApiKeyInvalid;
 use PicupTechnologies\PicupPHPApi\Exceptions\PicupRequestFailed;
+use PicupTechnologies\PicupPHPApi\Exceptions\ValidationException;
 use PicupTechnologies\PicupPHPApi\Factories\DeliveryBucketResponseFactory;
 use PicupTechnologies\PicupPHPApi\Factories\DeliveryIntegrationDetailsResponseFactory;
 use PicupTechnologies\PicupPHPApi\Factories\DeliveryOrderResponseFactory;
@@ -122,7 +124,7 @@ final class PicupApi implements PicupApiInterface
             $msg = $e->getMessage();
             if ($response = $e->getResponse()) {
                 $msg = $response->getBody()->getContents();
-                $this->checkResponseForErrors($msg);
+                $this->checkResponseForErrors($msg, $deliveryQuoteRequest);
             }
             $errorMessage = 'QuoteRequest Error: ' . $msg;
 
@@ -160,7 +162,7 @@ final class PicupApi implements PicupApiInterface
             $msg = $e->getMessage();
             if ($response = $e->getResponse()) {
                 $msg = $response->getBody()->getContents();
-                $this->checkResponseForErrors($msg);
+                $this->checkResponseForErrors($msg, $deliveryOrderRequest);
             }
             $errorMessage = 'OrderRequest Error: ' . $msg;
 
@@ -212,7 +214,7 @@ final class PicupApi implements PicupApiInterface
             $msg = $e->getMessage();
             if ($response = $e->getResponse()) {
                 $msg = $response->getBody()->getContents();
-                $this->checkResponseForErrors($msg);
+                $this->checkResponseForErrors($msg, $deliveryBucket);
             }
             $errorMessage = 'DeliveryBucket Error: ' . $msg;
 
@@ -257,7 +259,7 @@ final class PicupApi implements PicupApiInterface
             $msg = $e->getMessage();
             if ($response = $e->getResponse()) {
                 $msg = $response->getBody()->getContents();
-                $this->checkResponseForErrors($msg);
+                $this->checkResponseForErrors($msg, $businessRequest);
             }
 
             $errorMessage = 'IntegrationDetails Error: ' . $msg;
@@ -300,7 +302,7 @@ final class PicupApi implements PicupApiInterface
             $msg = $e->getMessage();
             if ($response = $e->getResponse()) {
                 $msg = $response->getBody()->getContents();
-                $this->checkResponseForErrors($msg);
+                $this->checkResponseForErrors($msg, $businessRequest);
             }
             $errorMessage = 'DispatchSummary Error: ' . $msg;
 
@@ -337,7 +339,7 @@ final class PicupApi implements PicupApiInterface
             $msg = $e->getMessage();
             if ($response = $e->getResponse()) {
                 $msg = $response->getBody()->getContents();
-                $this->checkResponseForErrors($msg);
+                $this->checkResponseForErrors($msg, $request);
             }
             $errorMessage = 'DispatchSummary Error: ' . $msg;
 
@@ -408,12 +410,15 @@ final class PicupApi implements PicupApiInterface
     /**
      * Checks the response from Picup for any errors that should be thrown
      *
-     * @param string $response
+     * @param string                $response
      *
-     * @throws PicupApiKeyInvalid
+     * @param PicupRequestInterface $picupRequest
+     *
      * @throws PicupApiException
+     * @throws PicupApiKeyInvalid
+     * @throws ValidationException
      */
-    private function checkResponseForErrors(string $response) : void
+    private function checkResponseForErrors(string $response, PicupRequestInterface $picupRequest) : void
     {
         $jsonDecoded = json_decode($response, true);
 
@@ -436,6 +441,11 @@ final class PicupApi implements PicupApiInterface
         // Key is incorrect
         if (stripos($decoded['message'], 'Authorization has been denied') !== false) {
             throw new PicupApiKeyInvalid($decoded['message']);
+        }
+
+        // Validation errors
+        if (stripos($decoded['message'], 'Model validation failed') !== false) {
+            throw new ValidationException($picupRequest, $decoded['message'], $decoded['validation_errors']);
         }
     }
 }
