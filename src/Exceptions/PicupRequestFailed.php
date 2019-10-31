@@ -19,7 +19,7 @@ class PicupRequestFailed extends PicupApiException
      *
      * @var PicupRequestInterface
      */
-    private $picupRequest;
+    protected $picupRequest;
 
     /**
      * OrderRequestFailed constructor.
