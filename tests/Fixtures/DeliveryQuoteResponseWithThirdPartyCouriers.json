@@ -1,0 +1,435 @@
+{
+  "request": {
+    "receivers": [
+      {
+        "parcels": [
+          {
+            "reference": "123",
+            "size": "parcel-small",
+            "length": null,
+            "width": null,
+            "height": null,
+            "weight": null
+          }
+        ],
+        "address": {
+          "warehouse_id": null,
+          "unit_no": "C16",
+          "complex": "The Met",
+          "street_or_farm_no": "113",
+          "street_or_farm": "Grand National Blvd",
+          "suburb": "Milnerton",
+          "city": "Cape Town",
+          "postal_code": "7441",
+          "country": "South Africa",
+          "latitude": -33.8552328,
+          "longitude": 18.509996199999932,
+          "formatted_address": "113 Grand National Blvd, Milnerton, Cape Town, 7441, South Africa"
+        },
+        "contact": {
+          "name": "Gerdi",
+          "email": "gerdi@picup.co.za",
+          "telephone": null,
+          "cellphone": "0832703211"
+        },
+        "special_instructions": null
+      }
+    ],
+    "business_id": "business-a035617a-40ef-4d8c-859a-f4212e9f5458",
+    "user_id": "user-bf77ff47-06fc-4dfa-81c2-ca8e10cb1081",
+    "sender": {
+      "address": {
+        "warehouse_id": null,
+        "unit_no": "S1",
+        "complex": "Picup Technologies",
+        "street_or_farm_no": "6",
+        "street_or_farm": "Beach Rd",
+        "suburb": "Woodstock",
+        "city": "Cape Town",
+        "postal_code": "7915",
+        "country": "South Africa",
+        "latitude": -33.9247137,
+        "longitude": 18.448714600000017,
+        "formatted_address": "6 Beach Rd, Woodstock, Cape Town, 7915, South Africa"
+      },
+      "contact": {
+        "name": "Gerdi",
+        "email": "gerdi@picup.co.za",
+        "telephone": null,
+        "cellphone": "0832703211"
+      },
+      "special_instructions": null
+    },
+    "customer_ref": "testing waypoint details",
+    "is_pre_assign_tracking_number": false,
+    "merchant_id": "merchant-d827f668-d434-4ce5-b853-878f874ae746",
+    "vehicle_id": null,
+    "is_for_contract_driver": false,
+    "is_round_trip": false,
+    "optimize_waypoints": true,
+    "scheduled_date": null,
+    "courier_costing": "ALL",
+    "payment_type": 4
+  },
+  "picup": {
+    "valid": true,
+    "error": null,
+    "service_types": [
+      {
+        "description": "vehicle-motorcycle",
+        "price_incl_vat": 113.97,
+        "price_ex_vat": 99.11,
+        "distance": 10.897,
+        "duration": "00:24:22"
+      },
+      {
+        "description": "vehicle-car",
+        "price_incl_vat": 168.17,
+        "price_ex_vat": 146.23,
+        "distance": 10.897,
+        "duration": "00:24:22"
+      }
+    ]
+  },
+  "third_party": {
+    "valid": true,
+    "error": null,
+    "fullfillment_options": [
+      {
+        "description": "Cheapest",
+        "price_incl_vat": 73.968,
+        "price_ex_vat": 64.32,
+        "collected_before": "2019-11-05T13:00:00Z",
+        "delivered_before": "2019-11-06T15:00:00Z",
+        "collections": [
+          {
+            "collection": {
+              "bucket_id": null,
+              "collection_date": "2019-11-05T13:00:00Z",
+              "collection_start_time": "00:00:00",
+              "collection_end_time": "00:00:00",
+              "delivery_date": "2019-11-06T08:00:00Z",
+              "collection_reference": "testing waypoint details",
+              "business_id": "business-a035617a-40ef-4d8c-859a-f4212e9f5458",
+              "user_id": "user-bf77ff47-06fc-4dfa-81c2-ca8e10cb1081",
+              "warehouse_id": null,
+              "waybill": {
+                "order_id": null,
+                "waybill_number": "testing waypoint details",
+                "courier_order_id": "courierorder-3be6f537-825c-44f4-a193-73556d1c854a",
+                "customer_reference": "testing waypoint details",
+                "business_reference": "testing waypoint details",
+                "courier_code": null,
+                "courier_service_type": null,
+                "service_type": null,
+                "price": null,
+                "reconciled_price": null,
+                "origin": {
+                  "address_line_1": "6 Beach Rd, Woodstock, Cape Town, 7915, South Africa",
+                  "address_line_2": null,
+                  "address_line_3": null,
+                  "address_line_4": null,
+                  "suburb": "Woodstock",
+                  "postal_code": "7915",
+                  "latitude": -33.9247137,
+                  "longitude": 18.448714600000017,
+                  "customer_name": "Gerdi",
+                  "customer_phone": "0832703211",
+                  "customer_email": "gerdi@picup.co.za",
+                  "special_instructions": null
+                },
+                "destination": {
+                  "address_line_1": "113 Grand National Blvd, Milnerton, Cape Town, 7441, South Africa",
+                  "address_line_2": null,
+                  "address_line_3": null,
+                  "address_line_4": null,
+                  "suburb": "Milnerton",
+                  "postal_code": "7441",
+                  "latitude": -33.8552328,
+                  "longitude": 18.509996199999932,
+                  "customer_name": "Gerdi",
+                  "customer_phone": "0832703211",
+                  "customer_email": "gerdi@picup.co.za",
+                  "special_instructions": null
+                },
+                "parcels": [
+                  {
+                    "tracking_number": null,
+                    "parcel_id": null,
+                    "description": "123",
+                    "length": 20.0,
+                    "width": 20.0,
+                    "height": 20.0,
+                    "mass": 2.0,
+                    "status": null
+                  }
+                ]
+              }
+            },
+            "courier_code": "COL",
+            "service_type": "2"
+          }
+        ],
+        "fullfillment_breakdown": [
+          {
+            "parcel_references": [
+              "123"
+            ],
+            "service_type": "2",
+            "courier_code": "COL",
+            "price_incl_vat": 73.968,
+            "price_ex_vat": 64.32,
+            "collected_before": "2019-11-05T13:00:00Z",
+            "delivered_before": "2019-11-06T15:00:00Z"
+          }
+        ]
+      },
+      {
+        "description": "Fastest",
+        "price_incl_vat": 108.744,
+        "price_ex_vat": 94.56,
+        "collected_before": "2019-11-05T13:00:00Z",
+        "delivered_before": "2019-11-06T08:00:00Z",
+        "collections": [
+          {
+            "collection": {
+              "bucket_id": null,
+              "collection_date": "2019-11-05T13:00:00Z",
+              "collection_start_time": "00:00:00",
+              "collection_end_time": "00:00:00",
+              "delivery_date": "2019-11-06T08:00:00Z",
+              "collection_reference": "testing waypoint details",
+              "business_id": "business-a035617a-40ef-4d8c-859a-f4212e9f5458",
+              "user_id": "user-bf77ff47-06fc-4dfa-81c2-ca8e10cb1081",
+              "warehouse_id": null,
+              "waybill": {
+                "order_id": null,
+                "waybill_number": "testing waypoint details",
+                "courier_order_id": "courierorder-3be6f537-825c-44f4-a193-73556d1c854a",
+                "customer_reference": "testing waypoint details",
+                "business_reference": "testing waypoint details",
+                "courier_code": null,
+                "courier_service_type": null,
+                "service_type": null,
+                "price": null,
+                "reconciled_price": null,
+                "origin": {
+                  "address_line_1": "6 Beach Rd, Woodstock, Cape Town, 7915, South Africa",
+                  "address_line_2": null,
+                  "address_line_3": null,
+                  "address_line_4": null,
+                  "suburb": "Woodstock",
+                  "postal_code": "7915",
+                  "latitude": -33.9247137,
+                  "longitude": 18.448714600000017,
+                  "customer_name": "Gerdi",
+                  "customer_phone": "0832703211",
+                  "customer_email": "gerdi@picup.co.za",
+                  "special_instructions": null
+                },
+                "destination": {
+                  "address_line_1": "113 Grand National Blvd, Milnerton, Cape Town, 7441, South Africa",
+                  "address_line_2": null,
+                  "address_line_3": null,
+                  "address_line_4": null,
+                  "suburb": "Milnerton",
+                  "postal_code": "7441",
+                  "latitude": -33.8552328,
+                  "longitude": 18.509996199999932,
+                  "customer_name": "Gerdi",
+                  "customer_phone": "0832703211",
+                  "customer_email": "gerdi@picup.co.za",
+                  "special_instructions": null
+                },
+                "parcels": [
+                  {
+                    "tracking_number": null,
+                    "parcel_id": null,
+                    "description": "123",
+                    "length": 20.0,
+                    "width": 20.0,
+                    "height": 20.0,
+                    "mass": 2.0,
+                    "status": null
+                  }
+                ]
+              }
+            },
+            "courier_code": "COL",
+            "service_type": "1"
+          }
+        ],
+        "fullfillment_breakdown": [
+          {
+            "parcel_references": [
+              "123"
+            ],
+            "service_type": "1",
+            "courier_code": "COL",
+            "price_incl_vat": 108.744,
+            "price_ex_vat": 94.56,
+            "collected_before": "2019-11-05T13:00:00Z",
+            "delivered_before": "2019-11-06T08:00:00Z"
+          }
+        ]
+      }
+    ],
+    "all_collection_prices": [
+      {
+        "collection": {
+          "bucket_id": null,
+          "collection_date": "2019-11-05T13:00:00Z",
+          "collection_start_time": "00:00:00",
+          "collection_end_time": "00:00:00",
+          "delivery_date": "2019-11-06T08:00:00Z",
+          "collection_reference": "testing waypoint details",
+          "business_id": "business-a035617a-40ef-4d8c-859a-f4212e9f5458",
+          "user_id": "user-bf77ff47-06fc-4dfa-81c2-ca8e10cb1081",
+          "warehouse_id": null,
+          "waybill": {
+            "order_id": null,
+            "waybill_number": "testing waypoint details",
+            "courier_order_id": "courierorder-3be6f537-825c-44f4-a193-73556d1c854a",
+            "customer_reference": "testing waypoint details",
+            "business_reference": "testing waypoint details",
+            "courier_code": null,
+            "courier_service_type": null,
+            "service_type": null,
+            "price": null,
+            "reconciled_price": null,
+            "origin": {
+              "address_line_1": "6 Beach Rd, Woodstock, Cape Town, 7915, South Africa",
+              "address_line_2": null,
+              "address_line_3": null,
+              "address_line_4": null,
+              "suburb": "Woodstock",
+              "postal_code": "7915",
+              "latitude": -33.9247137,
+              "longitude": 18.448714600000017,
+              "customer_name": "Gerdi",
+              "customer_phone": "0832703211",
+              "customer_email": "gerdi@picup.co.za",
+              "special_instructions": null
+            },
+            "destination": {
+              "address_line_1": "113 Grand National Blvd, Milnerton, Cape Town, 7441, South Africa",
+              "address_line_2": null,
+              "address_line_3": null,
+              "address_line_4": null,
+              "suburb": "Milnerton",
+              "postal_code": "7441",
+              "latitude": -33.8552328,
+              "longitude": 18.509996199999932,
+              "customer_name": "Gerdi",
+              "customer_phone": "0832703211",
+              "customer_email": "gerdi@picup.co.za",
+              "special_instructions": null
+            },
+            "parcels": [
+              {
+                "tracking_number": null,
+                "parcel_id": null,
+                "description": "123",
+                "length": 20.0,
+                "width": 20.0,
+                "height": 20.0,
+                "mass": 2.0,
+                "status": null
+              }
+            ]
+          }
+        },
+        "couriers": [
+          {
+            "courier": 3,
+            "courier_code": "CST",
+            "courier_name": "CitiSprint",
+            "service_prices": null,
+            "total_quotes": 0,
+            "success": false,
+            "internal_error": true,
+            "error": "Index was outside the bounds of the array."
+          },
+          {
+            "courier": 4,
+            "courier_code": "COL",
+            "courier_name": "MDS / Collivery",
+            "service_prices": [
+              {
+                "service_type": "1",
+                "service_type_description": "Overnight before 10:00",
+                "ex_vat": 94.56,
+                "vat": 14.184,
+                "inc_vat": 108.744,
+                "deliver_date": "2019-11-06T08:00:00Z",
+                "time_indicator": 10,
+                "collection_time_unix_epoch": 1572958800,
+                "delivery_time_unix_epoch": 1573027200,
+                "success": true,
+                "internal_error": false,
+                "error": null
+              },
+              {
+                "service_type": "2",
+                "service_type_description": "Overnight before 16:00",
+                "ex_vat": 64.32,
+                "vat": 9.648,
+                "inc_vat": 73.968,
+                "deliver_date": "2019-11-06T15:00:00Z",
+                "time_indicator": 20,
+                "collection_time_unix_epoch": 1572958800,
+                "delivery_time_unix_epoch": 1573052400,
+                "success": true,
+                "internal_error": false,
+                "error": null
+              },
+              {
+                "service_type": "3",
+                "service_type_description": "Road Freight",
+                "ex_vat": 75.6,
+                "vat": 11.340,
+                "inc_vat": 86.940,
+                "deliver_date": "2019-11-08T14:00:00Z",
+                "time_indicator": 100,
+                "collection_time_unix_epoch": 1572958800,
+                "delivery_time_unix_epoch": 1573221600,
+                "success": true,
+                "internal_error": false,
+                "error": null
+              },
+              {
+                "service_type": "5",
+                "service_type_description": "Road Freight Express",
+                "ex_vat": 68.16,
+                "vat": 10.224,
+                "inc_vat": 78.384,
+                "deliver_date": "2019-11-07T14:00:00Z",
+                "time_indicator": 50,
+                "collection_time_unix_epoch": 1572958800,
+                "delivery_time_unix_epoch": 1573135200,
+                "success": true,
+                "internal_error": false,
+                "error": null
+              }
+            ],
+            "total_quotes": 4,
+            "success": true,
+            "internal_error": false,
+            "error": null
+          },
+          {
+            "courier": 1,
+            "courier_code": "DNW",
+            "courier_name": "Dawnwing",
+            "service_prices": null,
+            "total_quotes": 0,
+            "success": false,
+            "internal_error": false,
+            "error": "Not integrated yet."
+          }
+        ],
+        "total_quotes": 4
+      }
+    ]
+  }
+}

@@ -100,16 +100,6 @@ final class DeliveryQuoteRequest implements PicupRequestInterface, JsonSerializa
         $this->userId = $userId;
     }
 
-    public function getCourierCosting() : string
-    {
-        return $this->courierCosting;
-    }
-
-    public function setCourierCosting(string $courierCosting) : void
-    {
-        $this->courierCosting = $courierCosting;
-    }
-
     public function getScheduledDate() : DateTime
     {
         return $this->scheduledDate;
@@ -159,6 +149,24 @@ final class DeliveryQuoteRequest implements PicupRequestInterface, JsonSerializa
     public function setOptimizeWaypoints(bool $optimizeWaypoints) : void
     {
         $this->optimizeWaypoints = $optimizeWaypoints;
+    }
+
+    public function enableThirdPartyCouriers() : void
+    {
+        $this->courierCosting = 'ALL';
+    }
+
+    public function disableThirdPartyCouriers() : void
+    {
+        $this->courierCosting = 'NONE';
+    }
+
+    /**
+     * @return string
+     */
+    public function getCourierCosting(): string
+    {
+        return $this->courierCosting;
     }
 
     /**

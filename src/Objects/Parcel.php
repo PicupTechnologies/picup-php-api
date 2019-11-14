@@ -11,19 +11,21 @@ use InvalidArgumentException;
  *
  * @package PicupTechnologies\PicupPHPApi\Objects
  */
-final class Parcel
+class Parcel
 {
     /**
      * The ID of this parcel (ex parcel-small)
      *
-     * @var string
+     * If the parcel has custom sizes this is usually not present
+     *
+     * @var ?string
      */
     private $id;
 
     /**
      * Description of this parcel (Small Parcel)
      *
-     * @var string
+     * @var ?string
      */
     private $description;
 
@@ -56,37 +58,25 @@ final class Parcel
     private $reference;
 
     /**
-     * Parcel constructor.
-     *
-     * @param string           $id
-     * @param string           $description
+     * @return null|string
      */
-    public function __construct(string $id, string $description)
-    {
-        $this->id = $id;
-        $this->description = $description;
-    }
-
-    /**
-     * @return string
-     */
-    public function getId(): string
+    public function getId(): ?string
     {
         return $this->id;
     }
 
     /**
-     * @param string $id
+     * @param string|null $id
      */
-    public function setId(string $id): void
+    public function setId(?string $id): void
     {
         $this->id = $id;
     }
 
     /**
-     * @return string
+     * @return null|string
      */
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
