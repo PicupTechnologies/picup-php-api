@@ -23,6 +23,7 @@ use PicupTechnologies\PicupPHPApi\Requests\DeliveryOrderRequest;
 use PicupTechnologies\PicupPHPApi\Requests\DeliveryQuoteRequest;
 use PicupTechnologies\PicupPHPApi\Requests\OrderStatusRequest;
 use PicupTechnologies\PicupPHPApi\Requests\StandardBusinessRequest;
+use PicupTechnologies\PicupPHPApi\Requests\ThirdPartyCollectionRequest;
 use PicupTechnologies\PicupPHPApi\Responses\DeliveryBucketResponse;
 use PicupTechnologies\PicupPHPApi\Responses\DeliveryIntegrationDetailsResponse;
 use PicupTechnologies\PicupPHPApi\Responses\DeliveryOrderResponse;
@@ -72,6 +73,7 @@ final class PicupApi implements PicupApiInterface
 
     private $endpointQuote = '/integration/quote/one-to-many';
     private $endpointOrder = '/integration/create/one-to-many';
+    private $endpointThirdPartyCollection = '/integration/create/courier-collection';
     private $endpointAddBucket = '/integration/add-to-bucket';
     private $endpointIntegrationDetails = '/integration/%s/details';
     private $endpointDispatchSummary = '/integration/%s/dispatch-summary';
@@ -219,6 +221,40 @@ final class PicupApi implements PicupApiInterface
             $errorMessage = 'DeliveryBucket Error: ' . $msg;
 
             throw new PicupRequestFailed($deliveryBucket, $errorMessage);
+        }
+    }
+
+    /**
+     * @param ThirdPartyCollectionRequest $thirdPartyCollectionRequest
+     *
+     * @return DeliveryBucketResponse
+     * @throws PicupApiException
+     * @throws PicupApiKeyInvalid
+     * @throws PicupRequestFailed
+     * @throws ValidationException
+     */
+    public function sendThirdPartyCourierCollection(ThirdPartyCollectionRequest $thirdPartyCollectionRequest): DeliveryBucketResponse
+    {
+        $headers = ['api-key' => $this->apiKey];
+
+        try {
+            $response = $this->httpClient->post($this->apiPrefix . $this->endpointThirdPartyCollection, [
+                'headers' => $headers,
+                'json' => $thirdPartyCollectionRequest,
+            ]);
+
+            $body = $response->getBody()->getContents();
+
+            return DeliveryBucketResponseFactory::make($body);
+        } catch (RequestException $e) {
+            $msg = $e->getMessage();
+            if ($response = $e->getResponse()) {
+                $msg = $response->getBody()->getContents();
+                $this->checkResponseForErrors($msg, $thirdPartyCollectionRequest);
+            }
+            $errorMessage = 'DeliveryBucket Error: ' . $msg;
+
+            throw new PicupRequestFailed($thirdPartyCollectionRequest, $errorMessage);
         }
     }
 

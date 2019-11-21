@@ -22,7 +22,10 @@ final class ThirdPartyResponseFactory
             }
         }
 
-        $response->setAllCollectionPrices(ThirdPartyCollectionCollectionFactory::make($decodedJsonObject->all_collection_prices));
+        if (!empty($decodedJsonObject->all_collection_prices)) {
+            $response->setAllCollectionPrices(ThirdPartyCollectionCollectionFactory::make($decodedJsonObject->all_collection_prices));
+        }
+
         return $response;
     }
 }
