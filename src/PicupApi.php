@@ -227,13 +227,13 @@ final class PicupApi implements PicupApiInterface
     /**
      * @param ThirdPartyCollectionRequest $thirdPartyCollectionRequest
      *
-     * @return DeliveryBucketResponse
+     * @return DeliveryOrderResponse
      * @throws PicupApiException
      * @throws PicupApiKeyInvalid
      * @throws PicupRequestFailed
      * @throws ValidationException
      */
-    public function sendThirdPartyCourierCollection(ThirdPartyCollectionRequest $thirdPartyCollectionRequest): DeliveryBucketResponse
+    public function sendThirdPartyCourierCollection(ThirdPartyCollectionRequest $thirdPartyCollectionRequest): DeliveryOrderResponse
     {
         $headers = ['api-key' => $this->apiKey];
 
@@ -245,7 +245,7 @@ final class PicupApi implements PicupApiInterface
 
             $body = $response->getBody()->getContents();
 
-            return DeliveryBucketResponseFactory::make($body);
+            return DeliveryOrderResponseFactory::make($body);
         } catch (RequestException $e) {
             $msg = $e->getMessage();
             if ($response = $e->getResponse()) {

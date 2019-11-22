@@ -19,20 +19,49 @@ final class ThirdPartyWaybillAddressFactory
         $response = new WaybillOrigin();
 
         $response->setAddressLine1($decodedJsonObject->address_line_1);
-        $response->setAddressLine2($decodedJsonObject->address_line_2);
-        $response->setAddressLine3($decodedJsonObject->address_line_3);
-        $response->setAddressLine4($decodedJsonObject->address_line_4);
 
-        $response->setSuburb($decodedJsonObject->suburb);
-        $response->setPostalCode($decodedJsonObject->postal_code);
-        $response->setLatitude($decodedJsonObject->latitude);
-        $response->setLongitude($decodedJsonObject->longitude);
+        if ($decodedJsonObject->address_line_2) {
+            $response->setAddressLine2($decodedJsonObject->address_line_2);
+        }
 
-        $response->setCustomerName($decodedJsonObject->customer_name);
-        $response->setCustomerPhone($decodedJsonObject->customer_phone);
-        $response->setCustomerEmail($decodedJsonObject->customer_email);
+        if ($decodedJsonObject->address_line_3) {
+            $response->setAddressLine3($decodedJsonObject->address_line_3);
+        }
 
-        $response->setSpecialInstructions($decodedJsonObject->special_instructions);
+        if ($decodedJsonObject->address_line_4) {
+            $response->setAddressLine4($decodedJsonObject->address_line_4);
+        }
+
+        if ($decodedJsonObject->suburb) {
+            $response->setSuburb($decodedJsonObject->suburb);
+        }
+
+        if ($decodedJsonObject->postal_code) {
+            $response->setPostalCode($decodedJsonObject->postal_code);
+        }
+
+        if ($decodedJsonObject->latitude) {
+            $response->setLatitude($decodedJsonObject->latitude);
+        }
+        if ($decodedJsonObject->longitude) {
+            $response->setLongitude($decodedJsonObject->longitude);
+        }
+
+        if ($decodedJsonObject->customer_name) {
+            $response->setCustomerName($decodedJsonObject->customer_name);
+        }
+
+        if ($decodedJsonObject->customer_phone) {
+            $response->setCustomerPhone($decodedJsonObject->customer_phone);
+        }
+
+        if ($decodedJsonObject->customer_email) {
+            $response->setCustomerEmail($decodedJsonObject->customer_email);
+        }
+
+        if ($decodedJsonObject->special_instructions) {
+            $response->setSpecialInstructions($decodedJsonObject->special_instructions);
+        }
 
         return $response;
     }
@@ -42,20 +71,49 @@ final class ThirdPartyWaybillAddressFactory
         $response = new WaybillDestination();
 
         $response->setAddressLine1($decodedJsonObject->address_line_1);
-        $response->setAddressLine2($decodedJsonObject->address_line_2);
-        $response->setAddressLine3($decodedJsonObject->address_line_3);
-        $response->setAddressLine4($decodedJsonObject->address_line_4);
+        
+        if ($decodedJsonObject->address_line_2) {
+            $response->setAddressLine2($decodedJsonObject->address_line_2);
+        }
 
-        $response->setSuburb($decodedJsonObject->suburb);
-        $response->setPostalCode($decodedJsonObject->postal_code);
-        $response->setLatitude($decodedJsonObject->latitude);
-        $response->setLongitude($decodedJsonObject->longitude);
+        if ($decodedJsonObject->address_line_3) {
+            $response->setAddressLine3($decodedJsonObject->address_line_3);
+        }
 
-        $response->setCustomerName($decodedJsonObject->customer_name);
-        $response->setCustomerPhone($decodedJsonObject->customer_phone);
-        $response->setCustomerEmail($decodedJsonObject->customer_email);
+        if ($decodedJsonObject->address_line_4) {
+            $response->setAddressLine4($decodedJsonObject->address_line_4);
+        }
 
-        $response->setSpecialInstructions($decodedJsonObject->special_instructions);
+        if ($decodedJsonObject->suburb) {
+            $response->setSuburb($decodedJsonObject->suburb);
+        }
+
+        if ($decodedJsonObject->postal_code) {
+            $response->setPostalCode($decodedJsonObject->postal_code);
+        }
+
+        if ($decodedJsonObject->latitude) {
+            $response->setLatitude($decodedJsonObject->latitude);
+        }
+        if ($decodedJsonObject->longitude) {
+            $response->setLongitude($decodedJsonObject->longitude);
+        }
+
+        if ($decodedJsonObject->customer_name) {
+            $response->setCustomerName($decodedJsonObject->customer_name);
+        }
+
+        if ($decodedJsonObject->customer_phone) {
+            $response->setCustomerPhone($decodedJsonObject->customer_phone);
+        }
+
+        if ($decodedJsonObject->customer_email) {
+            $response->setCustomerEmail($decodedJsonObject->customer_email);
+        }
+
+        if ($decodedJsonObject->special_instructions) {
+            $response->setSpecialInstructions($decodedJsonObject->special_instructions);
+        }
 
         return $response;
     }

@@ -48,9 +48,9 @@ interface PicupApiInterface
      *
      * @param ThirdPartyCollectionRequest $thirdPartyCollectionRequest
      *
-     * @return DeliveryBucketResponse
+     * @return DeliveryOrderResponse
      */
-    public function sendThirdPartyCourierCollection(ThirdPartyCollectionRequest $thirdPartyCollectionRequest): DeliveryBucketResponse;
+    public function sendThirdPartyCourierCollection(ThirdPartyCollectionRequest $thirdPartyCollectionRequest): DeliveryOrderResponse;
 
     /**
      * Requests integration details for a given business ID

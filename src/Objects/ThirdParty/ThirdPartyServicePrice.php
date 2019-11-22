@@ -7,7 +7,6 @@ use JsonSerializable;
 use Money\Currencies\ISOCurrencies;
 use Money\Formatter\DecimalMoneyFormatter;
 use Money\Money;
-use NumberFormatter;
 
 final class ThirdPartyServicePrice implements JsonSerializable
 {

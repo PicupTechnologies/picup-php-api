@@ -57,9 +57,9 @@ final class DeliveryQuoteResponse
     }
 
     /**
-     * @return ThirdPartyResponse
+     * @return ThirdPartyResponse|null
      */
-    public function getThirdPartyResponse(): ThirdPartyResponse
+    public function getThirdPartyResponse(): ?ThirdPartyResponse
     {
         return $this->thirdPartyResponse;
     }

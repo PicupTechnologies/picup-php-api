@@ -3,7 +3,6 @@
 namespace PicupTechnologies\PicupPHPApi\Factories;
 
 use PicupTechnologies\PicupPHPApi\Collections\ThirdPartyCourierCollection;
-use PicupTechnologies\PicupPHPApi\Collections\ThirdPartyCourierFactory;
 
 final class ThirdPartyCourierCollectionFactory
 {

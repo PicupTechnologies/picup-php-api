@@ -1,69 +1,75 @@
-[
-  {
-    "collection": {
-      "bucket_id": null,
-      "collection_date": "2019-11-05T13:00:00Z",
-      "collection_start_time": "00:00:00",
-      "collection_end_time": "00:00:00",
-      "delivery_date": "2019-11-06T08:00:00Z",
-      "collection_reference": "testing waypoint details",
-      "business_id": "business-a035617a-40ef-4d8c-859a-f4212e9f5458",
-      "user_id": "user-bf77ff47-06fc-4dfa-81c2-ca8e10cb1081",
-      "warehouse_id": null,
-      "waybill": {
-        "order_id": null,
-        "waybill_number": "testing waypoint details",
-        "courier_order_id": "courierorder-3be6f537-825c-44f4-a193-73556d1c854a",
-        "customer_reference": "testing waypoint details",
-        "business_reference": "testing waypoint details",
-        "courier_code": null,
-        "courier_service_type": null,
-        "service_type": null,
-        "price": null,
-        "reconciled_price": null,
-        "origin": {
-          "address_line_1": "6 Beach Rd, Woodstock, Cape Town, 7915, South Africa",
-          "address_line_2": null,
-          "address_line_3": null,
-          "address_line_4": null,
-          "suburb": "Woodstock",
-          "postal_code": "7915",
-          "latitude": -33.9247137,
-          "longitude": 18.448714600000017,
-          "customer_name": "Gerdi",
-          "customer_phone": "0832703211",
-          "customer_email": "gerdi@picup.co.za",
-          "special_instructions": null
-        },
-        "destination": {
-          "address_line_1": "113 Grand National Blvd, Milnerton, Cape Town, 7441, South Africa",
-          "address_line_2": null,
-          "address_line_3": null,
-          "address_line_4": null,
-          "suburb": "Milnerton",
-          "postal_code": "7441",
-          "latitude": -33.8552328,
-          "longitude": 18.509996199999932,
-          "customer_name": "Gerdi",
-          "customer_phone": "0832703211",
-          "customer_email": "gerdi@picup.co.za",
-          "special_instructions": null
-        },
-        "parcels": [
-          {
-            "tracking_number": null,
-            "parcel_id": null,
-            "description": "123",
-            "length": 20.0,
-            "width": 20.0,
-            "height": 20.0,
-            "mass": 2.0,
-            "status": null
-          }
-        ]
-      }
-    },
-    "courier_code": "COL",
-    "service_type": "2"
-  }
-]
+{
+  "collection": {
+    "bucket_id": 0,
+    "collection_date": "2019-11-22T09:11:27.511Z",
+    "collection_start_time": "string",
+    "collection_end_time": "string",
+    "delivery_date": "2019-11-22T09:11:27.511Z",
+    "collection_reference": "string",
+    "business_id": "string",
+    "user_id": "string",
+    "warehouse_id": "string",
+    "waybill": {
+      "order_id": 0,
+      "waybill_number": "string",
+      "courier_order_id": "string",
+      "customer_reference": "string",
+      "business_reference": "string",
+      "courier_code": "string",
+      "courier_service_type": "string",
+      "service_type": 0,
+      "price": {
+        "ex_vat": 0,
+        "vat": 0,
+        "inc_vat": 0
+      },
+      "reconciled_price": {
+        "ex_vat": 0,
+        "vat": 0,
+        "inc_vat": 0
+      },
+      "origin": {
+        "address_line_1": "string",
+        "address_line_2": "string",
+        "address_line_3": "string",
+        "address_line_4": "string",
+        "suburb": "string",
+        "postal_code": "string",
+        "latitude": 0,
+        "longitude": 0,
+        "customer_name": "string",
+        "customer_phone": "string",
+        "customer_email": "string",
+        "special_instructions": "string"
+      },
+      "destination": {
+        "address_line_1": "string",
+        "address_line_2": "string",
+        "address_line_3": "string",
+        "address_line_4": "string",
+        "suburb": "string",
+        "postal_code": "string",
+        "latitude": 0,
+        "longitude": 0,
+        "customer_name": "string",
+        "customer_phone": "string",
+        "customer_email": "string",
+        "special_instructions": "string"
+      },
+      "parcels": [
+        {
+          "tracking_number": "string",
+          "parcel_id": 0,
+          "description": "string",
+          "length": 0,
+          "width": 0,
+          "height": 0,
+          "mass": 0,
+          "status": "string"
+        }
+      ]
+    }
+  },
+  "courier_code": "string",
+  "service_type": "string"
+}

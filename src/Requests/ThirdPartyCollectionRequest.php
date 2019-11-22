@@ -45,7 +45,7 @@ final class ThirdPartyCollectionRequest implements PicupRequestInterface, JsonSe
     public function jsonSerialize()
     {
         return [
-            'collection' => $this->getCollection()->getCollections(),
+            'collection' => $this->getCollection()->getCollections()[0],
             'courier_code' => $this->getCollection()->getCourierCode(),
             'service_type' => $this->getCollection()->getServiceType()
         ];

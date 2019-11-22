@@ -1,8 +1,7 @@
 <?php
 
-namespace PicupTechnologies\PicupPHPApi\Collections;
+namespace PicupTechnologies\PicupPHPApi\Factories;
 
-use PicupTechnologies\PicupPHPApi\Factories\ThirdPartyServicePriceCollectionFactory;
 use PicupTechnologies\PicupPHPApi\Objects\ThirdParty\ThirdPartyCourier;
 
 final class ThirdPartyCourierFactory
