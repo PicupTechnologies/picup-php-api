@@ -13,6 +13,10 @@ final class ThirdPartyResponseFactory
         $response->setValid($decodedJsonObject->valid);
         $response->setError($decodedJsonObject->error);
 
+        if (! $response->isValid()) {
+          return $response;
+        }
+
         // Yes - the spelling of FULLFILLMENT is incorrect.
 
         if (!empty($decodedJsonObject->fullfillment_options)) {
