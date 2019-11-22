@@ -20,6 +20,8 @@ use PicupTechnologies\PicupPHPApi\Contracts\PicupRequestInterface;
  */
 final class ValidationException extends PicupRequestFailed
 {
+    private $validationErrors = [];
+
     /**
      * OrderRequestFailed constructor.
      *
@@ -36,6 +38,8 @@ final class ValidationException extends PicupRequestFailed
         // request that failed via $exception->getPicupRequest();
 
         parent::__construct($picupRequest, $message, $code);
+
+        $this->validationErrors = $validationErrors;
 
         // now we need to parse the validation errors from picup
         // and throw the relevant exceptions
@@ -54,5 +58,13 @@ final class ValidationException extends PicupRequestFailed
                 throw new VagueAddressException('The address provided has returned multiple results. Please enter a more specific address.');
             }
         }
+    }
+
+    /**
+     * @return array
+     */
+    public function getValidationErrors(): array
+    {
+        return $this->validationErrors;
     }
 }

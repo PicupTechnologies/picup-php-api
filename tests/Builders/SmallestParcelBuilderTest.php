@@ -20,13 +20,17 @@ class SmallestParcelBuilderTest extends TestCase
 
         $parcels = [];
 
-        $parcel = new Parcel('parcel-small', 'Small Parcel');
+        $parcel = new Parcel();
+        $parcel->setId('parcel-small');
+        $parcel->setDescription('Small Parcel');
         $parcel->setDimensions(new ParcelDimensions(100, 200, 300));
         $parcel->setWeight(100);
 
         $parcels[] = $parcel;
 
-        $parcel = new Parcel('parcel-medium', 'Medium Parcel');
+        $parcel = new Parcel();
+        $parcel->setId('parcel-medium');
+        $parcel->setDescription('Medium Parcel');
         $parcel->setDimensions(new ParcelDimensions(200, 300, 400));
         $parcel->setWeight(100);
 
@@ -76,19 +80,25 @@ class SmallestParcelBuilderTest extends TestCase
         $parcels = [];
 
         // Add a medium parcel
-        $parcel = new Parcel('parcel-medium', 'Medium Parcel');
+        $parcel = new Parcel();
+        $parcel->setId('parcel-medium');
+        $parcel->setDescription('Medium Parcel');
         $parcel->setDimensions(new ParcelDimensions(200, 200, 200));
         $parcel->setWeight(100);
         $parcels[] = $parcel;
 
         // Add a small parcel
-        $parcel = new Parcel('parcel-small', 'Small Parcel');
+        $parcel = new Parcel();
+        $parcel->setId('parcel-small');
+        $parcel->setDescription('Small Parcel');
         $parcel->setDimensions(new ParcelDimensions(100, 100, 100));
         $parcel->setWeight(50);
         $parcels[] = $parcel;
 
         // Add a large parcel
-        $parcel = new Parcel('parcel-large', 'Large Parcel');
+        $parcel = new Parcel();
+        $parcel->setId('parcel-large');
+        $parcel->setDescription('Large Parcel');
         $parcel->setDimensions(new ParcelDimensions(300, 300, 300));
         $parcel->setWeight(150);
         $parcels[] = $parcel;

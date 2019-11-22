@@ -51,9 +51,11 @@ class DeliveryQuoteRequestTest extends TestCase
         $deliveryQuoteRequest->setUserId($test);
         $this->assertSame($test, $deliveryQuoteRequest->getUserId());
 
-        $test = 'NONE';
-        $deliveryQuoteRequest->setCourierCosting($test);
-        $this->assertSame($test, $deliveryQuoteRequest->getCourierCosting());
+        $deliveryQuoteRequest->enableThirdPartyCouriers();
+        $this->assertSame('ALL', $deliveryQuoteRequest->getCourierCosting());
+
+        $deliveryQuoteRequest->disableThirdPartyCouriers();
+        $this->assertSame('NONE', $deliveryQuoteRequest->getCourierCosting());
 
         $deliveryQuoteRequest->setOptimizeWaypoints(true);
         $this->assertTrue($deliveryQuoteRequest->isOptimizeWaypoints());

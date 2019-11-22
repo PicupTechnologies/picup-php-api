@@ -8,6 +8,7 @@ use PicupTechnologies\PicupPHPApi\Requests\DeliveryBucketRequest;
 use PicupTechnologies\PicupPHPApi\Requests\DeliveryOrderRequest;
 use PicupTechnologies\PicupPHPApi\Requests\DeliveryQuoteRequest;
 use PicupTechnologies\PicupPHPApi\Requests\StandardBusinessRequest;
+use PicupTechnologies\PicupPHPApi\Requests\ThirdPartyCollectionRequest;
 use PicupTechnologies\PicupPHPApi\Responses\DeliveryBucketResponse;
 use PicupTechnologies\PicupPHPApi\Responses\DeliveryIntegrationDetailsResponse;
 use PicupTechnologies\PicupPHPApi\Responses\DeliveryOrderResponse;
@@ -41,6 +42,15 @@ interface PicupApiInterface
      * @return DeliveryBucketResponse
      */
     public function sendDeliveryBucket(DeliveryBucketRequest $deliveryBucket) : DeliveryBucketResponse;
+
+    /**
+     * Sends the Third Party Courier Collection Request to Picup
+     *
+     * @param ThirdPartyCollectionRequest $thirdPartyCollectionRequest
+     *
+     * @return DeliveryOrderResponse
+     */
+    public function sendThirdPartyCourierCollection(ThirdPartyCollectionRequest $thirdPartyCollectionRequest): DeliveryOrderResponse;
 
     /**
      * Requests integration details for a given business ID

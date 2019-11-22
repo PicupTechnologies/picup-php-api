@@ -53,6 +53,11 @@ final class DeliveryQuoteResponseFactory
             $quoteResponse->addServiceType($deliveryServiceType);
         }
 
+        if (isset($decodedObject->third_party) && !empty($decodedObject->third_party)) {
+            $thirdPartyResponse = ThirdPartyResponseFactory::make($decodedObject->third_party);
+            $quoteResponse->setThirdPartyResponse($thirdPartyResponse);
+        }
+
         return $quoteResponse;
     }
 }

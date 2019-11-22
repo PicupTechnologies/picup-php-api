@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace PicupTechnologies\PicupPHPApi\Responses;
 
 use PicupTechnologies\PicupPHPApi\Objects\DeliveryServiceType;
+use PicupTechnologies\PicupPHPApi\Objects\ThirdParty\ThirdPartyResponse;
 
 /**
  * Holds the full quote response provided by Picup
@@ -30,6 +31,11 @@ final class DeliveryQuoteResponse
      */
     private $serviceTypes;
 
+    /**
+     * @var ThirdPartyResponse
+     */
+    private $thirdPartyResponse;
+
     public function isValid() : bool
     {
         return $this->valid;
@@ -48,6 +54,22 @@ final class DeliveryQuoteResponse
     public function setError(string $error) : void
     {
         $this->error = $error;
+    }
+
+    /**
+     * @return ThirdPartyResponse|null
+     */
+    public function getThirdPartyResponse(): ?ThirdPartyResponse
+    {
+        return $this->thirdPartyResponse;
+    }
+
+    /**
+     * @param ThirdPartyResponse $thirdPartyResponse
+     */
+    public function setThirdPartyResponse(ThirdPartyResponse $thirdPartyResponse): void
+    {
+        $this->thirdPartyResponse = $thirdPartyResponse;
     }
 
     /**
