@@ -97,9 +97,9 @@ final class ThirdPartyFulfillmentOption implements JsonSerializable
     }
 
     /**
-     * @return mixed
+     * @return DateTime
      */
-    public function getCollectedBefore()
+    public function getCollectedBefore(): DateTime
     {
         return $this->collectedBefore;
     }
@@ -113,9 +113,9 @@ final class ThirdPartyFulfillmentOption implements JsonSerializable
     }
 
     /**
-     * @return mixed
+     * @return DateTime
      */
-    public function getDeliveredBefore()
+    public function getDeliveredBefore(): DateTime
     {
         return $this->deliveredBefore;
     }
