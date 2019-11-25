@@ -134,7 +134,7 @@ abstract class WaybillAddress implements WaybillAddressInterface, JsonSerializab
     /**
      * @return string
      */
-    public function getSuburb(): string
+    public function getSuburb(): ?string
     {
         return $this->suburb;
     }
@@ -150,7 +150,7 @@ abstract class WaybillAddress implements WaybillAddressInterface, JsonSerializab
     /**
      * @return string
      */
-    public function getPostalCode(): string
+    public function getPostalCode(): ?string
     {
         return $this->postalCode;
     }
@@ -166,7 +166,7 @@ abstract class WaybillAddress implements WaybillAddressInterface, JsonSerializab
     /**
      * @return float
      */
-    public function getLatitude(): float
+    public function getLatitude(): ?float
     {
         return $this->latitude;
     }
@@ -182,7 +182,7 @@ abstract class WaybillAddress implements WaybillAddressInterface, JsonSerializab
     /**
      * @return float
      */
-    public function getLongitude(): float
+    public function getLongitude(): ?float
     {
         return $this->longitude;
     }

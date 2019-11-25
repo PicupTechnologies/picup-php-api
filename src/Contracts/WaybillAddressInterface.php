@@ -47,7 +47,7 @@ interface WaybillAddressInterface
     /**
      * @return string
      */
-    public function getSuburb(): string;
+    public function getSuburb(): ?string;
 
     /**
      * @param string $suburb
@@ -57,7 +57,7 @@ interface WaybillAddressInterface
     /**
      * @return string
      */
-    public function getPostalCode(): string;
+    public function getPostalCode(): ?string;
 
     /**
      * @param string $postalCode
@@ -67,7 +67,7 @@ interface WaybillAddressInterface
     /**
      * @return float
      */
-    public function getLatitude(): float;
+    public function getLatitude(): ?float;
 
     /**
      * @param float $latitude
@@ -77,7 +77,7 @@ interface WaybillAddressInterface
     /**
      * @return float
      */
-    public function getLongitude(): float;
+    public function getLongitude(): ?float;
 
     /**
      * @param float $longitude
