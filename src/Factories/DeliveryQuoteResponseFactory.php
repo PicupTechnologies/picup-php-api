@@ -18,6 +18,9 @@ final class DeliveryQuoteResponseFactory
     /**
      * Factory function to build a quote response
      *
+     * This must be able to handle a situation where Picup does not service an area
+     * but a ThirdParty does.
+     *
      * @param string $body
      *
      * @return DeliveryQuoteResponse
@@ -32,27 +35,31 @@ final class DeliveryQuoteResponseFactory
         }
         $quoteResponse = new DeliveryQuoteResponse();
 
+        // default to valid
+        $quoteResponse->setValid(true);
+
+        // handle picup direct
         if ((int) $decodedObject->picup->valid !== 1) {
             $quoteResponse->setValid(false);
             $quoteResponse->setError($decodedObject->picup->error);
-
-            return $quoteResponse;
         }
 
-        $quoteResponse->setValid(true);
+        // if picup was valid - create service types
+        if ($quoteResponse->isValid()) {
+            foreach ($decodedObject->picup->service_types as $service_type) {
+                $deliveryServiceType = new DeliveryServiceType();
 
-        foreach ($decodedObject->picup->service_types as $service_type) {
-            $deliveryServiceType = new DeliveryServiceType();
+                $deliveryServiceType->setDescription($service_type->description);
+                $deliveryServiceType->setPriceInclusive($service_type->price_incl_vat);
+                $deliveryServiceType->setPriceExclusive($service_type->price_ex_vat);
+                $deliveryServiceType->setDuration($service_type->duration);
+                $deliveryServiceType->setDistance($service_type->distance);
 
-            $deliveryServiceType->setDescription($service_type->description);
-            $deliveryServiceType->setPriceInclusive($service_type->price_incl_vat);
-            $deliveryServiceType->setPriceExclusive($service_type->price_ex_vat);
-            $deliveryServiceType->setDuration($service_type->duration);
-            $deliveryServiceType->setDistance($service_type->distance);
-
-            $quoteResponse->addServiceType($deliveryServiceType);
+                $quoteResponse->addServiceType($deliveryServiceType);
+            }
         }
 
+        // handle third party
         if (isset($decodedObject->third_party) && !empty($decodedObject->third_party)) {
             $thirdPartyResponse = ThirdPartyResponseFactory::make($decodedObject->third_party);
             $quoteResponse->setThirdPartyResponse($thirdPartyResponse);
